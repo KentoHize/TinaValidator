@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class Unit : Sequence
+    public interface IUnit
     {
-        
+        object Random();
+        bool Compare(object b);
     }
 }
