@@ -10,7 +10,11 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestMethod1()
         {
+            Thing th = new Thing();
+            Status st1 = new Status();
+            th.InitalStatus = st1;
             Sequence se = new Sequence();
+            th.Choices.Add(se);
             Status st = new Status();
             TestContext.WriteLine(se.ToString());
         }
