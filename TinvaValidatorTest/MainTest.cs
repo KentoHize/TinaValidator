@@ -11,7 +11,7 @@ namespace TinvaValidatorTest
         public void TestMethod1()
         {
             Sequence se = new Sequence();
-
+            Status st = new Status();
             TestContext.WriteLine(se.ToString());
         }
     }
