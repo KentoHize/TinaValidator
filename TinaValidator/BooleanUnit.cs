@@ -4,12 +4,15 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class BooleanUnit : IUnit
+    public class BooleanUnit : Unit, IUnit
     {
         public bool Value { get; set; }
+        public BooleanUnit(string id, bool value)
+            : base(id)
+            => Value = value;
+
         public bool Compare(object b)
             => b is bool && ((BooleanUnit)b).Value == Value;
-
         public object Random()
         {
             Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));

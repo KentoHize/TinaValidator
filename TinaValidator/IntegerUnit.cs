@@ -10,23 +10,25 @@ namespace Aritiafel.Artifacts.TinaValidator
         MinMax = 1
     }
 
-    public class IntegerUnit : IUnit
+    public class IntegerUnit : Unit, IUnit
     {
         public CompareMethod CompareMethod { get; set; }
         public decimal Value1 { get; set; } //min exact
         public decimal Value2 { get; set; } //max
 
-        public IntegerUnit()
-            : this(0)
+        public IntegerUnit(string id)
+            : this(id, 0)
         { }
 
-        public IntegerUnit(decimal exactValue)
+        public IntegerUnit(string id, decimal exactValue)
+            : base(id)
         {
             CompareMethod = CompareMethod.Exact;
             Value1 = exactValue;
         }
 
-        public IntegerUnit(decimal minValue, decimal maxValue)
+        public IntegerUnit(string id, decimal minValue, decimal maxValue)
+            : base(id)
         {
             CompareMethod = CompareMethod.MinMax;
             Value1 = minValue;

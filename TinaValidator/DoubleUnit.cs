@@ -4,11 +4,26 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class DoubleUnit : IUnit
-    {
+    public class DoubleUnit : Unit, IUnit
+    {   
         public CompareMethod CompareMethod { get; set; }
         public double Value1 { get; set; } //min exact
         public double Value2 { get; set; } //max
+
+        public DoubleUnit(string id, double exactValue)
+            : base(id)
+        {
+            CompareMethod = CompareMethod.Exact;
+            Value1 = exactValue;
+        }
+
+        public DoubleUnit(string id, double minValue, double maxValue)
+            : base(id)
+        {
+            CompareMethod = CompareMethod.MinMax;
+            Value1 = minValue;
+            Value2 = maxValue;
+        }
 
         public bool Compare(object b)
         {
