@@ -28,6 +28,8 @@ namespace Aritiafel.Artifacts.TinaValidator
             => new CharUnit('\"');
         public static CharUnit Period
             => new CharUnit('.');
+        public static CharUnit WhiteSpace
+            => new CharUnit(' ');
         public static CharUnit LineFeed
             => new CharUnit('\n');
         public static CharUnit CarriageReturn

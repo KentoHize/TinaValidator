@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -11,6 +12,18 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public bool Validate(List<object> things)
         {
+            if (things == null)
+                throw new ArgumentNullException("things");
+            return StatusChoice(things, 0, Logic.InitialStatus);
+        }
+
+        private bool StatusChoice(List<object> things, int index, Status st)
+        {
+            if (st == Logic.EndStatus)
+                return true;
+            if (index == things.Count - 1)
+                return false;
+
             return false;
         }
 

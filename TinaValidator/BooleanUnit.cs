@@ -2,7 +2,7 @@
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class BooleanUnit : Unit, IUnit
+    public class BooleanUnit : Unit
     {
         public CompareMethod CompareMethod { get; set; }
         public bool Value { get; set; }
@@ -15,7 +15,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value = value;
         }   
 
-        public bool Compare(object b)
+        public override bool Compare(object b)
         {
             if (!(b is bool))
                 return false;
@@ -25,7 +25,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return ((BooleanUnit)b).Value == Value;
         }
         
-        public object Random()
+        public override object Random()
         {
             Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));
             return rnd.Next(2) == 1;

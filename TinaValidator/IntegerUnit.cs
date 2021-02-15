@@ -9,7 +9,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         MinMax = 2
     }
 
-    public class IntegerUnit : Unit, IUnit
+    public class IntegerUnit : Unit
     {
         public CompareMethod CompareMethod { get; set; }
         public decimal Value1 { get; set; } //min exact
@@ -31,7 +31,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value2 = maxValue;
         }
 
-        public bool Compare(object b)
+        public override bool Compare(object b)
         {
             if (!decimal.TryParse(b.ToString(), out decimal d))
                 return false;
@@ -43,7 +43,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return d > Value1 && d < Value2;
         }
 
-        public object Random()
+        public override object Random()
         {
             if (CompareMethod == CompareMethod.Exact)
                 return Value1;

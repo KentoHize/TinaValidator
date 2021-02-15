@@ -2,7 +2,7 @@
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class CharUnit : Unit, IUnit
+    public class CharUnit : Unit
     {
         public CompareMethod CompareMethod { get; set; }
         public char Value1 { get; set; } //min exact
@@ -23,7 +23,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value2 = maxValue;
         }
 
-        public bool Compare(object b)
+        public override bool Compare(object b)
         {
             if (!(b is char))
                 return false;
@@ -35,7 +35,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return (char)b > Value1 && (char)b < Value2;
         }
 
-        public object Random()
+        public override object Random()
         {
             if (CompareMethod == CompareMethod.Exact)
                 return Value1;

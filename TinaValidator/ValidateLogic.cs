@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -8,6 +9,16 @@ namespace Aritiafel.Artifacts.TinaValidator
         public Status InitialStatus { get; set; }
         public Status EndStatus { get; set; }
         public List<Part> Choices { get; set; } = new List<Part>();
+
+        public void Save(string filePath)
+        {
+            
+        }
+
+        public void Load(string filePath)
+        {
+
+        }
 
         public ValidateLogic(Part choice, Status initialStatus = null)
             : this(null, choice, initialStatus)

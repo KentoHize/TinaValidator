@@ -26,5 +26,23 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (units != null)
                 Units = units;
         }
+
+        public override bool Compare(List<object> thing)
+        {
+            if (Units.Count != thing.Count)
+                return false;
+            for (int i = 0; i < Units.Count; i++)
+                if (!Units[i].Compare(thing[i]))
+                    return false;
+            return true;
+        }
+
+        public override List<object> Random()
+        {
+            List<object> result = new List<object>();
+            for (int i = 0; i < Units.Count; i++)
+                result.Add(Units[i].Random());
+            return result;
+        }
     }
 }
