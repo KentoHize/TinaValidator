@@ -4,12 +4,27 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class BooleanUnit : Unit, IUnit
     {
+        public CompareMethod CompareMethod { get; set; }
         public bool Value { get; set; }
+
+        public BooleanUnit()
+            => CompareMethod = CompareMethod.Any;
         public BooleanUnit(bool value)
-            => Value = value;
+        {
+            CompareMethod = CompareMethod.Exact;
+            Value = value;
+        }   
 
         public bool Compare(object b)
-            => b is bool && ((BooleanUnit)b).Value == Value;
+        {
+            if (!(b is bool))
+                return false;
+            if (CompareMethod == CompareMethod.Any)
+                return true;
+            else
+                return ((BooleanUnit)b).Value == Value;
+        }
+        
         public object Random()
         {
             Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));

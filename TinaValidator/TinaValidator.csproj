@@ -6,4 +6,8 @@
     <RootNamespace>Aritiafel.Artifacts.TinaValidator</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="TestArea\" />
+  </ItemGroup>
+
 </Project>

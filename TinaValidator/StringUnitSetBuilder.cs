@@ -2,7 +2,7 @@
 {
     public static class StringUnitSetBuilder
     {
-        public static UnitSet ToUnitSet(this string s, string id)
+        public static UnitSet ToUnitSet(this string s, string id = null)
         {
             UnitSet us = new UnitSet(id);
             for (int i = 0; i < s.Length; i++)

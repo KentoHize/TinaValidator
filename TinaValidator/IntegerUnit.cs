@@ -4,8 +4,9 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public enum CompareMethod
     {
-        Exact = 0,
-        MinMax = 1
+        Any = 0,
+        Exact = 1,
+        MinMax = 2
     }
 
     public class IntegerUnit : Unit, IUnit
@@ -15,8 +16,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public decimal Value2 { get; set; } //max
 
         public IntegerUnit()
-            : this(0)
-        { }
+            => CompareMethod = CompareMethod.Any;        
 
         public IntegerUnit(decimal exactValue)
         {
@@ -35,7 +35,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (!decimal.TryParse(b.ToString(), out decimal d))
                 return false;
-            if (CompareMethod == CompareMethod.Exact)
+            if (CompareMethod == CompareMethod.Any)
+                return true;
+            else if (CompareMethod == CompareMethod.Exact)
                 return Value1 == d;
             else
                 return d > Value1 && d < Value2;

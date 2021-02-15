@@ -7,6 +7,10 @@ namespace Aritiafel.Artifacts.TinaValidator
         public CompareMethod CompareMethod { get; set; }
         public char Value1 { get; set; } //min exact
         public char Value2 { get; set; } //max
+
+        public CharUnit()
+            => CompareMethod = CompareMethod.Any;
+
         public CharUnit(char exactValue)
         {
             CompareMethod = CompareMethod.Exact;
@@ -23,7 +27,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (!(b is char))
                 return false;
-            if (CompareMethod == CompareMethod.Exact)
+            if (CompareMethod == CompareMethod.Any)
+                return true;
+            else if (CompareMethod == CompareMethod.Exact)
                 return Value1 == (char)b;
             else
                 return (char)b > Value1 && (char)b < Value2;

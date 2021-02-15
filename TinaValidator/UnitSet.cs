@@ -2,10 +2,17 @@
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class UnitSet : Sequence
+    public class UnitSet : Part
     {
         public string ID { get; set; }
         public List<Unit> Units { get; set; } = new List<Unit>();
+        public UnitSet(Unit unit)
+            : this (null, unit)
+        { }
+
+        public UnitSet(List<Unit> units = null)
+            : this(null, units)
+        { }
 
         public UnitSet(string id, Unit unit)
         {

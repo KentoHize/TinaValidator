@@ -8,6 +8,8 @@ namespace Aritiafel.Artifacts.TinaValidator
         public double Value1 { get; set; } //min exact
         public double Value2 { get; set; } //max
 
+        public DoubleUnit()
+            => CompareMethod = CompareMethod.Any;
         public DoubleUnit(double exactValue)
         {
             CompareMethod = CompareMethod.Exact;
@@ -25,7 +27,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (!double.TryParse(b.ToString(), out double d))
                 return false;
-            if (CompareMethod == CompareMethod.Exact)
+            if (CompareMethod == CompareMethod.Any)
+                return true;
+            else if (CompareMethod == CompareMethod.Exact)
                 return Value1 == d;
             else
                 return d > Value1 && d < Value2;
