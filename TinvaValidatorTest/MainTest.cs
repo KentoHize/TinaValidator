@@ -17,6 +17,9 @@ namespace TinvaValidatorTest
             th.Choices.Add(se);
             Status st = new Status();
             TestContext.WriteLine(se.ToString());
+
+            int a = 5;
+            IntegerUnit IU = new IntegerUnit(a);
         }
     }
 }

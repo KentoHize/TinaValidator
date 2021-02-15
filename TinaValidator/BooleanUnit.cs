@@ -10,9 +10,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Compare(object b)
             => b is bool && ((BooleanUnit)b).Value == Value;
 
-        public object Random()            
+        public object Random()
         {
-            Random rnd = new Random(Convert.ToInt32(DateTime.Now.TimeOfDay.Ticks));
+            Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));
             return rnd.Next(2) == 1;
         }
     }
