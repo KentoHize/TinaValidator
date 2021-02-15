@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
-{    public class SetValueBox
+{   
+    public class SetValueBox
     {
 
     }
