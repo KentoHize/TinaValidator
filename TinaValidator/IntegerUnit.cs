@@ -16,19 +16,17 @@ namespace Aritiafel.Artifacts.TinaValidator
         public decimal Value1 { get; set; } //min exact
         public decimal Value2 { get; set; } //max
 
-        public IntegerUnit(string id)
-            : this(id, 0)
+        public IntegerUnit()
+            : this(0)
         { }
 
-        public IntegerUnit(string id, decimal exactValue)
-            : base(id)
+        public IntegerUnit(decimal exactValue)            
         {
             CompareMethod = CompareMethod.Exact;
             Value1 = exactValue;
         }
 
-        public IntegerUnit(string id, decimal minValue, decimal maxValue)
-            : base(id)
+        public IntegerUnit(decimal minValue, decimal maxValue)            
         {
             CompareMethod = CompareMethod.MinMax;
             Value1 = minValue;
@@ -53,8 +51,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             {
                 Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));                
                 return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);// Scan
-            }
-                
+            }                
         }
     }
 }

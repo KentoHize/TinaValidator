@@ -4,8 +4,10 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public abstract class Unit
+    public class UnitSet : Sequence
     {
-        
+        public string ID { get; set; }
+        public UnitSet(string id)
+          => ID = id;
     }
 }

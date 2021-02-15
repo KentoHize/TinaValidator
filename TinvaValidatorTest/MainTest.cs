@@ -19,7 +19,7 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(se.ToString());
 
             int a = 5;
-            IntegerUnit IU = new IntegerUnit(a);
+            IntegerUnit IU = new IntegerUnit("dd", a);
         }
     }
 }

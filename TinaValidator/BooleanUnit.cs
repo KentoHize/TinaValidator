@@ -7,8 +7,7 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class BooleanUnit : Unit, IUnit
     {
         public bool Value { get; set; }
-        public BooleanUnit(string id, bool value)
-            : base(id)
+        public BooleanUnit(bool value)
             => Value = value;
 
         public bool Compare(object b)

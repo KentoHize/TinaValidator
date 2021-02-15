@@ -10,15 +10,13 @@ namespace Aritiafel.Artifacts.TinaValidator
         public double Value1 { get; set; } //min exact
         public double Value2 { get; set; } //max
 
-        public DoubleUnit(string id, double exactValue)
-            : base(id)
+        public DoubleUnit(double exactValue)            
         {
             CompareMethod = CompareMethod.Exact;
             Value1 = exactValue;
         }
 
-        public DoubleUnit(string id, double minValue, double maxValue)
-            : base(id)
+        public DoubleUnit(double minValue, double maxValue)
         {
             CompareMethod = CompareMethod.MinMax;
             Value1 = minValue;
