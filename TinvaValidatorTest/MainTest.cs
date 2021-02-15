@@ -58,7 +58,7 @@ namespace TinvaValidatorTest
             s5.Choices.Add(stip3);
             Status s6 = new Status();
             stip3.NextStatus = s6;
-            UnitSet us3 = "CHA".ToUnitSet();
+            UnitSet us3 = " CHA".ToUnitSet();
             s6.Choices.Add(us3);
             us3.NextStatus = VL.EndStatus;
 

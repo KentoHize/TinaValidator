@@ -2,6 +2,9 @@
 {
     public class SetValueBox
     {
-
+        public void SetValue()
+        {
+            
+        }
     }
 }

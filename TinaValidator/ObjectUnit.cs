@@ -7,10 +7,10 @@
         public ObjectUnit(object value)
             => Value = value;
 
-        public bool Compare(object b)
+        public override bool Compare(object b)
             => this == b;
 
-        public object Random()
+        public override object Random()
         {
             return new object();
         }
