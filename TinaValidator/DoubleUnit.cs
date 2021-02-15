@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class DoubleUnit : Unit, IUnit
-    {   
+    {
         public CompareMethod CompareMethod { get; set; }
         public double Value1 { get; set; } //min exact
         public double Value2 { get; set; } //max
 
-        public DoubleUnit(double exactValue)            
+        public DoubleUnit(double exactValue)
         {
             CompareMethod = CompareMethod.Exact;
             Value1 = exactValue;

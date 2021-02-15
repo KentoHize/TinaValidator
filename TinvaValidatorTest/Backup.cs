@@ -1,5 +1,5 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Aritiafel.Locations;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TinvaValidatorTest
 {

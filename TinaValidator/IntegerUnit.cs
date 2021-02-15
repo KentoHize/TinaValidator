@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -20,13 +18,13 @@ namespace Aritiafel.Artifacts.TinaValidator
             : this(0)
         { }
 
-        public IntegerUnit(decimal exactValue)            
+        public IntegerUnit(decimal exactValue)
         {
             CompareMethod = CompareMethod.Exact;
             Value1 = exactValue;
         }
 
-        public IntegerUnit(decimal minValue, decimal maxValue)            
+        public IntegerUnit(decimal minValue, decimal maxValue)
         {
             CompareMethod = CompareMethod.MinMax;
             Value1 = minValue;
@@ -49,9 +47,9 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return Value1;
             else
             {
-                Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));                
+                Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));
                 return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);// Scan
-            }                
+            }
         }
     }
 }

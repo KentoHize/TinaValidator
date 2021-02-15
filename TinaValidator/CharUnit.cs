@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -14,7 +12,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             CompareMethod = CompareMethod.Exact;
             Value1 = exactValue;
         }
-        public CharUnit(char minValue, char maxValue)            
+        public CharUnit(char minValue, char maxValue)
         {
             CompareMethod = CompareMethod.MinMax;
             Value1 = minValue;
@@ -24,7 +22,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Compare(object b)
         {
             if (!(b is char))
-                return false;            
+                return false;
             if (CompareMethod == CompareMethod.Exact)
                 return Value1 == (char)b;
             else

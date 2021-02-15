@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Aritiafel.Artifacts.TinaValidator
+﻿namespace Aritiafel.Artifacts.TinaValidator
 {
     public static class StringUnitSetBuilder
     {

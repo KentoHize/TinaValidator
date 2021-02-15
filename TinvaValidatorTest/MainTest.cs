@@ -1,5 +1,5 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Aritiafel.Artifacts.TinaValidator;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace TinvaValidatorTest
 {
     [TestClass]

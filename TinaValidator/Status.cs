@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
-{   public class Status
+{
+    public class Status
     {
         public List<Sequence> Choices = new List<Sequence>();
     }

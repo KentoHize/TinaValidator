@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -10,7 +8,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         // line index etc..
         public string Message { get; set; }
-        
+
         public bool Validate(List<object> things)
         {
             return false;

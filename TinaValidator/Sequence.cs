@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Aritiafel.Artifacts.TinaValidator
-{   public class Sequence
+﻿namespace Aritiafel.Artifacts.TinaValidator
+{
+    public class Sequence
     {
         //Local Variable ...
 

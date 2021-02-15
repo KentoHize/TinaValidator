@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class UnitSet : Sequence
     {
         public string ID { get; set; }
-        public List<Unit> Units { get; set; } = new List<Unit>();        
+        public List<Unit> Units { get; set; } = new List<Unit>();
 
         public UnitSet(string id, Unit unit)
         {
@@ -18,7 +16,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public UnitSet(string id, List<Unit> units = null)
         {
             ID = id;
-            if(units != null)
+            if (units != null)
                 Units = units;
         }
     }
