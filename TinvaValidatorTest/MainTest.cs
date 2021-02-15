@@ -10,7 +10,7 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestMethod1()
         {
-            Thing th = new Thing();
+            ValidateLogic th = new ValidateLogic();
             Status st1 = new Status();
             th.InitalStatus = st1;
             Sequence se = new Sequence();
@@ -19,7 +19,8 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(se.ToString());
 
             int a = 5;
-            IntegerUnit IU = new IntegerUnit("dd", a);
+            string s = "ssds";
+            th.Choices.Add(s.ToUnitSet("a"));
         }
     }
 }
