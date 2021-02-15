@@ -17,4 +17,10 @@
     <ProjectReference Include="..\TinaValidator\TinaValidator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Aritiafel">
+      <HintPath>..\..\Aritiafel\Aritiafel\bin\Release\netstandard2.1\Aritiafel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
