@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class UnitSet : Part
     {
-        public string ID { get; set; }
         public List<Unit> Units { get; set; } = new List<Unit>();
         public UnitSet(Unit unit)
             : this (null, unit)
@@ -15,14 +15,14 @@ namespace Aritiafel.Artifacts.TinaValidator
         { }
 
         public UnitSet(string id, Unit unit)
+            : base(id)
         {
-            ID = id;
             Units.Add(unit);
         }
 
         public UnitSet(string id, List<Unit> units = null)
-        {
-            ID = id;
+            : base(id)
+        {   
             if (units != null)
                 Units = units;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -13,8 +14,8 @@ namespace Aritiafel.Artifacts.TinaValidator
         
         public Status(string id = null, List<Part> choices = null)
         {
-            ID = id;
-            if(choices != null)
+            ID = id ?? IdentifyShop.GetNewID("ST");
+            if (choices != null)
                 Choices = choices;
         }
 
@@ -24,7 +25,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public Status(string id, Part choice)
         {
-            ID = id;
+            ID = id ?? IdentifyShop.GetNewID("ST");
             if (choice != null)
                 Choices.Add(choice);
         }

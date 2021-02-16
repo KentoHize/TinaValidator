@@ -24,6 +24,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (index == things.Count - 1)
                 return false;
 
+            // To DO
             return false;
         }
 

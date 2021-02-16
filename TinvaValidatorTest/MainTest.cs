@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using Newtonsoft.Json;
+
 namespace TinvaValidatorTest
 {
     [TestClass]
@@ -14,17 +16,23 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestMethod1()
         {
-            ValidateLogic th = new ValidateLogic();
+            //ValidateLogic th = new ValidateLogic();
             Status st1 = new Status();
-            th.InitialStatus = st1;
-            Part se = new Part();
-            th.Choices.Add(se);
-            Status st = new Status();
-            TestContext.WriteLine(se.ToString());
+            UnitSet us = new UnitSet();
+            us.NextStatus = st1;
+            st1.Choices.Add(us);
 
-            int a = 5;
-            string s = "ssds";
-            th.Choices.Add(s.ToUnitSet("a"));
+            string s = JsonConvert.SerializeObject(st1); // Error
+            TestContext.WriteLine(s);
+            //th.InitialStatus = st1;
+            ////Part se = new Part();
+            ////th.Choices.Add(se);
+            //Status st = new Status();
+            //TestContext.WriteLine(se.ToString());
+
+            //int a = 5;
+            //string s = "ssds";
+            //th.Choices.Add(s.ToUnitSet("a"));
         }
 
         //[TestMethod]
@@ -78,6 +86,11 @@ namespace TinvaValidatorTest
             
             //12, 56 70 CHA
             //08, 32 45 CHR
+        }
+
+        public void TestJsonConvert()
+        {
+
         }
     }
 }
