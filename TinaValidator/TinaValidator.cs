@@ -23,7 +23,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return true;
             if (index == things.Count - 1)
                 return false;
-
+            
             // To DO
             return false;
         }

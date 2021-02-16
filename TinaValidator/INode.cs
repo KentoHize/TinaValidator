@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public interface IPart
+    public interface INode
     {
         List<object> Random();
-        bool Compare(List<object> b);
+        bool Compare(List<object> thing);
     }
 }

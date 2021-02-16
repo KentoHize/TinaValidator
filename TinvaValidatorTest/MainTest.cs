@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Newtonsoft.Json;
 
 namespace TinvaValidatorTest
@@ -47,7 +46,7 @@ namespace TinvaValidatorTest
             ValidateLogic VL = new ValidateLogic();
             VL.EndStatus = new Status();
             StringToIntegerPart stip = new StringToIntegerPart();
-            VL.Choices.Add(stip);            
+            //VL.Choices.Add(stip);            
             UnitSet us1 = new UnitSet(CharUnits.Comma);
             Status s2 = new Status();
             stip.NextStatus = s2;

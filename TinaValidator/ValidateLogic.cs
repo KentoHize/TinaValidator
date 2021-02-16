@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class ValidateLogic
-    {
-        public string Name { get; set; }
-        public Status InitialStatus { get; set; }
+    public class ValidateLogic : Area
+    {   
         public Status EndStatus { get; set; }
         public void Save(string filePath)
         {
@@ -23,12 +21,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         { }
 
         public ValidateLogic(string name, Status initialStatus = null, Status endStatus = null)
-        {
-            Name = name;
-            InitialStatus = initialStatus;
-            if (InitialStatus == null)
-                InitialStatus = new Status();
+            : base (name, initialStatus, null)
+        {   
             EndStatus = endStatus;
-        }
+        }        
     }
 }

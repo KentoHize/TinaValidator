@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <Reference Include="Aritiafel">
-      <HintPath>..\..\Aritiafel\Aritiafel\bin\Release\netstandard2.1\Aritiafel.dll</HintPath>
+      <HintPath>..\..\Aritiafel\Aritiafel\bin\Release\netstandard2.0\Aritiafel.dll</HintPath>
     </Reference>
   </ItemGroup>
 

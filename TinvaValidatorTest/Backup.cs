@@ -13,6 +13,7 @@ namespace TinvaValidatorTest
         {
             Residence rs = new Residence(@"E:\Backup");
             rs.SaveVSSolution(@"C:\Programs\Standard\TinaValidator");
+            rs.SaveVSSolution(@"C:\Programs\Standard\Aritiafel");
         }
     }
 }
