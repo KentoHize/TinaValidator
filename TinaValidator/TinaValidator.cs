@@ -26,10 +26,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        //private bool skip;
         private bool StatusChoice(List<object> things, int index, Status st)
         {
-            if (st == Logic.EndStatus && index == things.Count)
+            if (st == Status.EndStatus && index == things.Count)
                 return true;
             if (index == things.Count)
                 return false;
@@ -62,7 +61,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         private void GetRandom(List<object> result, Status st)
         {
-            if (st == Logic.EndStatus)
+            if (st == Status.EndStatus)
                 return;
             Random rnd = new Random((int)DateTime.Now.Ticks);
             int choiceIndex = rnd.Next(st.Choices.Count);

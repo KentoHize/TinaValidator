@@ -5,7 +5,6 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class ValidateLogic : Area
     {   
-        public Status EndStatus { get; set; }
         public void Save(string filePath)
         {
             
@@ -16,14 +15,12 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         }
 
-        public ValidateLogic(Status initialStatus = null, Status endStatus = null)
-            : this(null, initialStatus, endStatus)
+        public ValidateLogic(Status initialStatus = null)
+            : this(null, initialStatus)
         { }
 
-        public ValidateLogic(string name, Status initialStatus = null, Status endStatus = null)
+        public ValidateLogic(string name, Status initialStatus = null)
             : base (name, initialStatus, null)
-        {   
-            EndStatus = endStatus;
-        }        
+        { }        
     }
 }

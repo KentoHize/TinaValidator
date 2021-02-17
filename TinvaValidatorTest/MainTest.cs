@@ -22,8 +22,7 @@ namespace TinvaValidatorTest
             UnitSet us = new UnitSet(CharUnits.AtoZ);
             us.Units.Add(CharUnits.atoz);
             VL.InitialStatus.Choices.Add(us);
-            us.NextStatus = new Status();
-            VL.EndStatus = us.NextStatus;
+            us.NextStatus = Status.EndStatus;            
 
             string testString = "DJ";
 
@@ -48,10 +47,58 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(sw.ElapsedTicks.ToString());
         }
 
-        //[TestMethod]
-        public void JSONParse()
+        [TestMethod]
+        public void SecondParse()
         {
+            ValidateLogic VL = new ValidateLogic();
+            VL.InitialStatus = new Status();
+            Area ar1 = new Area(null, null, VL);
+            ar1.InitialStatus = new Status();
+            //12, 56 70 CHA
+            //08, 32 45 CHR
+            SkipPart sp = new SkipPart();
+            VL.InitialStatus.Choices.Add(sp);
+            sp.NextStatus = ar1.InitialStatus;
+            CharsToIntegerPart stip = new CharsToIntegerPart();
+            ar1.InitialStatus.Choices.Add(stip);
+            stip.NextStatus = new Status();
+            UnitSet us1 = new UnitSet(CharUnits.Comma);
+            us1.Units.Add(CharUnits.WhiteSpace);
+            stip.NextStatus.Choices.Add(us1);
+            Status s3 = new Status();
+            us1.NextStatus = s3;
+            CharsToIntegerPart stip2 = new CharsToIntegerPart();
+            s3.Choices.Add(stip2);
+            UnitSet us2 = new UnitSet(CharUnits.WhiteSpace);
+            Status s4 = new Status();
+            stip2.NextStatus = s4;
+            s4.Choices.Add(us2);
+            Status s5 = new Status();
+            us2.NextStatus = s5;
+            CharsToIntegerPart stip3 = new CharsToIntegerPart();
+            s5.Choices.Add(stip3);
+            Status s6 = new Status();
+            stip3.NextStatus = s6;
+            UnitSet us3 = " CHA".ToUnitSet();
+            s6.Choices.Add(us3);
+            us3.NextStatus = Status.EndStatus;
 
+            TinaValidator validator = new TinaValidator();
+            validator.Logic = VL;
+
+            bool result;
+            using (FileStream fs = new FileStream(@"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\A.txt", FileMode.Open))
+            {
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    string s = sr.ReadToEnd();
+                    List<object> thing = s.Select(m => (object)m).ToList();
+                    result = validator.Validate(thing);
+                }
+            }
+
+            TestContext.WriteLine(result.ToString());
+            TestContext.WriteLine(validator.CreateRandomToString());
         }
 
         [TestMethod]
@@ -59,7 +106,6 @@ namespace TinvaValidatorTest
         {
             ValidateLogic VL = new ValidateLogic();
             VL.InitialStatus = new Status();
-            VL.EndStatus = new Status();
             CharsToIntegerPart stip = new CharsToIntegerPart();
             VL.InitialStatus.Choices.Add(stip);
             stip.NextStatus = new Status();            
@@ -82,7 +128,7 @@ namespace TinvaValidatorTest
             stip3.NextStatus = s6;
             UnitSet us3 = " CHA".ToUnitSet();
             s6.Choices.Add(us3);
-            us3.NextStatus = VL.EndStatus;
+            us3.NextStatus = Status.EndStatus;
 
             TinaValidator validator = new TinaValidator();
             validator.Logic = VL;

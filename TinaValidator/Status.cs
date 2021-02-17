@@ -5,6 +5,8 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class Status
     {
+        public static Status EndStatus { get; } = new Status("__ENDSTATUS");
+        public static Status PartEndStatus { get; } = new Status("__PARTENDSTATUS");
         public string ID { get; set; }
         public Area Parent { get; set; }
         public List<Part> Choices { get; set; } = new List<Part>();
