@@ -18,6 +18,13 @@ namespace Aritiafel.Artifacts.TinaValidator
         public IntegerUnit()
             => CompareMethod = CompareMethod.Any;        
 
+        public IntegerUnit(CharsToIntegerPart ctip)
+        {
+            CompareMethod = ctip.CompareMethod;
+            Value1 = ctip.Value1;
+            Value2 = ctip.Value2;
+        }
+
         public IntegerUnit(decimal exactValue)
         {
             CompareMethod = CompareMethod.Exact;
@@ -47,11 +54,11 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (CompareMethod == CompareMethod.Exact)
                 return Value1;
-            else
-            {
-                Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));
+            Random rnd = new Random((int)DateTime.Now.Ticks);
+            if (CompareMethod == CompareMethod.MinMax)
                 return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);// Scan
-            }
+            else
+                return new decimal(rnd.Next(), rnd.Next(), rnd.Next(), rnd.Next(2) == 1, 0);
         }
     }
 }

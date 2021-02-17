@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -41,6 +42,15 @@ namespace Aritiafel.Artifacts.TinaValidator
                         return true;
             }
             return false;
+        }
+
+        public string CreateRandomToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            List<object> randomList = CreateRandom();
+            for (int i = 0; i < randomList.Count; i++)
+                sb.Append(randomList[i]);
+            return sb.ToString();
         }
 
         public List<object> CreateRandom()

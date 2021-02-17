@@ -65,14 +65,15 @@ namespace TinvaValidatorTest
             ValidateLogic VL = new ValidateLogic();
             VL.InitialStatus = new Status();
             VL.EndStatus = new Status();
-            StringToIntegerPart stip = new StringToIntegerPart();            
+            CharsToIntegerPart stip = new CharsToIntegerPart();
+            VL.InitialStatus.Choices.Add(stip);
+            stip.NextStatus = new Status();            
             UnitSet us1 = new UnitSet(CharUnits.Comma);
-            Status s2 = new Status();
-            stip.NextStatus = s2;
-            s2.Choices.Add(us1);
+            us1.Units.Add(CharUnits.WhiteSpace);
+            stip.NextStatus.Choices.Add(us1);
             Status s3 = new Status();
             us1.NextStatus = s3;
-            StringToIntegerPart stip2 = new StringToIntegerPart();
+            CharsToIntegerPart stip2 = new CharsToIntegerPart();
             s3.Choices.Add(stip2);
             UnitSet us2 = new UnitSet(CharUnits.WhiteSpace);
             Status s4 = new Status();
@@ -80,7 +81,7 @@ namespace TinvaValidatorTest
             s4.Choices.Add(us2);
             Status s5 = new Status();
             us2.NextStatus = s5;
-            StringToIntegerPart stip3 = new StringToIntegerPart();
+            CharsToIntegerPart stip3 = new CharsToIntegerPart();
             s5.Choices.Add(stip3);
             Status s6 = new Status();
             stip3.NextStatus = s6;
@@ -91,17 +92,19 @@ namespace TinvaValidatorTest
             TinaValidator validator = new TinaValidator();
             validator.Logic = VL;
 
+            bool result;
             using(FileStream fs = new FileStream(@"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\A.txt", FileMode.Open))
             {
                 using(StreamReader sr = new StreamReader(fs))
                 {
                     string s = sr.ReadToEnd();
                     List<object> thing = s.Select(m => (object)m).ToList();
-                    validator.Validate(thing);
+                    result = validator.Validate(thing);
                 }
             }
-            
-            
+
+            TestContext.WriteLine(result.ToString());
+            TestContext.WriteLine(validator.CreateRandomToString());
             //12, 56 70 CHA
             //08, 32 45 CHR
         }

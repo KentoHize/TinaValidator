@@ -27,7 +27,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         
         public override object Random()
         {
-            Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));
+            if (CompareMethod == CompareMethod.Exact)
+                return Value;
+            Random rnd = new Random((int)DateTime.Now.Ticks);
             return rnd.Next(2) == 1;
         }
     }
