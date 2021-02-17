@@ -30,20 +30,24 @@ namespace Aritiafel.Artifacts.TinaValidator
            => Validate(things.ToList());
 
         private int AreaStatusChoice(List<object> things, int index, Status st, AreaPart ap)
-        {   
+        {
             if (st == Status.EndStatus)
                 return index;
-            if (index == things.Count)
-                return Invalid;
 
             int nextIndex;
             for (int i = 0; i < st.Choices.Count; i++)
-            {
-                if (st.Choices[i] is AreaPart nap)
+            {   
+                if(st.Choices[i] is SkipPart)
+                    nextIndex = index;
+                else if (st.Choices[i] is AreaPart nap)
                     nextIndex = AreaStatusChoice(things, index, nap.Area.InitialStatus, nap);
                 else
-                    nextIndex = st.Choices[i].Validate(things, index);
-
+                {
+                    if (index == things.Count)
+                        continue;
+                    else
+                        nextIndex = st.Choices[i].Validate(things, index);
+                }
                 if (nextIndex != Invalid)
                     return AreaStatusChoice(things, nextIndex, st.Choices[i].NextStatus, ap);
             }

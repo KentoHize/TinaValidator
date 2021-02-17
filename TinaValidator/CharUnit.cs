@@ -32,7 +32,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             else if (CompareMethod == CompareMethod.Exact)
                 return Value1 == (char)b;
             else
-                return (char)b > Value1 && (char)b < Value2;
+                return (char)b >= Value1 && (char)b <= Value2;
         }
 
         public override object Random()

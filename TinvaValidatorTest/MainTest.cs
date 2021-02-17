@@ -109,7 +109,13 @@ namespace TinvaValidatorTest
             }
 
             TestContext.WriteLine(result.ToString());
-            TestContext.WriteLine(validator.CreateRandomToString());
+
+            for (int i = 0; i < 100; i++)
+            {
+                List<object> list = validator.CreateRandom();
+                TestContext.WriteLine(list.ForEachToString());
+                TestContext.WriteLine(validator.Validate(list).ToString());
+            }
         }
 
         [TestMethod]
