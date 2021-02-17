@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace TinvaValidatorTest
 {
@@ -15,23 +16,33 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestMethod1()
         {
-            //ValidateLogic th = new ValidateLogic();
-            Status st1 = new Status();
-            UnitSet us = new UnitSet();
-            us.NextStatus = st1;
-            st1.Choices.Add(us);
+            ValidateLogic VL = new ValidateLogic();
+            VL.InitialStatus = new Status();
+            UnitSet us = new UnitSet(CharUnits.AtoZ);            
+            VL.InitialStatus.Choices.Add(us);
+            us.NextStatus = new Status();
+            VL.EndStatus = us.NextStatus;
 
-            string s = JsonConvert.SerializeObject(st1); // Error
-            TestContext.WriteLine(s);
-            //th.InitialStatus = st1;
-            ////Part se = new Part();
-            ////th.Choices.Add(se);
-            //Status st = new Status();
-            //TestContext.WriteLine(se.ToString());
+            string testString = "a";
 
-            //int a = 5;
-            //string s = "ssds";
-            //th.Choices.Add(s.ToUnitSet("a"));
+            TinaValidator tv = new TinaValidator(VL);
+            bool result = tv.Validate(testString.Select(m => (object)m).ToArray());
+            TestContext.WriteLine(result.ToString());
+        }
+
+        [TestMethod]
+        public void GetRangeEffective()
+        {
+            List<object> aList = new List<object>();
+            for (int i = 0; i < 100000; i++)
+                aList.Add(i);
+
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            sw.Start();
+            aList.GetRange(5, aList.Count - 5);
+            sw.Stop();
+            TestContext.WriteLine(sw.ElapsedTicks.ToString());
         }
 
         //[TestMethod]

@@ -6,7 +6,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class StringToIntegerPart : Part
     {
-        public override bool Compare(List<object> thing)
+        public override int Compare(List<object> thing, int startIndex)
         {
             throw new NotImplementedException();
         }

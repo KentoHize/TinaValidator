@@ -6,11 +6,11 @@ namespace Aritiafel.Artifacts.TinaValidator
     public abstract class Part : Area, INode
     {
         //Local Variable ...
-        public string ID { get; set; }
-        public Area Parent { get; set; }
+        public string ID { get; set; }        
         public SetValueBox SetValue { get; set; }
         public Status NextStatus { get; set; }
-        public abstract bool Compare(List<object> thing);
+
+        public abstract int Compare(List<object> thing, int startIndex);
         public abstract List<object> Random();
 
         protected Part()

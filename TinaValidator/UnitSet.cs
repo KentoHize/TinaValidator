@@ -25,15 +25,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         {   
             if (units != null)
                 Units = units;
-        }
-
-        public override bool Compare(List<object> thing)
-        {
-            for (int i = 0; i < Units.Count; i++)
-                if (!Units[i].Compare(thing[i]))
-                    return false;
-            return true;
-        }
+        }      
 
         public override List<object> Random()
         {
@@ -41,6 +33,14 @@ namespace Aritiafel.Artifacts.TinaValidator
             for (int i = 0; i < Units.Count; i++)
                 result.Add(Units[i].Random());
             return result;
+        }
+
+        public override int Compare(List<object> thing, int startIndex)
+        {
+            for (int i = 0; i < Units.Count; i++)
+                if (!Units[i].Compare(thing[startIndex + i]))
+                    return -1;
+            return startIndex + Units.Count;
         }
     }
 }

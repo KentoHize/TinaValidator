@@ -3,7 +3,7 @@ using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class Status : INode
+    public class Status
     {
         public string ID { get; set; }
         public Area Parent { get; set; }
@@ -29,17 +29,6 @@ namespace Aritiafel.Artifacts.TinaValidator
             ID = id ?? IdentifyShop.GetNewID("ST");
             if (choice != null)
                 Choices.Add(choice);
-        }
-
-        public List<object> Random()
-        {
-            //Normal Random
-            throw new System.NotImplementedException();
-        }
-
-        public bool Compare(List<object> thing)
-        {
-            throw new System.NotImplementedException();
-        }
+        }     
     }
 }

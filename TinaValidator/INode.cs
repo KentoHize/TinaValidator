@@ -7,6 +7,6 @@ namespace Aritiafel.Artifacts.TinaValidator
     public interface INode
     {
         List<object> Random();
-        bool Compare(List<object> thing);
+        int Compare(List<object> thing, int startIndex);
     }
 }
