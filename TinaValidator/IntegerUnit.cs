@@ -42,6 +42,8 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (!decimal.TryParse(b.ToString(), out decimal d))
                 return false;
+            else if (Math.Round(d) != d) // Not Integer
+                return false;
             if (CompareMethod == CompareMethod.Any)
                 return true;
             else if (CompareMethod == CompareMethod.Exact)

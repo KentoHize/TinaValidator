@@ -29,7 +29,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (CompareMethod == CompareMethod.Any)
                 return true;
             else
-                return ((BooleanUnit)b).Value == Value;
+                return (bool)b == Value;
         }
         
         public override object Random()

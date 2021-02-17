@@ -48,9 +48,24 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return Value1;
             Random rnd = new Random((int)DateTime.Now.Ticks);
             if (CompareMethod == CompareMethod.MinMax)
-                return rnd.NextDouble() * (Value2 - Value1) + Value1;
+            {
+                if (Value2 > float.MaxValue && Value1 < float.MinValue)
+                {
+                    byte[] bytesArray = new byte[8];
+                    for (int i = 0; i < 8; i++)
+                        bytesArray[i] = (byte)rnd.Next(byte.MaxValue + 1);
+                    return BitConverter.ToDouble(bytesArray, 0);
+                }
+                else
+                    return rnd.NextDouble() * (Value2 - Value1) + Value1;
+            }   
             else
-                return rnd.NextDouble();
+            {   
+                byte[] bytesArray = new byte[8];
+                for (int i = 0; i < 8; i++)
+                    bytesArray[i] = (byte)rnd.Next(byte.MaxValue + 1);
+                return BitConverter.ToDouble(bytesArray, 0);
+            }
         }
     }
 }
