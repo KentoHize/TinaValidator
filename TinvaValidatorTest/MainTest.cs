@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text;
 
 namespace TinvaValidatorTest
 {
@@ -17,17 +18,24 @@ namespace TinvaValidatorTest
         public void TestMethod1()
         {
             ValidateLogic VL = new ValidateLogic();
-            VL.InitialStatus = new Status();
-            UnitSet us = new UnitSet(CharUnits.AtoZ);            
+            VL.InitialStatus = new Status();            
+            UnitSet us = new UnitSet(CharUnits.AtoZ);
+            us.Units.Add(CharUnits.atoz);
             VL.InitialStatus.Choices.Add(us);
             us.NextStatus = new Status();
             VL.EndStatus = us.NextStatus;
 
-            string testString = "a";
+            string testString = "DJ";
 
             TinaValidator tv = new TinaValidator(VL);
             bool result = tv.Validate(testString.Select(m => (object)m).ToArray());
             TestContext.WriteLine(result.ToString());
+
+            StringBuilder sb = new StringBuilder();                
+            List<object> randomList = tv.CreateRandom();
+            for(int i = 0; i < randomList.Count; i++)
+                sb.Append(randomList[i]);
+            TestContext.WriteLine(sb.ToString());
         }
 
         [TestMethod]
@@ -55,9 +63,9 @@ namespace TinvaValidatorTest
         public void SimpleParse()
         {
             ValidateLogic VL = new ValidateLogic();
+            VL.InitialStatus = new Status();
             VL.EndStatus = new Status();
-            StringToIntegerPart stip = new StringToIntegerPart();
-            //VL.Choices.Add(stip);            
+            StringToIntegerPart stip = new StringToIntegerPart();            
             UnitSet us1 = new UnitSet(CharUnits.Comma);
             Status s2 = new Status();
             stip.NextStatus = s2;

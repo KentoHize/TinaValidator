@@ -18,34 +18,46 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (things == null)
                 throw new ArgumentNullException("things");
-            skip = false;
-            return false;
-            //return StatusChoice(things, 0, Logic.InitialStatus);
+
+            return StatusChoice(things, 0, Logic.InitialStatus);
         }
 
-        public bool Validate(object[] things)        
+        public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        private bool skip;
-        //private bool StatusChoice(object[] things, int index, Status st)
-        //{
-        //    if (st == Logic.EndStatus)
-        //        return true;
-        //    if (index == things.Length - 1)
-        //        return false;
-            
-        //    for(int i = 0; i < st.Choices.Count; i++)
-        //    {
-        //        st.Choices[i].Compare(things);
-        //    }
-            
-        //    // To DO
-        //    return false;
-        //}
+        //private bool skip;
+        private bool StatusChoice(List<object> things, int index, Status st)
+        {
+            if (st == Logic.EndStatus && index == things.Count)
+                return true;
+            if (index == things.Count)
+                return false;
+
+            for(int i = 0; i < st.Choices.Count; i++)
+            {
+                int nextIndex = st.Choices[i].Validate(things, index);                
+                if(nextIndex != -1)
+                    if(StatusChoice(things, nextIndex, st.Choices[i].NextStatus))
+                        return true;
+            }
+            return false;
+        }
 
         public List<object> CreateRandom()
         {
-            return null;
+            List<object> result = new List<object>();
+            GetRandom(result, Logic.InitialStatus);
+            return result;
+        }
+
+        private void GetRandom(List<object> result, Status st)
+        {
+            if (st == Logic.EndStatus)
+                return;
+            Random rnd = new Random((int)DateTime.Now.Ticks);
+            int choiceIndex = rnd.Next(st.Choices.Count);
+            result.AddRange(st.Choices[choiceIndex].Random());
+            GetRandom(result, st.Choices[choiceIndex].NextStatus);
         }
     }
 }

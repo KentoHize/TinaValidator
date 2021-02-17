@@ -35,7 +35,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             return result;
         }
 
-        public override int Compare(List<object> thing, int startIndex)
+        public override int Validate(List<object> thing, int startIndex)
         {
             for (int i = 0; i < Units.Count; i++)
                 if (!Units[i].Compare(thing[startIndex + i]))

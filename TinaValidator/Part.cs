@@ -10,7 +10,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public SetValueBox SetValue { get; set; }
         public Status NextStatus { get; set; }
 
-        public abstract int Compare(List<object> thing, int startIndex);
+        public abstract int Validate(List<object> thing, int startIndex);
         public abstract List<object> Random();
 
         protected Part()

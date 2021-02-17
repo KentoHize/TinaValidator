@@ -39,11 +39,12 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (CompareMethod == CompareMethod.Exact)
                 return Value1;
+            Random rnd = new Random((int)DateTime.Now.Ticks);
+            
+            if(CompareMethod == CompareMethod.MinMax)
+                return (char)rnd.Next(Value1, Value2);
             else
-            {
-                Random rnd = new Random(Convert.ToInt32(DateTime.Now.Ticks));
                 return (char)rnd.Next(char.MinValue, char.MaxValue);
-            }
         }
     }
 }
