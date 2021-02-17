@@ -44,10 +44,10 @@ namespace Aritiafel.Artifacts.TinaValidator
             {
                 if (Value1 > Value2)
                     throw new ArgumentException();
-                return (char)rnd.Next(Value1, Value2);
+                return (char)rnd.Next(Value1, Value2 + 1);
             }   
             else
-                return (char)rnd.Next(char.MinValue, char.MaxValue);
+                return (char)rnd.Next(char.MaxValue + 1);
         }
     }
 }
