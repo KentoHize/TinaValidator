@@ -11,14 +11,11 @@ namespace Aritiafel.Artifacts.TinaValidator
         public Status NextStatus { get; set; }
 
         public abstract int Validate(List<object> thing, int startIndex);
-        public abstract List<object> Random();
-
-        protected Part()
-            : this(null)
-        { }
-
-        protected Part(string id = null)
+        public abstract List<object> Random();  
+        protected Part(Status nextStatus = null, SetValueBox setValueBox = null, string id = null)
         {
+            NextStatus = nextStatus;
+            SetValue = setValueBox;
             ID = id ?? IdentifyShop.GetNewID("P");
         }
     }

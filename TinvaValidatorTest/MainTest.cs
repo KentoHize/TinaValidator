@@ -48,10 +48,11 @@ namespace TinvaValidatorTest
         }
 
         [TestMethod]
-        public void SecondParse()
+        public void AreaParse()
         {
             ValidateLogic VL = new ValidateLogic();
             VL.InitialStatus = new Status();
+            
             Area ar1 = new Area(null, null, VL);
             ar1.InitialStatus = new Status();
             //12, 56 70 CHA
