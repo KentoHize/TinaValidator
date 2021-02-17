@@ -7,13 +7,13 @@ using System;
 namespace TinvaValidatorTest
 {
     [TestClass]
-    public class PartUnitTest
+    public partial class PartUnitTest
     {
         public TestContext TestContext { get; set; }
 
         [TestMethod]
         public void BooleanUnitTest()
-        {   
+        {
             BooleanUnit bu = new BooleanUnit();
             Assert.IsTrue(bu.Compare(true));
             Assert.IsTrue(bu.Compare(false));
@@ -35,9 +35,9 @@ namespace TinvaValidatorTest
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
             IntegerUnit iu = new IntegerUnit();
-            Assert.IsTrue(iu.Compare(rnd.Next()));
-            Assert.IsTrue(iu.Compare(rnd.Next()));
-            Assert.IsTrue(iu.Compare(rnd.Next()));
+            Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
+            Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
+            Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
             Assert.IsTrue(iu.Compare(int.MinValue));
             Assert.IsTrue(iu.Compare(int.MaxValue));
             Assert.IsTrue(!iu.Compare("dd"));
@@ -45,7 +45,7 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
-            iu = new IntegerUnit(3000);            
+            iu = new IntegerUnit(3000);
             Assert.IsTrue(iu.Compare(3000));
             Assert.IsTrue(!iu.Compare(3001));
             Assert.IsTrue(!iu.Compare(2999));
@@ -71,7 +71,7 @@ namespace TinvaValidatorTest
         public void DoubleUnitTest()
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
-            DoubleUnit du = new DoubleUnit();            
+            DoubleUnit du = new DoubleUnit();
             Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
             Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
             Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
@@ -113,8 +113,7 @@ namespace TinvaValidatorTest
         public void CharUnitTest()
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
-            CharUnit cu = new CharUnit();
-            
+            CharUnit cu = new CharUnit();                
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));

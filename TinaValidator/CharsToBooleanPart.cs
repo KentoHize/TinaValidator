@@ -22,7 +22,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value = value;
         }
 
-        public override int Validate(List<object> thing, int startIndex)
+        public override int Validate(List<object> thing, int startIndex = 0)
         {
             bool? result = null;
 
@@ -45,7 +45,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             BooleanUnit bu = new BooleanUnit(this);
             if (!bu.Compare(result))
                 return -1;
-            return bu.Value ? startIndex + 4 : startIndex + 5;
+            return (bool)result ? startIndex + 4 : startIndex + 5;
         }
 
         public override List<object> Random()

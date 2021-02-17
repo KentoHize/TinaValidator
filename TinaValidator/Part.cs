@@ -11,7 +11,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public SetValueBox SetValue { get; set; }
         public Status NextStatus { get; set; }
 
-        public abstract int Validate(List<object> thing, int startIndex);
+        public abstract int Validate(List<object> thing, int startIndex = 0);
         public abstract List<object> Random();  
         protected Part(Status nextStatus = null, SetValueBox setValueBox = null, string id = null)
         {
