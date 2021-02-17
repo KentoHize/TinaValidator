@@ -40,7 +40,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             for (int i = 0; i < st.Choices.Count; i++)
             {
                 if (st.Choices[i] is AreaPart nap)
-                    nextIndex = AreaStatusChoice(things, index, nap.InitialStatus, nap);
+                    nextIndex = AreaStatusChoice(things, index, nap.Area.InitialStatus, nap);
                 else
                     nextIndex = st.Choices[i].Validate(things, index);
 
@@ -73,7 +73,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Random rnd = new Random((int)DateTime.Now.Ticks);
             int choiceIndex = rnd.Next(st.Choices.Count);
             if (st.Choices[choiceIndex] is AreaPart nap)
-                AreaGetRandom(result, nap.InitialStatus, nap);
+                AreaGetRandom(result, nap.Area.InitialStatus, nap);
             else
                 result.AddRange(st.Choices[choiceIndex].Random());
             AreaGetRandom(result, st.Choices[choiceIndex].NextStatus, ap);

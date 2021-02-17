@@ -3,7 +3,7 @@ using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public abstract class Part : Area, INode
+    public abstract class Part : INode
     {
         //Local Variable ...
         public string ID { get; set; }        

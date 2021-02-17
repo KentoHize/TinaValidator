@@ -52,14 +52,14 @@ namespace TinvaValidatorTest
         {
             ValidateLogic VL = new ValidateLogic();
             VL.InitialStatus = new Status();
-            
             Area ar1 = new Area(null, null, VL);
             ar1.InitialStatus = new Status();
+            AreaPart ap1 = new AreaPart(ar1, new Status());
+            
+            VL.InitialStatus.Choices.Add(ap1);
             //12, 56 70 CHA
-            //08, 32 45 CHR
-            SkipPart sp = new SkipPart();
-            VL.InitialStatus.Choices.Add(sp);
-            sp.NextStatus = ar1.InitialStatus;
+            //08, 32 45 CHR            
+            
             CharsToIntegerPart stip = new CharsToIntegerPart();
             ar1.InitialStatus.Choices.Add(stip);
             stip.NextStatus = new Status();
@@ -78,11 +78,21 @@ namespace TinvaValidatorTest
             us2.NextStatus = s5;
             CharsToIntegerPart stip3 = new CharsToIntegerPart();
             s5.Choices.Add(stip3);
-            Status s6 = new Status();
-            stip3.NextStatus = s6;
-            UnitSet us3 = " CHA".ToUnitSet();
-            s6.Choices.Add(us3);
-            us3.NextStatus = Status.EndStatus;
+            stip3.NextStatus = Status.EndStatus;
+            
+            UnitSet us3 = " CH".ToUnitSet();
+            us3.Units.Add(CharUnits.AtoZ);            
+            ap1.NextStatus.Choices.Add(us3);
+            
+            us3.NextStatus = new Status();
+            UnitSet CRLF = "\r\n".ToUnitSet();
+            us3.NextStatus.Choices.Add(CRLF);
+            CRLF.NextStatus = VL.InitialStatus;
+            
+            us3.NextStatus.Choices.Add(new SkipPart());
+            us3.NextStatus.Choices[1].NextStatus = Status.EndStatus;
+           
+            //us3.NextStatus = Status.EndStatus;
 
             TinaValidator validator = new TinaValidator();
             validator.Logic = VL;
