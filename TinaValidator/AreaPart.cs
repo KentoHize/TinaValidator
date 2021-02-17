@@ -6,10 +6,10 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class AreaPart : Part
     {
-        public Area Area;
+        public Area Area { get; set; }
         
         public override List<object> Random()
-        {
+        {   
             throw new NotImplementedException();
         }
 

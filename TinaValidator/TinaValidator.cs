@@ -7,11 +7,14 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class TinaValidator
     {
+        public const int Invalid = -1;
         public ValidateLogic Logic { get; set; }
         public TinaValidator(ValidateLogic logic = null)
         {
             Logic = logic;
         }
+
+        //private Dictionary<string, object> ParamArray
 
         // line index etc..
         public string Message { get; set; }
@@ -20,27 +23,31 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (things == null)
                 throw new ArgumentNullException("things");
 
-            return StatusChoice(things, 0, Logic.InitialStatus);
+            return AreaStatusChoice(things, 0, Logic.InitialStatus, null) != Invalid;
         }
 
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        private bool StatusChoice(List<object> things, int index, Status st)
-        {
-            if (st == Status.EndStatus && index == things.Count)
-                return true;
+        private int AreaStatusChoice(List<object> things, int index, Status st, AreaPart ap)
+        {   
+            if (st == Status.EndStatus)
+                return index;
             if (index == things.Count)
-                return false;
+                return Invalid;
 
-            for(int i = 0; i < st.Choices.Count; i++)
+            int nextIndex;
+            for (int i = 0; i < st.Choices.Count; i++)
             {
-                int nextIndex = st.Choices[i].Validate(things, index);                
-                if(nextIndex != -1)
-                    if(StatusChoice(things, nextIndex, st.Choices[i].NextStatus))
-                        return true;
+                if (st.Choices[i] is AreaPart nap)
+                    nextIndex = AreaStatusChoice(things, index, nap.InitialStatus, nap);
+                else
+                    nextIndex = st.Choices[i].Validate(things, index);
+
+                if (nextIndex != Invalid)
+                    return AreaStatusChoice(things, nextIndex, st.Choices[i].NextStatus, ap);
             }
-            return false;
+            return Invalid;
         }
 
         public string CreateRandomToString()
@@ -55,18 +62,21 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<object> CreateRandom()
         {
             List<object> result = new List<object>();
-            GetRandom(result, Logic.InitialStatus);
+            AreaGetRandom(result, Logic.InitialStatus, null);
             return result;
         }
 
-        private void GetRandom(List<object> result, Status st)
+        private void AreaGetRandom(List<object> result, Status st, AreaPart ap)
         {
             if (st == Status.EndStatus)
                 return;
             Random rnd = new Random((int)DateTime.Now.Ticks);
             int choiceIndex = rnd.Next(st.Choices.Count);
-            result.AddRange(st.Choices[choiceIndex].Random());
-            GetRandom(result, st.Choices[choiceIndex].NextStatus);
+            if (st.Choices[choiceIndex] is AreaPart nap)
+                AreaGetRandom(result, nap.InitialStatus, nap);
+            else
+                result.AddRange(st.Choices[choiceIndex].Random());
+            AreaGetRandom(result, st.Choices[choiceIndex].NextStatus, ap);
         }
     }
 }
