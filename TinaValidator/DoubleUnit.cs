@@ -10,6 +10,13 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public DoubleUnit()
             => CompareMethod = CompareMethod.Any;
+
+        public DoubleUnit(CharsToDoublePart ctdp)
+        {
+            CompareMethod = ctdp.CompareMethod;
+            Value1 = ctdp.Value1;
+            Value2 = ctdp.Value2;
+        }
         public DoubleUnit(double exactValue)
         {
             CompareMethod = CompareMethod.Exact;

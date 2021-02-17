@@ -50,8 +50,8 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (!decimal.TryParse(sb.ToString(), out decimal d))
                 return -1;
 
-            IntegerUnit IU = new IntegerUnit(this);
-            return IU.Compare(d) ? startIndex + i : -1;
+            IntegerUnit iu = new IntegerUnit(this);
+            return iu.Compare(d) ? startIndex + i : -1;
         }
 
         public override List<object> Random()
