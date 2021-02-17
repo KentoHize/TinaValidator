@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Aritiafel.Artifacts.TinaValidator;
+using Aritiafel;
 using System.Collections.Generic;
 using System;
 
@@ -62,6 +63,8 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
+            iu = new IntegerUnit(30, -68);
+            Assert.ThrowsException<ArgumentException>(() => iu.Random());
         }
 
         [TestMethod]
@@ -69,10 +72,11 @@ namespace TinvaValidatorTest
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
             DoubleUnit du = new DoubleUnit();            
-            Assert.IsTrue(du.Compare(rnd.NextDouble() * (double.MaxValue - double.MinValue) + double.MinValue));
-            Assert.IsTrue(du.Compare(rnd.NextDouble() * (double.MaxValue - double.MinValue) + double.MinValue));
-            Assert.IsTrue(du.Compare(rnd.NextDouble() * (double.MaxValue - double.MinValue) + double.MinValue));
-            Assert.IsTrue(du.Compare(rnd.NextDouble() * (double.MaxValue - double.MinValue) + double.MinValue));
+            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
+            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
+            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
+            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
+            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
             Assert.IsTrue(du.Compare(double.MinValue));
             Assert.IsTrue(du.Compare(double.MaxValue));
             Assert.IsTrue(!du.Compare("dd"));
@@ -100,6 +104,9 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
-        }
+
+            du = new DoubleUnit(6933.988, 5932.648819);
+            Assert.ThrowsException<ArgumentException>(() => du.Random());
+        } 
     }
 }

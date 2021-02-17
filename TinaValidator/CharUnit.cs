@@ -41,7 +41,11 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return Value1;
             Random rnd = new Random((int)DateTime.Now.Ticks);            
             if(CompareMethod == CompareMethod.MinMax)
+            {
+                if (Value1 > Value2)
+                    throw new ArgumentException();
                 return (char)rnd.Next(Value1, Value2);
+            }   
             else
                 return (char)rnd.Next(char.MinValue, char.MaxValue);
         }

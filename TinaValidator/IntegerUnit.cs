@@ -35,7 +35,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             CompareMethod = CompareMethod.MinMax;
             Value1 = minValue;
-            Value2 = maxValue;
+            Value2 = maxValue;            
         }
 
         public override bool Compare(object b)
@@ -58,7 +58,11 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return Value1;
             Random rnd = new Random((int)DateTime.Now.Ticks);
             if (CompareMethod == CompareMethod.MinMax)
-                return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);// Scan
+            { 
+                if (Value1 > Value2)
+                    throw new ArgumentException();                
+                return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);
+            }
             else
                 return new decimal(rnd.Next(), rnd.Next(), rnd.Next(), rnd.Next(2) == 1, 0);
         }
