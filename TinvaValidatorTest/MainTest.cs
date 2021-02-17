@@ -30,12 +30,7 @@ namespace TinvaValidatorTest
             TinaValidator tv = new TinaValidator(VL);
             bool result = tv.Validate(testString.Select(m => (object)m).ToArray());
             TestContext.WriteLine(result.ToString());
-
-            StringBuilder sb = new StringBuilder();                
-            List<object> randomList = tv.CreateRandom();
-            for(int i = 0; i < randomList.Count; i++)
-                sb.Append(randomList[i]);
-            TestContext.WriteLine(sb.ToString());
+            TestContext.WriteLine(tv.CreateRandomToString());
         }
 
         [TestMethod]
@@ -112,6 +107,7 @@ namespace TinvaValidatorTest
             for(int i = 0; i < 100; i++)
             {
                 List<object> list = validator.CreateRandom();
+                TestContext.WriteLine(list.ForEachToString());
                 TestContext.WriteLine(validator.Validate(list).ToString());
             }
         }
