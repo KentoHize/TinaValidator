@@ -15,17 +15,5 @@ namespace Aritiafel.Artifacts.TinaValidator
             InitialStatus = initialStatus;
             Parent = parent;
         }
-
-        //public string ID { get; set; }
-        //public UnitSet UnitSet { get; set; }
-        //public bool Compare(List<object> thing)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public List<object> Random()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

@@ -31,13 +31,12 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         private int AreaStatusChoice(List<object> things, int index, Status st, AreaPart ap)
         {
-            if (st == Status.EndStatus)
-                return index;
-
             int nextIndex;
             for (int i = 0; i < st.Choices.Count; i++)
-            {   
-                if(st.Choices[i] is SkipPart)
+            {
+                if (st.Choices[i] is EndPart)
+                    return index;
+                else if (st.Choices[i] is SkipPart)
                     nextIndex = index;
                 else if (st.Choices[i] is AreaPart nap)
                     nextIndex = AreaStatusChoice(things, index, nap.Area.InitialStatus, nap);
@@ -71,12 +70,12 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
 
         private void AreaGetRandom(List<object> result, Status st, AreaPart ap)
-        {
-            if (st == Status.EndStatus)
-                return;
+        {   
             Random rnd = new Random((int)DateTime.Now.Ticks);
             int choiceIndex = rnd.Next(st.Choices.Count);
-            if (st.Choices[choiceIndex] is AreaPart nap)
+            if (st.Choices[choiceIndex] is EndPart)
+                return;            
+            else if (st.Choices[choiceIndex] is AreaPart nap)
                 AreaGetRandom(result, nap.Area.InitialStatus, nap);
             else
                 result.AddRange(st.Choices[choiceIndex].Random());
