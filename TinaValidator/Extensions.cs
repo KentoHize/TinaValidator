@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -21,5 +22,8 @@ namespace Aritiafel.Artifacts.TinaValidator
                 us.Units.Add(new CharUnit(s[i]));
             return us;
         }
+
+        public static List<object> ToObjectList(this string s)
+            => s.ToList().Select(m => (object)m).ToList();
     }
 }

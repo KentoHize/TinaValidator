@@ -55,13 +55,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
 
         public override List<object> Random()
-        {
-            List<object> result = new List<object>();
-            IntegerUnit IU = new IntegerUnit(this);
-            char[] ca = IU.Random().ToString().ToCharArray();
-            for (int i = 0; i < ca.Length; i++)
-                result.Add(ca[i]);
-            return result;
+        {   
+            IntegerUnit iu = new IntegerUnit(this);
+            return iu.Random().ToString().ToObjectList();
         }
     }
 }

@@ -9,6 +9,13 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public BooleanUnit()
             => CompareMethod = CompareMethod.Any;
+
+        public BooleanUnit(CharsToBooleanPart ctbp)
+        {
+            CompareMethod = ctbp.CompareMethod;
+            Value = ctbp.Value;
+        }
+
         public BooleanUnit(bool value)
         {
             CompareMethod = CompareMethod.Exact;

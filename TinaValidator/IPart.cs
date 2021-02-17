@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public interface INode
+    public interface IPart
     {
         List<object> Random();
         int Validate(List<object> thing, int startIndex);
