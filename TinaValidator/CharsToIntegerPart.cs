@@ -40,12 +40,11 @@ namespace Aritiafel.Artifacts.TinaValidator
             {
                 if (!(thing[startIndex + i] is char))
                     break;
-                else if (!char.IsDigit((char)thing[startIndex + i]) || ((char)thing[startIndex + i] == '-' && i == 0))
+                else if (!char.IsDigit((char)thing[startIndex + i]) && ((char)thing[startIndex + i] != '-' || i != 0))
                     break;
-                else if (i > 28) // decimal max length
+                else if (i > 29) // decimal max length + '-'
                     break;
-                sb.Append(thing[startIndex + i]);
-                i++;
+                sb.Append(thing[startIndex + i]);                
             }
 
             if (!decimal.TryParse(sb.ToString(), out decimal d))

@@ -15,7 +15,7 @@ namespace TinvaValidatorTest
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestParse()
         {
             ValidateLogic VL = new ValidateLogic();
             VL.InitialStatus = new Status();            
@@ -107,6 +107,13 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(validator.CreateRandomToString());
             //12, 56 70 CHA
             //08, 32 45 CHR
+
+            
+            for(int i = 0; i < 100; i++)
+            {
+                List<object> list = validator.CreateRandom();
+                TestContext.WriteLine(validator.Validate(list).ToString());
+            }
         }
 
         public void TestJsonConvert()
