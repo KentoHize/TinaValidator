@@ -24,6 +24,7 @@ namespace Aritiafel.Artifacts.Calculator
         Minus,
         Multiply,
         Divide,
+        ExactlyDivide,
         Remainder,
         PlusOne,
         MinusOne,

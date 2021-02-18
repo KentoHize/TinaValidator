@@ -26,6 +26,5 @@ namespace Aritiafel.Artifacts.Calculator
         {
             return null;
         }
-
     }
 }

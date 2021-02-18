@@ -18,6 +18,8 @@ namespace TinvaValidatorTest
             TestContext.WriteLine((a + b).ToString());
         }
 
+        
+
         [TestMethod]
         public void ConstPlusConst()
         {
