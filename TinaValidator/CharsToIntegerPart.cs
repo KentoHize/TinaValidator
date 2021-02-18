@@ -32,7 +32,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value2 = maxValue;
         }
 
-        public override int Validate(List<object> thing, int startIndex)
+        public override int Validate(List<object> thing, int startIndex = 0)
         {   
             StringBuilder sb = new StringBuilder();
             int i;
