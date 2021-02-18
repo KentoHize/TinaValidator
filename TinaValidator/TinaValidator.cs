@@ -70,11 +70,11 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
 
         private void AreaGetRandom(List<object> result, Status st, AreaPart ap)
-        {   
+        {
             Random rnd = new Random((int)DateTime.Now.Ticks);
             int choiceIndex = rnd.Next(st.Choices.Count);
             if (st.Choices[choiceIndex] is EndPart)
-                return;            
+                return;
             else if (st.Choices[choiceIndex] is AreaPart nap)
                 AreaGetRandom(result, nap.Area.InitialStatus, nap);
             else

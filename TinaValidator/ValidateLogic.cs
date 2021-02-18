@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class ValidateLogic : Area
-    {   
+    {
+        public List<Area> Areas { get; set; } = new List<Area>();
         public void Save(string filePath)
         {
-            
+
         }
 
         public void Load(string filePath)
@@ -20,7 +20,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         { }
 
         public ValidateLogic(string name, Status initialStatus = null)
-            : base (name, initialStatus, null)
-        { }        
+            : base(name, initialStatus, null)
+        { }
     }
 }

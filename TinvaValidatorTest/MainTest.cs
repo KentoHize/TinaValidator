@@ -1,10 +1,9 @@
 using Aritiafel.Artifacts.TinaValidator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Diagnostics;
-using System.Text;
 
 namespace TinvaValidatorTest
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Aritiafel.Artifacts.TinaValidator
+﻿namespace Aritiafel.Artifacts.TinaValidator
 {
     public static class CharUnits
     {
@@ -37,7 +33,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public static CharUnit HorizontalTab
             => new CharUnit('\t');
         public static CharUnit Backspace
-            => new CharUnit('\b');        
+            => new CharUnit('\b');
         public static CharUnit Null
             => new CharUnit('\0');
         public static CharUnit Slash
@@ -47,7 +43,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public static CharUnit Ellipsis
             => new CharUnit('…');
         public static CharUnit Dash
-            => new CharUnit('-');        
+            => new CharUnit('-');
         public static CharUnit GraveAccent
             => new CharUnit('`');
         public static CharUnit VerticalBar

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
@@ -33,10 +32,10 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
 
         public override int Validate(List<object> thing, int startIndex = 0)
-        {   
+        {
             StringBuilder sb = new StringBuilder();
             int i;
-            for(i = 0; startIndex + i < thing.Count; i++)
+            for (i = 0; startIndex + i < thing.Count; i++)
             {
                 if (!(thing[startIndex + i] is char))
                     break;
@@ -44,7 +43,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     break;
                 else if (i > 29) // decimal max length + '-'
                     break;
-                sb.Append(thing[startIndex + i]);                
+                sb.Append(thing[startIndex + i]);
             }
 
             if (!decimal.TryParse(sb.ToString(), out decimal d))
@@ -55,7 +54,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
 
         public override List<object> Random()
-        {   
+        {
             IntegerUnit iu = new IntegerUnit(this);
             return iu.Random().ToString().ToObjectList();
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -7,7 +6,7 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public List<Unit> Units { get; set; } = new List<Unit>();
         public UnitSet(Unit unit)
-            : this (null, unit)
+            : this(null, unit)
         { }
 
         public UnitSet(List<Unit> units = null)
@@ -22,10 +21,10 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public UnitSet(string id, List<Unit> units = null)
             : base(null, null, id)
-        {   
+        {
             if (units != null)
                 Units = units;
-        }      
+        }
 
         public override List<object> Random()
         {

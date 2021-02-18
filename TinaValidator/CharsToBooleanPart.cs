@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -30,7 +28,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                thing[startIndex + 1] is char c2 && thing[startIndex + 2] is char c3 &&
                thing[startIndex + 3] is char c4)
             {
-                if (char.ToUpper(c1) == 'T' && char.ToUpper(c2) == 'R' && 
+                if (char.ToUpper(c1) == 'T' && char.ToUpper(c2) == 'R' &&
                     char.ToUpper(c3) == 'U' && char.ToUpper(c4) == 'E')
                     result = true;
                 else if (startIndex + 4 < thing.Count && thing[startIndex + 4] is char c5 &&

@@ -20,7 +20,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             CompareMethod = CompareMethod.Exact;
             Value = value;
-        }   
+        }
 
         public override bool Compare(object b)
         {
@@ -31,7 +31,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             else
                 return (bool)b == Value;
         }
-        
+
         public override object Random()
         {
             if (CompareMethod == CompareMethod.Exact)

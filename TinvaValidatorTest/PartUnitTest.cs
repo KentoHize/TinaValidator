@@ -1,7 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Aritiafel.Artifacts.TinaValidator;
 using Aritiafel;
-using System.Collections.Generic;
+using Aritiafel.Artifacts.TinaValidator;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace TinvaValidatorTest
@@ -113,7 +112,7 @@ namespace TinvaValidatorTest
         public void CharUnitTest()
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
-            CharUnit cu = new CharUnit();                
+            CharUnit cu = new CharUnit();
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));

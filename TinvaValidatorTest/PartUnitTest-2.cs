@@ -1,9 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Aritiafel.Artifacts.TinaValidator;
-using Aritiafel;
-using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Text;
+using System.Collections.Generic;
 
 namespace TinvaValidatorTest
 {
@@ -55,7 +53,7 @@ namespace TinvaValidatorTest
             ctip = new CharsToIntegerPart(203587631978);
             Assert.IsTrue(ctip.Validate("203587631978drd".ToObjectList()) == 12);
             Assert.IsTrue(ctip.Validate("203587631979".ToObjectList()) == -1);
-            Assert.IsTrue(ctip.Validate("203587631977".ToObjectList()) == -1);            
+            Assert.IsTrue(ctip.Validate("203587631977".ToObjectList()) == -1);
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
             ctip = new CharsToIntegerPart(-25549, 5678913);
