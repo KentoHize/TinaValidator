@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class ArithmeticExpression : Number
+    public class ArithmeticExpression : INumber
     {
-        public Number A { get; set; }
-        public Number B { get; set; }        
+        public INumber A { get; set; }
+        public INumber B { get; set; }        
         public Operator OP { get; set; }
 
-        public override NumberConst GetResult(IVariableLinker vl)
+        public NumberConst GetResult(IVariableLinker vl)
         {
             switch(OP)
             {
@@ -22,6 +22,8 @@ namespace Aritiafel.Artifacts.Calculator
                     return A.GetResult(vl) * B.GetResult(vl);
                 case Operator.Divide:
                     return A.GetResult(vl) / B.GetResult(vl);
+                case Operator.ExactlyDivide:
+                    return B.GetResult(vl).ReverseExactlyDivide(A.GetResult(vl));
                 case Operator.Remainder:
                     return A.GetResult(vl) % B.GetResult(vl);
                 case Operator.PlusOne:

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public abstract class Number
+    public interface INumber
     {
-        public abstract NumberConst GetResult(IVariableLinker vl);
+        NumberConst GetResult(IVariableLinker vl);
     }
 }

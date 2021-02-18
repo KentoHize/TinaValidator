@@ -71,6 +71,6 @@ namespace Aritiafel.Artifacts.Calculator
         public override NumberConst ReverseDivide(NumberConst b)
             => b.Divide(this);
         public override NumberConst ReverseRemainder(NumberConst b)
-            => b.Remainder(this);        
+            => b.Remainder(this);
     }
 }
