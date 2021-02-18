@@ -6,14 +6,34 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class LongConst : NumberConst
     {
+        private long _Value;
+        public override object Value => _Value;
+        public LongConst(long value)
+            => _Value = value;
         public static NumberConst operator +(LongConst a, LongConst b)
-            => new LongConst(a._Value + b._Value);
+            => a.Add(b);
+        public static NumberConst operator +(LongConst a, DoubleConst b)
+            => a.Add(b);
+        public static NumberConst operator -(LongConst a, LongConst b)
+            => a.Minus(b);
+        public static NumberConst operator -(LongConst a, DoubleConst b)
+            => a.Minus(b);
+        public static NumberConst operator *(LongConst a, LongConst b)
+            => a.Multiply(b);
+        public static NumberConst operator *(LongConst a, DoubleConst b)
+            => a.Multiply(b);
+        public static NumberConst operator /(LongConst a, LongConst b)
+            => a.Divide(b);
+        public static NumberConst operator /(LongConst a, DoubleConst b)
+            => a.Divide(b);
+        public static NumberConst operator %(LongConst a, LongConst b)
+            => a.Remainder(b);
+        public static NumberConst operator %(LongConst a, DoubleConst b)
+            => a.Remainder(b);
         public override string ToString()
             => _Value.ToString();
-
         public object GetValue()
             => _Value;
-
         public override NumberConst GetResult(IVariableLinker vl)
             => this;
         public override NumberConst ReverseAdd(NumberConst b)
@@ -51,14 +71,6 @@ namespace Aritiafel.Artifacts.Calculator
         public override NumberConst ReverseDivide(NumberConst b)
             => b.Divide(this);
         public override NumberConst ReverseRemainder(NumberConst b)
-            => b.Remainder(this);
-        public LongConst(long value)
-        {
-            _Value = value;
-        }
-
-        public override object Value => _Value;
-
-        private long _Value;
+            => b.Remainder(this);        
     }
 }

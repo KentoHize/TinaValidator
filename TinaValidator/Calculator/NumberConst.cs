@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    
     public abstract class NumberConst : Number
-    {   
+    {
+        public abstract object Value { get; }
         public abstract NumberConst ReverseAdd(NumberConst b);
         public abstract NumberConst Add(LongConst b);
         public abstract NumberConst Add(DoubleConst b);
@@ -49,19 +49,19 @@ namespace Aritiafel.Artifacts.Calculator
             => null;
         public static NumberConst LongMinusDouble(long a, double b)
             => null;
-        public static NumberConst DoubleMinusLong(long a, double b)
+        public static NumberConst DoubleMinusLong(double a, long b)
             => null;
         public static NumberConst LongMultiplyDouble(long a, double b)
             => null;
         public static NumberConst LongDivideDouble(long a, double b)
             => null;
-        public static NumberConst DoubleDivideLong(long a, double b)
+        public static NumberConst DoubleDivideLong(double a, long b)
             => null;
         public static NumberConst LongExactlyDivideDouble(long a, double b)
             => null;
         public static NumberConst LongDivideLong(long a, long b)
             => null;
-
-        public abstract object Value { get; }
+        public static NumberConst DoubleExactlyDivideLong(double a, long b)
+            => null;
     }
 }
