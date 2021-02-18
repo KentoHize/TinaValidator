@@ -12,6 +12,8 @@ namespace Aritiafel.Artifacts.Calculator
             => _Value = value;
         public BooleanConst GetResult(IVariableLinker vl)
             => this;
+        public override string ToString()
+            => _Value.ToString();
         public static bool operator true(BooleanConst a)
             => true;
         public static bool operator false(BooleanConst a)

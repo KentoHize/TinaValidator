@@ -36,6 +36,8 @@ namespace TinvaValidatorTest
         //"DoubleA": 2.55;
         //"DoubleB": 7.8;
         //"DoubleC": -65.237819;
+        //"True"
+        //"False"
 
         [TestMethod]
         public void VariableAndConst()
@@ -51,6 +53,18 @@ namespace TinvaValidatorTest
             ArithmeticExpression ae3 = new ArithmeticExpression(ae2, b, Operator.Minus);
 
             TestContext.WriteLine(ae3.GetResult(fvl).ToString());
+        }
+
+
+        [TestMethod]
+        public void BooleanExpression()
+        {
+            FakeVariableLinker fvl = new FakeVariableLinker();
+
+            BooleanExpression be = new BooleanExpression(new BooleanConst(true), new BooleanConst(false));
+            BooleanExpression be2 = new BooleanExpression(new BooleanVar(FakeVariableLinker.True), be, Operator.And);
+            BooleanExpression be3 = new BooleanExpression(be2, null, Operator.Not);
+            TestContext.WriteLine(be3.GetResult(fvl).ToString());
         }
     }
 }
