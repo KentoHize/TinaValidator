@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class NumberVar : Variable
+    public interface IVariableLinker
     {
-
+        object GetValue(Variable v);
+        void SetValue(Variable v, object value);
     }
 }

@@ -18,5 +18,18 @@ namespace TinvaValidatorTest
             TestContext.WriteLine((a + b).ToString());
         }
 
+        [TestMethod]
+        public void ConstPlusConst()
+        {
+            LongConst a = new LongConst(3);
+            LongConst b = new LongConst(5);
+            ArithmeticExpression ae = new ArithmeticExpression();
+            ae.A = a;
+            ae.B = b;
+            ae.OP = Operator.Plus;
+            
+            TestContext.WriteLine(ae.GetResult(null).ToString());
+        }
+
     }
 }
