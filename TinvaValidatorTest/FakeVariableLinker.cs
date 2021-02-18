@@ -7,25 +7,24 @@ namespace TinvaValidatorTest
 {
     public class FakeVariableLinker : IVariableLinker
     {
+        public const string IntA = "IntA";
+        public const string IntB = "IntB";
+        public const string IntC = "IntC";
+        public const string DoubleA = "DoubleA";
+        public const string DoubleB = "DoubleB";
+        public const string DoubleC = "DoubleC";
         public object GetValue(Variable v)
         {
-            switch(v.Name)
+            return v.Name switch
             {
-                case "IntA":
-                    return 60;
-                case "IntB":
-                    return -5;
-                case "IntC":
-                    return 999990;
-                case "DoubleA":
-                    return 2.55;
-                case "DoubleB":
-                    return 7.8;
-                case "DoubleC":
-                    return -65.237819;
-                default:
-                    return null;
-            }
+                "IntA" => 60,
+                "IntB" => -5,
+                "IntC" => 999990,
+                "DoubleA" => 2.55,
+                "DoubleB" => 7.8,
+                "DoubleC" => -65.237819,
+                _ => null,
+            };
         }
 
         public void SetValue(Variable v, object value)

@@ -6,6 +6,10 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class DoubleConst : NumberConst
     {
+        public static readonly DoubleConst MaxValue = new DoubleConst(double.MaxValue);
+
+        public static readonly DoubleConst MinValue = new DoubleConst(double.MinValue);
+
         private double _Value;
         public override object Value => _Value;
         public DoubleConst(double value)

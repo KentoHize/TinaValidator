@@ -12,14 +12,15 @@ namespace Aritiafel.Artifacts.Calculator
 
         }
 
-        public bool CalculateBooleanExpression()
+        public bool CalculateBooleanExpression(BooleanExpression be)
         {
-            return false;
+            return be.GetResult(VariableLinker).Value;
         }
+            
 
         public object CalculateArithmeticExpression(ArithmeticExpression ae)
         {   
-            return ae.GetResult(VariableLinker);
+            return ae.GetResult(VariableLinker).Value;
         }
 
         public string CalculateStringExpression()
