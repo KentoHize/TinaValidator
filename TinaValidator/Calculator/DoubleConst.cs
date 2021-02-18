@@ -29,8 +29,7 @@ namespace Aritiafel.Artifacts.Calculator
         public static NumberConst operator %(DoubleConst a, DoubleConst b)
             => a.Remainder(b);
         public static NumberConst operator %(DoubleConst a, LongConst b)
-            => a.Remainder(b);
-        
+            => a.Remainder(b);        
         public override string ToString()
             => _Value.ToString();
         public object GetValue()

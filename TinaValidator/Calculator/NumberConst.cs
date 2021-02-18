@@ -46,22 +46,72 @@ namespace Aritiafel.Artifacts.Calculator
         public static NumberConst operator --(NumberConst a)
             => a - new LongConst(1);
         public static NumberConst LongAddDouble(long a, double b)
-            => null;
+        {
+            if (Math.Round(b) != b)
+                return new DoubleConst(b + a);
+            double d = b + a;
+            if (d >= long.MinValue && d <= long.MaxValue)
+                return new LongConst((long)d);
+            return new DoubleConst(d);
+        }            
         public static NumberConst LongMinusDouble(long a, double b)
-            => null;
+        {
+            if (Math.Round(b) != b)
+                return new DoubleConst(a - b);
+            double d = a - b;
+            if (d >= long.MinValue && d <= long.MaxValue)
+                return new LongConst((long)d);
+            return new DoubleConst(d);
+        }            
         public static NumberConst DoubleMinusLong(double a, long b)
-            => null;
+        {
+            if (Math.Round(a) != a)
+                return new DoubleConst(a - b);
+            double d = a - b;
+            if (d >= long.MinValue && d <= long.MaxValue)
+                return new LongConst((long)d);
+            return new DoubleConst(d);
+        }            
         public static NumberConst LongMultiplyDouble(long a, double b)
-            => null;
+        {
+            decimal m = (decimal)(b * a);
+            if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
+                return new LongConst((long)m);
+            return new DoubleConst((double)m);
+        }   
         public static NumberConst LongDivideDouble(long a, double b)
-            => null;
+        {
+            decimal m = a / (decimal)b;
+            if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
+                return new LongConst((long)m);
+            return new DoubleConst((double)m);
+        }            
         public static NumberConst DoubleDivideLong(double a, long b)
-            => null;
+        {
+            decimal m = (decimal) a / b;
+            if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
+                return new LongConst((long)m);
+            return new DoubleConst((double)m);
+        }
         public static NumberConst LongExactlyDivideDouble(long a, double b)
-            => null;
+        {
+            decimal m = a / (decimal)b;
+            if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
+                return new LongConst((long)Math.Round(m));
+            return new DoubleConst((double)Math.Round(m));
+        }   
         public static NumberConst LongDivideLong(long a, long b)
-            => null;
+        {
+            if (a % b == 0)
+                return new LongConst(a / b);
+            return new DoubleConst((double)a / (double)b);
+        }
         public static NumberConst DoubleExactlyDivideLong(double a, long b)
-            => null;
+        {
+            double d = Math.Round(a / b);
+            if (d >= long.MinValue && d <= long.MaxValue)
+                return new LongConst((long)d);
+            return new DoubleConst((double)d);
+        }
     }
 }
