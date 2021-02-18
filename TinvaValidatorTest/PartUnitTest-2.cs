@@ -3,12 +3,12 @@ using Aritiafel.Artifacts.TinaValidator;
 using Aritiafel;
 using System.Collections.Generic;
 using System;
+using System.Text;
 
 namespace TinvaValidatorTest
 {
     public partial class PartUnitTest
     {
-
         [TestMethod]
         public void CharsToBooleanUnitTest()
         {
@@ -45,6 +45,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctip.Validate("-1755535dd".ToObjectList()) == 8);
             Assert.IsTrue(ctip.Validate("56.2365".ToObjectList()) == 2);
             Assert.IsTrue(ctip.Validate(new List<object> { 7 }) == -1);
+            Assert.IsTrue(ctip.Validate("68789321897315678649889876587".ToObjectList()) == 29);
+            Assert.IsTrue(ctip.Validate("98789321897315678649889879324".ToObjectList()) == -1);
+            Assert.IsTrue(ctip.Validate("-68788671897315678649889876587".ToObjectList()) == 30);
+            Assert.IsTrue(ctip.Validate("-98788671897315678649889876587".ToObjectList()) == -1);
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
@@ -75,6 +79,11 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctdp.Validate("-17.88535dd".ToObjectList()) == 9);
             Assert.IsTrue(ctdp.Validate("ssr1.2365".ToObjectList()) == -1);
             Assert.IsTrue(ctdp.Validate(new List<object> { 15 }) == -1);
+            Assert.IsTrue(ctdp.Validate(".2365".ToObjectList()) == 5);
+            string s = string.Concat("0.", new string('5', 400));
+            Assert.IsTrue(ctdp.Validate(s.ToObjectList()) == 330);
+            s = string.Concat("-0.", new string('7', 300));
+            Assert.IsTrue(ctdp.Validate(s.ToObjectList()) == 303);
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());

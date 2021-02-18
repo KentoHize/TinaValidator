@@ -51,7 +51,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 else if (!char.IsDigit((char)thing[startIndex + i]) &&
                     ((char)thing[startIndex + i] != '-' || i != 0))
                     break;
-                else if (i > 320) // too long for a double
+                else if (i > 329) // too long for a double
                     break;
                 sb.Append(thing[startIndex + i]);
             }
