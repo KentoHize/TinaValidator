@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public enum VariableForm
+    public enum VariableSource
     {
         EnvoirmentVariable = 0,
         CustomVariable
     }
 
-    public class Variable
+    public abstract class Variable
     {
-        public VariableForm VariableForm { get; set; }
-        public string VariableName { get; set; }
+        public VariableSource Source { get; set; }
+        public string Name { get; set; }
         public List<object> Keys { get; set; }
         public object Tag { get; set; }
 
-        //public override object GetValue(IVariableLinker vr);
-
+        protected Variable(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
+        {
+            Name = name ?? IdentifyShop.GetNewID();
+            Keys = keys ?? new List<object>();
+            Source = source;            
+        }
     }
 }

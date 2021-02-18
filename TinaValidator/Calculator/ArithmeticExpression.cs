@@ -10,6 +10,13 @@ namespace Aritiafel.Artifacts.Calculator
         public INumber B { get; set; }        
         public Operator OP { get; set; }
 
+        public ArithmeticExpression(INumber a = null, INumber b = null, Operator op = Operator.Plus)
+        {
+            A = a;
+            B = b;
+            OP = op;
+        }
+
         public NumberConst GetResult(IVariableLinker vl)
         {
             switch(OP)
