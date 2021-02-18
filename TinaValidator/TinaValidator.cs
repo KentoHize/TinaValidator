@@ -21,7 +21,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Validate(List<object> things)
         {
             if (things == null)
-                throw new ArgumentNullException("things");
+                throw new ArgumentNullException(nameof(things));
 
             return AreaStatusChoice(things, 0, Logic.InitialStatus, null) != Invalid;
         }

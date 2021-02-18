@@ -15,8 +15,7 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestParse()
         {
-            ValidateLogic VL = new ValidateLogic();
-            VL.InitialStatus = new Status();
+            ValidateLogic VL = new ValidateLogic(new Status());            
             UnitSet us = new UnitSet(CharUnits.AtoZ);
             us.Units.Add(CharUnits.atoz);
             VL.InitialStatus.Choices.Add(us);
@@ -49,10 +48,8 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void AreaParse()
         {
-            ValidateLogic VL = new ValidateLogic();
-            VL.InitialStatus = new Status();
-            Area ar1 = new Area(null, null, VL);
-            ar1.InitialStatus = new Status();
+            ValidateLogic VL = new ValidateLogic(new Status());
+            Area ar1 = new Area(null, new Status(), VL);            
             AreaPart ap1 = new AreaPart(ar1, new Status());
 
             VL.InitialStatus.Choices.Add(ap1);
@@ -90,18 +87,14 @@ namespace TinvaValidatorTest
             CRLF.NextStatus = VL.InitialStatus;
             us3.NextStatus.Choices.Add(EndPart.Instance);
 
-            TinaValidator validator = new TinaValidator();
-            validator.Logic = VL;
-
+            TinaValidator validator = new TinaValidator(VL);
             bool result;
             using (FileStream fs = new FileStream(@"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\A.txt", FileMode.Open))
             {
-                using (StreamReader sr = new StreamReader(fs))
-                {
-                    string s = sr.ReadToEnd();
-                    List<object> thing = s.Select(m => (object)m).ToList();
-                    result = validator.Validate(thing);
-                }
+                using StreamReader sr = new StreamReader(fs);
+                string s = sr.ReadToEnd();
+                List<object> thing = s.Select(m => (object)m).ToList();
+                result = validator.Validate(thing);
             }
 
             TestContext.WriteLine(result.ToString());

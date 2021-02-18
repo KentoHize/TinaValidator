@@ -37,13 +37,13 @@ namespace Aritiafel.Artifacts.TinaValidator
             int i;
             for (i = 0; startIndex + i < thing.Count; i++)
             {
-                if (!(thing[startIndex + i] is char))
+                if (!(thing[startIndex + i] is char c))
                     break;
-                else if (!char.IsDigit((char)thing[startIndex + i]) && ((char)thing[startIndex + i] != '-' || i != 0))
+                else if (!char.IsDigit(c) && (c != '-' || i != 0))
                     break;
                 else if (i > 29) // decimal max length + '-'
                     break;
-                sb.Append(thing[startIndex + i]);
+                sb.Append(c);
             }
 
             if (!decimal.TryParse(sb.ToString(), out decimal d))
