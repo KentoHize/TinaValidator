@@ -66,5 +66,22 @@ namespace TinvaValidatorTest
             BooleanExpression be3 = new BooleanExpression(be2, null, Operator.Not);
             TestContext.WriteLine(be3.GetResult(fvl).ToString());
         }
+
+
+        [TestMethod]
+        public void CompareExpression()
+        {
+            FakeVariableLinker fvl = new FakeVariableLinker();
+
+            CompareExpression ce = new CompareExpression(new LongConst(30), new LongConst(30));
+            TestContext.WriteLine(ce.GetResult(fvl).ToString());
+            CompareExpression ce2 = new CompareExpression(new LongConst(30), new LongVar(FakeVariableLinker.IntA));
+            TestContext.WriteLine(ce2.GetResult(fvl).ToString());
+            ArithmeticExpression ae = new ArithmeticExpression(new LongConst(30), new DoubleConst(30d));
+            CompareExpression ce3 = new CompareExpression(ae, new LongVar(FakeVariableLinker.IntA));
+            TestContext.WriteLine(ce3.GetResult(fvl).ToString());
+            CompareExpression ce4 = new CompareExpression(new LongConst(40), new DoubleConst(30), Operator.GreaterThan);
+            TestContext.WriteLine(ce4.GetResult(fvl).ToString());
+        }
     }
 }

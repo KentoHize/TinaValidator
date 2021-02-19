@@ -36,11 +36,24 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(IBoolean);
-        public override BooleanConst EqualTo(ObjectConst b)
-            => b == this;
-        public override BooleanConst GreaterThan(ObjectConst b)
+
+        protected override BooleanConst ReverseEqualTo(ObjectConst b)
+            => b is BooleanConst c ? c == this : throw new ArithmeticException();
+        public override BooleanConst EqualTo(LongConst b)
             => throw new ArithmeticException();
-        public override BooleanConst LessThan(ObjectConst b)
+        public override BooleanConst EqualTo(DoubleConst b)
+            => throw new ArithmeticException();
+        protected override BooleanConst ReverseGreaterThan(ObjectConst b) 
+            => throw new ArithmeticException();
+        public override BooleanConst GreaterThan(LongConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst GreaterThan(DoubleConst b)
+            => throw new ArithmeticException();
+        protected override BooleanConst ReverseLessThan(ObjectConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst LessThan(LongConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst LessThan(DoubleConst b)
             => throw new ArithmeticException();
     }
 }

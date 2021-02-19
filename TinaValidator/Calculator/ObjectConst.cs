@@ -8,21 +8,27 @@ namespace Aritiafel.Artifacts.Calculator
     {
         public abstract ObjectConst GetObject(IVariableLinker vl);
         public abstract Type GetObjectType();
-        public abstract BooleanConst EqualTo(ObjectConst b);
-        public abstract BooleanConst GreaterThan(ObjectConst b);
-        public abstract BooleanConst LessThan(ObjectConst b);
+        protected abstract BooleanConst ReverseEqualTo(ObjectConst b);
+        public abstract BooleanConst EqualTo(LongConst b);
+        public abstract BooleanConst EqualTo(DoubleConst b);
+        protected abstract BooleanConst ReverseGreaterThan(ObjectConst b);
+        public abstract BooleanConst GreaterThan(LongConst b);
+        public abstract BooleanConst GreaterThan(DoubleConst b);
+        protected abstract BooleanConst ReverseLessThan(ObjectConst b);
+        public abstract BooleanConst LessThan(LongConst b);
+        public abstract BooleanConst LessThan(DoubleConst b);
         public static BooleanConst operator ==(ObjectConst a, ObjectConst b)
-            => a.EqualTo(b);
+            => b.ReverseEqualTo(a);
         public static BooleanConst operator !=(ObjectConst a, ObjectConst b)
-            => !a.EqualTo(b);
+            => !b.ReverseEqualTo(a);
         public static BooleanConst operator >(ObjectConst a, ObjectConst b)
-            => a.GreaterThan(b);
+            => b.ReverseGreaterThan(a);
         public static BooleanConst operator >=(ObjectConst a, ObjectConst b)
-            => a.GreaterThan(b) || a.EqualTo(b);
+            => b.ReverseGreaterThan(a) || b.ReverseEqualTo(a);
         public static BooleanConst operator <(ObjectConst a, ObjectConst b)
-            => a.LessThan(b);
+            => b.ReverseLessThan(a);
         public static BooleanConst operator <=(ObjectConst a, ObjectConst b)
-            => a.LessThan(b) || a.EqualTo(b);
+            => b.ReverseLessThan(a) || b.ReverseEqualTo(a);
 
         public override bool Equals(object obj)
         {

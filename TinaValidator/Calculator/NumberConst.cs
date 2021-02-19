@@ -7,31 +7,23 @@ namespace Aritiafel.Artifacts.Calculator
     public abstract class NumberConst : ObjectConst, INumber
     {
         public abstract object Value { get; }
-        public abstract BooleanConst EqualTo(NumberConst b);
-        public abstract BooleanConst EqualTo(LongConst b);
-        public abstract BooleanConst EqualTo(DoubleConst b);
+        protected abstract BooleanConst ReverseEqualTo(NumberConst b);
+        protected abstract BooleanConst ReverseGreaterThan(NumberConst b);
+        protected abstract BooleanConst ReverseLessThan(NumberConst b);
 
-        public abstract BooleanConst GreaterThan(NumberConst b);
-        public abstract BooleanConst GreaterThan(LongConst b);
-        public abstract BooleanConst GreaterThan(DoubleConst b);
-
-        public abstract BooleanConst LessThan(NumberConst b);
-        public abstract BooleanConst LessThan(LongConst b);
-        public abstract BooleanConst LessThan(DoubleConst b);
-
-        public abstract NumberConst ReverseAdd(NumberConst b);
+        protected abstract NumberConst ReverseAdd(NumberConst b);
         public abstract NumberConst Add(LongConst b);
         public abstract NumberConst Add(DoubleConst b);
 
-        public abstract NumberConst ReverseMinus(NumberConst b);
+        protected abstract NumberConst ReverseMinus(NumberConst b);
         public abstract NumberConst Minus(LongConst b);
         public abstract NumberConst Minus(DoubleConst b);
 
-        public abstract NumberConst ReverseMultiply(NumberConst b);
+        protected abstract NumberConst ReverseMultiply(NumberConst b);
         public abstract NumberConst Multiply(LongConst b);
         public abstract NumberConst Multiply(DoubleConst b);
 
-        public abstract NumberConst ReverseDivide(NumberConst b);
+        protected abstract NumberConst ReverseDivide(NumberConst b);
         public abstract NumberConst Divide(LongConst b);
         public abstract NumberConst Divide(DoubleConst b);
 
@@ -39,7 +31,7 @@ namespace Aritiafel.Artifacts.Calculator
         public abstract NumberConst ExactlyDivide(LongConst b);
         public abstract NumberConst ExactlyDivide(DoubleConst b);
 
-        public abstract NumberConst ReverseRemainder(NumberConst b);
+        protected abstract NumberConst ReverseRemainder(NumberConst b);
         public abstract NumberConst Remainder(LongConst b);
         public abstract NumberConst Remainder(DoubleConst b);
 
@@ -58,17 +50,17 @@ namespace Aritiafel.Artifacts.Calculator
         public static NumberConst operator --(NumberConst a)
             => a - new LongConst(1);
         public static BooleanConst operator ==(NumberConst a, NumberConst b)
-            => a.EqualTo(b);
+            => b.ReverseEqualTo(a);
         public static BooleanConst operator !=(NumberConst a, NumberConst b)
-            => !a.EqualTo(b);
+            => !b.ReverseEqualTo(a);
         public static BooleanConst operator >(NumberConst a, NumberConst b)
-            => a.GreaterThan(b);
+            => b.ReverseGreaterThan(a);
         public static BooleanConst operator >=(NumberConst a, NumberConst b)
-            => a.GreaterThan(b) || a.EqualTo(b);
+            => b.ReverseGreaterThan(a) || b.ReverseEqualTo(a);
         public static BooleanConst operator <(NumberConst a, NumberConst b)
-            => a.LessThan(b);
+            => b.ReverseLessThan(a);
         public static BooleanConst operator <=(NumberConst a, NumberConst b)
-            => a.LessThan(b) || a.EqualTo(b);
+            => b.ReverseLessThan(a) || b.ReverseEqualTo(a);
         public static NumberConst LongAddDouble(long a, double b)
         {
             if (Math.Round(b) != b)
@@ -143,15 +135,15 @@ namespace Aritiafel.Artifacts.Calculator
         public override Type GetObjectType()
             => typeof(INumber);
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-            if (ReferenceEquals(obj, null))
-                return false;
-            if(!(obj is NumberConst n))
-                return false;
-            return (this == n).Value;
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    if (ReferenceEquals(this, obj))
+        //        return true;
+        //    if (ReferenceEquals(obj, null))
+        //        return false;
+        //    if(!(obj is NumberConst n))
+        //        return false;
+        //    return (this == n).Value;
+        //}
     }
 }
