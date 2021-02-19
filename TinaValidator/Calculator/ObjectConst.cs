@@ -24,11 +24,11 @@ namespace Aritiafel.Artifacts.Calculator
         public static BooleanConst operator >(ObjectConst a, ObjectConst b)
             => b.ReverseGreaterThan(a);
         public static BooleanConst operator >=(ObjectConst a, ObjectConst b)
-            => b.ReverseGreaterThan(a) | b.ReverseEqualTo(a);
+            => b.ReverseGreaterThan(a) || b.ReverseEqualTo(a);
         public static BooleanConst operator <(ObjectConst a, ObjectConst b)
             => b.ReverseLessThan(a);
         public static BooleanConst operator <=(ObjectConst a, ObjectConst b)
-            => b.ReverseLessThan(a) | (b.ReverseEqualTo(a));
+            => b.ReverseLessThan(a) || (b.ReverseEqualTo(a));
 
         public override bool Equals(object obj)
         {

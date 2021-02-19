@@ -14,6 +14,8 @@ namespace Aritiafel.Artifacts.Calculator
         public override object Value => _Value;
         public LongConst(long value)
             => _Value = value;
+        public static implicit operator long(LongConst a) => a._Value;
+        public static explicit operator DoubleConst(LongConst a) => new DoubleConst(Convert.ToDouble(a._Value));
         public static NumberConst operator +(LongConst a, LongConst b)
             => a.Add(b);
         public static NumberConst operator +(LongConst a, DoubleConst b)
@@ -47,17 +49,17 @@ namespace Aritiafel.Artifacts.Calculator
         public static BooleanConst operator >(LongConst a, DoubleConst b)
             => a.GreaterThan(b);
         public static BooleanConst operator >=(LongConst a, LongConst b)
-            => a.GreaterThan(b) | a.EqualTo(b);
+            => a.GreaterThan(b) || a.EqualTo(b);
         public static BooleanConst operator >=(LongConst a, DoubleConst b)
-            => a.GreaterThan(b) | a.EqualTo(b);
+            => a.GreaterThan(b) || a.EqualTo(b);
         public static BooleanConst operator <(LongConst a, LongConst b)
             => a.LessThan(b);
         public static BooleanConst operator <(LongConst a, DoubleConst b)
             => a.LessThan(b);
         public static BooleanConst operator <=(LongConst a, LongConst b)
-            => a.LessThan(b) | a.EqualTo(b);
+            => a.LessThan(b) || a.EqualTo(b);
         public static BooleanConst operator <=(LongConst a, DoubleConst b)
-            => a.LessThan(b) | a.EqualTo(b);
+            => a.LessThan(b) || a.EqualTo(b);
 
         public override string ToString()
             => _Value.ToString();

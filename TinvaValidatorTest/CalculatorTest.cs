@@ -51,8 +51,7 @@ namespace TinvaValidatorTest
             ArithmeticExpression ae = new ArithmeticExpression(a, i1);
             ArithmeticExpression ae2 = new ArithmeticExpression(ae, d1, Operator.Multiply);
             ArithmeticExpression ae3 = new ArithmeticExpression(ae2, b, Operator.Minus);
-
-            TestContext.WriteLine(ae3.GetResult(fvl).ToString());
+            Assert.IsTrue(ae3.GetResult(fvl).ToString() == "897.3");
         }
 
 
@@ -61,10 +60,10 @@ namespace TinvaValidatorTest
         {
             FakeVariableLinker fvl = new FakeVariableLinker();
 
-            BooleanExpression be = new BooleanExpression(new BooleanConst(true), new BooleanConst(false));
+            BooleanExpression be = new BooleanExpression(BooleanConst.True, BooleanConst.False);
             BooleanExpression be2 = new BooleanExpression(new BooleanVar(FakeVariableLinker.True), be, Operator.And);
             BooleanExpression be3 = new BooleanExpression(be2, null, Operator.Not);
-            TestContext.WriteLine(be3.GetResult(fvl).ToString());
+            Assert.IsFalse(be3.GetResult(fvl).Value);
         }
 
 
@@ -75,13 +74,13 @@ namespace TinvaValidatorTest
 
             LongConst a = new LongConst(0304);
             NumberConst b = new DoubleConst(56.8);
-            ObjectConst c = new DoubleConst(690.8);            
-            TestContext.WriteLine((a < b).ToString());
-            TestContext.WriteLine((a < c).ToString());
+            ObjectConst c = new DoubleConst(690.8);
+            Assert.IsFalse((a < b).Value);
+            Assert.IsTrue((a < c).Value);            
             CompareExpression ce = new CompareExpression(new LongConst(30), new LongConst(30));
             Assert.IsTrue(ce.GetResult(fvl).Value);
             CompareExpression ce2 = new CompareExpression(new LongConst(30), new LongVar(FakeVariableLinker.IntA));
-            Assert.IsTrue(!ce2.GetResult(fvl).Value);
+            Assert.IsFalse(ce2.GetResult(fvl).Value);
             ArithmeticExpression ae = new ArithmeticExpression(new LongConst(30), new DoubleConst(30d));
             CompareExpression ce3 = new CompareExpression(ae, new LongVar(FakeVariableLinker.IntA));            
             Assert.IsTrue(ce3.GetResult(fvl).Value);
@@ -94,7 +93,7 @@ namespace TinvaValidatorTest
             CompareExpression ce7 = new CompareExpression(new LongConst(20), new DoubleConst(20), Operator.LessThanOrEqualTo);
             Assert.IsTrue(ce7.GetResult(fvl).Value);
             CompareExpression ce8 = new CompareExpression(new DoubleVar(FakeVariableLinker.DoubleA), new DoubleConst(2.55), Operator.NotEqualTo);
-            Assert.IsTrue(!ce8.GetResult(fvl).Value);
+            Assert.IsFalse(ce8.GetResult(fvl).Value);
         }
     }
 }

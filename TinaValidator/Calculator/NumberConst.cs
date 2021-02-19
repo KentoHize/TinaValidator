@@ -56,11 +56,11 @@ namespace Aritiafel.Artifacts.Calculator
         public static BooleanConst operator >(NumberConst a, NumberConst b)
             => b.ReverseGreaterThan(a);
         public static BooleanConst operator >=(NumberConst a, NumberConst b)
-            => b.ReverseGreaterThan(a) | b.ReverseEqualTo(a);
+            => b.ReverseGreaterThan(a) || b.ReverseEqualTo(a);
         public static BooleanConst operator <(NumberConst a, NumberConst b)
             => b.ReverseLessThan(a);
         public static BooleanConst operator <=(NumberConst a, NumberConst b)
-            => b.ReverseLessThan(a) | b.ReverseEqualTo(a);
+            => b.ReverseLessThan(a) || b.ReverseEqualTo(a);
         public static NumberConst LongAddDouble(long a, double b)
         {
             if (Math.Round(b) != b)
