@@ -95,5 +95,10 @@ namespace TinvaValidatorTest
             CompareExpression ce8 = new CompareExpression(new DoubleVar(FakeVariableLinker.DoubleA), new DoubleConst(2.55), Operator.NotEqualTo);
             Assert.IsFalse(ce8.GetResult(fvl).Value);
         }
-    }
+
+        [TestMethod]
+        public void StringExpression()
+        {
+
+        }
 }

@@ -16,6 +16,10 @@ namespace Aritiafel.Artifacts.Calculator
            => a.EqualTo(b);
         public static BooleanConst operator !=(StringConst a, StringConst b)
             => !a.EqualTo(b);
+        public static StringConst operator +(StringConst a, StringConst b)
+            => a.Concat(b);
+        public StringConst Concat(StringConst b)
+            => new StringConst(string.Concat(_Value, b._Value));
         public override BooleanConst EqualTo(LongConst b)
             => throw new ArithmeticException();
         public override BooleanConst EqualTo(DoubleConst b)
