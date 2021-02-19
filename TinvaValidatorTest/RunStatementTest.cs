@@ -16,7 +16,6 @@ namespace TinvaValidatorTest
             cal.RunStatement(dvs);
         }
 
-
         [TestMethod]
         public void SetVariable()
         {
