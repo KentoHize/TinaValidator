@@ -121,12 +121,17 @@ namespace TinvaValidatorTest
             DoubleConst b = new DoubleConst(20.7);
             
             ArithmeticExpression ae = new ArithmeticExpression(a, i1, Operator.ExactlyDivide);
-            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == "5");
             ae = new ArithmeticExpression(c, a, Operator.ExactlyDivide);
-            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == "2");
             ae = new ArithmeticExpression(c, a, Operator.Divide);
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == "2.01");
+            ae = new ArithmeticExpression(c, b, Operator.ExactlyDivide);
             TestContext.WriteLine(ae.GetResult(fvl).ToString());
-
+            ae = new ArithmeticExpression(c, a, Operator.Remainder);
+            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            ae = new ArithmeticExpression(c, b, Operator.Remainder);
+            TestContext.WriteLine(ae.GetResult(fvl).ToString());
         }
     }
 }
