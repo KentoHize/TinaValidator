@@ -37,5 +37,12 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(IBoolean);
+
+        public override BooleanConst EqualTo(ObjectConst b)
+            => b == this;
+        public override BooleanConst GreaterThan(ObjectConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst LessThan(ObjectConst b)
+            => throw new ArithmeticException();
     }
 }

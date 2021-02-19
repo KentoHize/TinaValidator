@@ -18,9 +18,6 @@ namespace Aritiafel.Artifacts.Calculator
         }
         public BooleanConst GetResult(IVariableLinker vl)
         {
-            if (A.GetObjectType() != B.GetObjectType())
-                return new BooleanConst(false);
-
             switch (OP)
             {
                 case Operator.EqualTo:

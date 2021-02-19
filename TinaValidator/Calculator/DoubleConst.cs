@@ -76,17 +76,30 @@ namespace Aritiafel.Artifacts.Calculator
             => b.ExactlyDivide(this);
         public override NumberConst ReverseRemainder(NumberConst b)
             => b.Remainder(this);
+        public override BooleanConst EqualTo(ObjectConst b)
+            => b is NumberConst ? b == this : BooleanConst.False;
         public override BooleanConst EqualTo(NumberConst b)
-            => b.EqualTo(this);
+            => b == this;
         public override BooleanConst EqualTo(DoubleConst b)
             => new BooleanConst(_Value == b._Value);
         public override BooleanConst EqualTo(LongConst b)
             => new BooleanConst(_Value == (long)b.Value);
-        public override BooleanConst NotEqualTo(NumberConst b)
-            => b.NotEqualTo(this);
-        public override BooleanConst NotEqualTo(DoubleConst b)
-            => new BooleanConst(_Value != b._Value);
-        public override BooleanConst NotEqualTo(LongConst b)
-             => new BooleanConst(_Value != (long)b.Value);
+        public override BooleanConst GreaterThan(ObjectConst b)
+            => b is NumberConst ? b < this : BooleanConst.False;
+        public override BooleanConst LessThan(ObjectConst b)
+            => b is NumberConst ? b > this : BooleanConst.False;
+        public override BooleanConst GreaterThan(NumberConst b)
+            => b > this;
+        public override BooleanConst GreaterThan(DoubleConst b)
+            => new BooleanConst(_Value > b._Value);
+        public override BooleanConst GreaterThan(LongConst b)
+            => new BooleanConst(_Value > (long)b.Value);        
+        public override BooleanConst LessThan(NumberConst b)
+            => b < this;
+        public override BooleanConst LessThan(DoubleConst b)
+            => new BooleanConst(_Value < b._Value);
+        public override BooleanConst LessThan(LongConst b)
+            => new BooleanConst(_Value < (long)b.Value);
+
     }
 }
