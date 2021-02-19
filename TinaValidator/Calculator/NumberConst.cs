@@ -134,16 +134,5 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(INumber);
-
-        //public override bool Equals(object obj)
-        //{
-        //    if (ReferenceEquals(this, obj))
-        //        return true;
-        //    if (ReferenceEquals(obj, null))
-        //        return false;
-        //    if(!(obj is NumberConst n))
-        //        return false;
-        //    return (this == n).Value;
-        //}
     }
 }

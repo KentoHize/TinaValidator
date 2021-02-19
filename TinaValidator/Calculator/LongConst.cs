@@ -60,7 +60,6 @@ namespace Aritiafel.Artifacts.Calculator
             => a.LessThan(b) || a.EqualTo(b);
         public static BooleanConst operator <=(LongConst a, DoubleConst b)
             => a.LessThan(b) || a.EqualTo(b);
-
         public override string ToString()
             => _Value.ToString();
         public object GetValue()
@@ -127,5 +126,24 @@ namespace Aritiafel.Artifacts.Calculator
             => b.GreaterThan(this);
         protected override BooleanConst ReverseLessThan(NumberConst b)
             => b.LessThan(this);
+        public override BooleanConst EqualTo(StringConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst GreaterThan(StringConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst LessThan(StringConst b)
+            => throw new ArithmeticException();
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj is null)
+                return false;
+            if (!(obj is NumberConst n))
+                return false;
+            return n.EqualTo(this);
+        }
+        public override int GetHashCode()
+            => _Value.GetHashCode();
     }
 }

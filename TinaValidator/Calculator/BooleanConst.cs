@@ -26,6 +26,11 @@ namespace Aritiafel.Artifacts.Calculator
           => a.Or(b);
         public static BooleanConst operator !(BooleanConst a)
           => a.Not();
+        public static BooleanConst operator ==(BooleanConst a, BooleanConst b)
+          => new BooleanConst(a._Value == b._Value);
+        public static BooleanConst operator !=(BooleanConst a, BooleanConst b)
+          => new BooleanConst(a._Value != b._Value);
+
         public static implicit operator bool(BooleanConst a) => a._Value;
         public BooleanConst And(BooleanConst b)
             => new BooleanConst(_Value && b._Value);
@@ -55,5 +60,23 @@ namespace Aritiafel.Artifacts.Calculator
             => throw new ArithmeticException();
         public override BooleanConst LessThan(DoubleConst b)
             => throw new ArithmeticException();
+        public override BooleanConst EqualTo(StringConst b)
+            => throw new ArgumentException();
+        public override BooleanConst GreaterThan(StringConst b)
+            => throw new ArgumentException();
+        public override BooleanConst LessThan(StringConst b)
+            => throw new ArgumentException();
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj is null)
+                return false;
+            if (!(obj is BooleanConst n))
+                return false;
+            return n._Value == _Value;
+        }
+        public override int GetHashCode()
+            => _Value.GetHashCode();
     }
 }
