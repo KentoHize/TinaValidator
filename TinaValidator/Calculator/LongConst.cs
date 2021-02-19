@@ -95,7 +95,7 @@ namespace Aritiafel.Artifacts.Calculator
         public override NumberConst Remainder(LongConst b)
             => new LongConst(_Value % b._Value);
         public override NumberConst Remainder(DoubleConst b)
-            => new LongConst(_Value % (long)Math.Round((double)b.Value));
+            => new DoubleConst(_Value % (double)b.Value);
         protected override NumberConst ReverseMultiply(NumberConst b)
             => b.Multiply(this);
         protected override NumberConst ReverseDivide(NumberConst b)

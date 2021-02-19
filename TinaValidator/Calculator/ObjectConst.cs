@@ -6,6 +6,7 @@ namespace Aritiafel.Artifacts.Calculator
     {
         public abstract ObjectConst GetObject(IVariableLinker vl);
         public abstract Type GetObjectType();
+
         public abstract StringConst ToStringConst();
         protected abstract BooleanConst ReverseEqualTo(ObjectConst b);
         public abstract BooleanConst EqualTo(LongConst b);

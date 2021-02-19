@@ -94,7 +94,7 @@ namespace TinvaValidatorTest
             StringExpression se2 = new StringExpression(new StringConst("add"), new StringConst("__bb"));
             Assert.IsTrue(se2.GetResult(fvl).Value == "add__bb");
             StringExpression se3 = new StringExpression(new ConvertToStringExpression(new DoubleVar(FakeVariableLinker.DoubleB)), new StringConst("bb"));
-            Assert.IsTrue(se3.GetResult(fvl).Value == "7.8bb");            
+            Assert.IsTrue(se3.GetResult(fvl).Value == "7.8bb");
         }
 
         [TestMethod]
@@ -119,7 +119,7 @@ namespace TinvaValidatorTest
             LongConst a = new LongConst(300);
             LongConst c = new LongConst(603);
             DoubleConst b = new DoubleConst(20.7);
-            
+
             ArithmeticExpression ae = new ArithmeticExpression(a, i1, Operator.ExactlyDivide);
             Assert.IsTrue(ae.GetResult(fvl).ToString() == "5");
             ae = new ArithmeticExpression(c, a, Operator.ExactlyDivide);
@@ -127,11 +127,29 @@ namespace TinvaValidatorTest
             ae = new ArithmeticExpression(c, a, Operator.Divide);
             Assert.IsTrue(ae.GetResult(fvl).ToString() == "2.01");
             ae = new ArithmeticExpression(c, b, Operator.ExactlyDivide);
-            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == "29");
             ae = new ArithmeticExpression(c, a, Operator.Remainder);
-            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == "3");
             ae = new ArithmeticExpression(c, b, Operator.Remainder);
-            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == (603 % 20.7).ToString());
+            TestContext.WriteLine(ae.GetResult(fvl).ToString()); // Scan
+            ae = new ArithmeticExpression(c, new DoubleConst(0), Operator.Divide);
+            Assert.ThrowsException<DivideByZeroException>(() => ae.GetResult(fvl));
+            ae = new ArithmeticExpression(c, new DoubleConst(15), Operator.Divide);
+            Assert.IsTrue(ae.GetResult(fvl).ToString() == "40.2");
+
+            //TestContext.WriteLine(ae.GetResult(fvl).ToString());
+
+        }
+
+        [TestMethod]
+        public void RemainderTest()
+        {
+            TestContext.WriteLine((6.7 % 3.1).ToString());
+            TestContext.WriteLine((713 % 32).ToString());
+            TestContext.WriteLine((6 % 3.1d).ToString());
+            TestContext.WriteLine((603 % 20.7).ToString());
+
         }
     }
 }
