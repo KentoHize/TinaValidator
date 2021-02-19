@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public abstract class NumberConst : INumber
+    public abstract class NumberConst : ObjectConst, INumber
     {
         public abstract object Value { get; }
         public abstract NumberConst ReverseAdd(NumberConst b);
@@ -114,5 +114,9 @@ namespace Aritiafel.Artifacts.Calculator
             return new DoubleConst((double)d);
         }
         public abstract NumberConst GetResult(IVariableLinker vl);
+        public override ObjectConst GetObject(IVariableLinker vl)
+            =>GetResult(vl);
+        public override Type GetObjectType()
+            => typeof(INumber);
     }
 }

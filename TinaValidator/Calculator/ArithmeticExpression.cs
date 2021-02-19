@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class ArithmeticExpression : INumber
+    public class ArithmeticExpression : INumber, IObject
     {
         public INumber A { get; set; }
-        public INumber B { get; set; }        
+        public INumber B { get; set; }
         public Operator OP { get; set; }
 
         public ArithmeticExpression(INumber a = null, INumber b = null, Operator op = Operator.Plus)
@@ -41,5 +41,10 @@ namespace Aritiafel.Artifacts.Calculator
                     throw new ArithmeticException();
             }
         }
+        public ObjectConst GetObject(IVariableLinker vl)
+            => GetResult(vl);
+
+        public Type GetObjectType()
+            => typeof(INumber);
     }
 }

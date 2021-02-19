@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class BooleanConst : IBoolean
+    public class BooleanConst : ObjectConst, IBoolean
     {
         private bool _Value;
         public bool Value => _Value;
@@ -29,6 +29,10 @@ namespace Aritiafel.Artifacts.Calculator
         public BooleanConst Or(BooleanConst b)
             => new BooleanConst(_Value || b._Value);
         public BooleanConst Not()
-            => new BooleanConst(!_Value);        
+            => new BooleanConst(!_Value);
+        public override ObjectConst GetObject(IVariableLinker vl)
+            => GetResult(vl);
+        public override Type GetObjectType()
+            => typeof(IBoolean);
     }
 }

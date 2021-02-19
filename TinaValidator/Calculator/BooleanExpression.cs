@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class BooleanExpression : IBoolean
+    public class BooleanExpression : IBoolean, IObject
     {
         public IBoolean A { get; set; }
         public IBoolean B { get; set; }
@@ -31,5 +31,10 @@ namespace Aritiafel.Artifacts.Calculator
                     throw new ArithmeticException();
             }
         }
+
+        public ObjectConst GetObject(IVariableLinker vl)
+            => GetResult(vl);
+        public Type GetObjectType()
+            => typeof(IBoolean);
     }
 }
