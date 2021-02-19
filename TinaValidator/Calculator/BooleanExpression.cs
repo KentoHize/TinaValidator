@@ -2,7 +2,7 @@
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class BooleanExpression : IBoolean, IObject
+    public class BooleanExpression : Expression, IBoolean
     {
         public IBoolean A { get; set; }
         public IBoolean B { get; set; }
@@ -30,9 +30,9 @@ namespace Aritiafel.Artifacts.Calculator
             }
         }
 
-        public ObjectConst GetObject(IVariableLinker vl)
+        public override ObjectConst GetObject(IVariableLinker vl)
             => GetResult(vl);
-        public Type GetObjectType()
+        public override Type GetObjectType()
             => typeof(IBoolean);
     }
 }

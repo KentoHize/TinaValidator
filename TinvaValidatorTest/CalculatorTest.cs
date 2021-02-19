@@ -11,14 +11,6 @@ namespace TinvaValidatorTest
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public void OnePlusOneEuqalTwo()
-        {
-            LongConst a = new LongConst(1);
-            LongConst b = new LongConst(1);
-            TestContext.WriteLine((a + b).ToString());
-        }
-
-        [TestMethod]
         public void ConstCalculate()
         {
             LongConst a = new LongConst(3);
@@ -26,8 +18,7 @@ namespace TinvaValidatorTest
             DoubleConst c = new DoubleConst(7.5);
             ArithmeticExpression ae = new ArithmeticExpression(a, b);
             ArithmeticExpression ae2 = new ArithmeticExpression(ae, c, Operator.Multiply);
-
-            TestContext.WriteLine(ae2.GetResult(null).ToString());
+            Assert.IsTrue(ae2.GetResult(null).ToString() == "60");
         }
 
         //"IntA": 60;
@@ -43,7 +34,6 @@ namespace TinvaValidatorTest
         public void VariableAndConst()
         {
             FakeVariableLinker fvl = new FakeVariableLinker();
-
             DoubleVar d1 = new DoubleVar(FakeVariableLinker.DoubleA);
             LongVar i1 = new LongVar(FakeVariableLinker.IntA);
             LongConst a = new LongConst(300);
@@ -59,7 +49,6 @@ namespace TinvaValidatorTest
         public void BooleanExpression()
         {
             FakeVariableLinker fvl = new FakeVariableLinker();
-
             BooleanExpression be = new BooleanExpression(BooleanConst.True, BooleanConst.False);
             BooleanExpression be2 = new BooleanExpression(new BooleanVar(FakeVariableLinker.True), be, Operator.And);
             BooleanExpression be3 = new BooleanExpression(be2, null, Operator.Not);
@@ -111,7 +100,33 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void JsonSave()
         {
-            //JsonConvert.SerializeObject()
+            DoubleVar d1 = new DoubleVar(FakeVariableLinker.DoubleA);
+            LongVar i1 = new LongVar(FakeVariableLinker.IntA);
+            LongConst a = new LongConst(300);
+            DoubleConst b = new DoubleConst(20.7);
+            ArithmeticExpression ae = new ArithmeticExpression(a, i1);
+            ArithmeticExpression ae2 = new ArithmeticExpression(ae, d1, Operator.Multiply);
+            ArithmeticExpression ae3 = new ArithmeticExpression(ae2, b, Operator.Minus);
+            TestContext.WriteLine(JsonConvert.SerializeObject(ae3));
+        }
+
+        [TestMethod]
+        public void ExactlyDivideTest()
+        {
+            FakeVariableLinker fvl = new FakeVariableLinker();
+            DoubleVar d1 = new DoubleVar(FakeVariableLinker.DoubleA);
+            LongVar i1 = new LongVar(FakeVariableLinker.IntA);
+            LongConst a = new LongConst(300);
+            LongConst c = new LongConst(603);
+            DoubleConst b = new DoubleConst(20.7);
+            
+            ArithmeticExpression ae = new ArithmeticExpression(a, i1, Operator.ExactlyDivide);
+            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            ae = new ArithmeticExpression(c, a, Operator.ExactlyDivide);
+            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+            ae = new ArithmeticExpression(c, a, Operator.Divide);
+            TestContext.WriteLine(ae.GetResult(fvl).ToString());
+
         }
     }
 }

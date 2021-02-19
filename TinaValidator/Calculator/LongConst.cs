@@ -87,7 +87,7 @@ namespace Aritiafel.Artifacts.Calculator
         public override NumberConst Divide(DoubleConst b)
             => LongDivideDouble(_Value, (double)b.Value);
         public override NumberConst ReverseExactlyDivide(NumberConst b)
-            => b.Divide(this);
+            => b.ExactlyDivide(this);
         public override NumberConst ExactlyDivide(LongConst b)
             => new LongConst(_Value / b._Value);
         public override NumberConst ExactlyDivide(DoubleConst b)

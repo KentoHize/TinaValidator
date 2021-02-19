@@ -2,12 +2,11 @@
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class ArithmeticExpression : INumber, IObject
+    public class ArithmeticExpression : Expression, INumber
     {
         public INumber A { get; set; }
         public INumber B { get; set; }
         public Operator OP { get; set; }
-
         public ArithmeticExpression(INumber a = null, INumber b = null, Operator op = Operator.Plus)
         {
             A = a;
@@ -38,10 +37,10 @@ namespace Aritiafel.Artifacts.Calculator
                     throw new ArithmeticException();
             }
         }
-        public ObjectConst GetObject(IVariableLinker vl)
+        public override ObjectConst GetObject(IVariableLinker vl)
             => GetResult(vl);
 
-        public Type GetObjectType()
+        public override Type GetObjectType()
             => typeof(INumber);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class CompareExpression : IBoolean
+    public class CompareExpression : Expression, IBoolean
     {
         public IObject A { get; set; }
         public IObject B { get; set; }
@@ -34,5 +34,11 @@ namespace Aritiafel.Artifacts.Calculator
                     throw new ArithmeticException();
             }
         }
+
+        public override ObjectConst GetObject(IVariableLinker vl)
+            => GetResult(vl);
+
+        public override Type GetObjectType()
+            => typeof(IBoolean);
     }
 }

@@ -2,12 +2,11 @@
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public class StringExpression : IString, IObject
+    public class StringExpression : Expression, IString
     {
         public IString A { get; set; }
         public IString B { get; set; }
         public Operator OP { get; set; }
-
         public StringExpression(IString a = null, IString b = null, Operator op = Operator.Concat)
         {
             A = a;
@@ -24,9 +23,9 @@ namespace Aritiafel.Artifacts.Calculator
                     throw new ArithmeticException();
             }
         }
-        public ObjectConst GetObject(IVariableLinker vl)
+        public override ObjectConst GetObject(IVariableLinker vl)
             => GetResult(vl);
-        public Type GetObjectType()
+        public override Type GetObjectType()
             => typeof(IString);
     }
 }
