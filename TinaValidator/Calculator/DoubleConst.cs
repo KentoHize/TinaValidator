@@ -60,6 +60,8 @@ namespace Aritiafel.Artifacts.Calculator
             => a.LessThan(b) || a.EqualTo(b);
         public override string ToString()
             => _Value.ToString();
+        public override StringConst ToStringConst()
+            => new StringConst(_Value.ToString());
         public object GetValue()
             => _Value;
         public override NumberConst GetResult(IVariableLinker vl)

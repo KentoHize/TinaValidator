@@ -10,7 +10,12 @@ namespace Aritiafel.Artifacts.Calculator
             => _Value = value;
         public StringConst(char value)
             => _Value = value.ToString();
+        public override StringConst ToStringConst()
+            => this;
+
         public static implicit operator string(StringConst a) => a._Value;
+        public override string ToString()
+         => _Value.ToString();
         public static BooleanConst operator ==(StringConst a, StringConst b)
            => a.EqualTo(b);
         public static BooleanConst operator !=(StringConst a, StringConst b)

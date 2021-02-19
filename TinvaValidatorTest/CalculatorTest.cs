@@ -1,6 +1,7 @@
 using Aritiafel.Artifacts.Calculator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Newtonsoft.Json;
 
 namespace TinvaValidatorTest
 {
@@ -103,6 +104,14 @@ namespace TinvaValidatorTest
             Assert.IsTrue(se.GetResult(fvl).Value == "abbbb");
             StringExpression se2 = new StringExpression(new StringConst("add"), new StringConst("__bb"));
             Assert.IsTrue(se2.GetResult(fvl).Value == "add__bb");
+            StringExpression se3 = new StringExpression(new DoubleVar(FakeVariableLinker.DoubleB).GetObject(fvl).ToStringConst(), new StringConst("bb"));
+            Assert.IsTrue(se3.GetResult(fvl).Value == "7.8bb");            
+        }
+
+        [TestMethod]
+        public void JsonSave()
+        {
+            //JsonConvert.SerializeObject()
         }
     }
 }

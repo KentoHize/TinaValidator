@@ -38,6 +38,8 @@ namespace Aritiafel.Artifacts.Calculator
             => new BooleanConst(!_Value);
         public override ObjectConst GetObject(IVariableLinker vl)
             => GetResult(vl);
+        public override StringConst ToStringConst()
+            => new StringConst(_Value.ToString());
         public override Type GetObjectType()
             => typeof(IBoolean);
         protected override BooleanConst ReverseEqualTo(ObjectConst b)
