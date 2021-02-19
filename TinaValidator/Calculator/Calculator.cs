@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Aritiafel.Artifacts.Calculator
+﻿namespace Aritiafel.Artifacts.Calculator
 {
     public class Calculator
     {
@@ -14,22 +10,22 @@ namespace Aritiafel.Artifacts.Calculator
 
         public bool CalculateCompareExpression(CompareExpression ce)
         {
-            return ce.GetResult(VariableLinker).Value;
+            return ce.GetResult(VariableLinker);
         }
 
         public bool CalculateBooleanExpression(BooleanExpression be)
         {
-            return be.GetResult(VariableLinker).Value;
-        }   
+            return be.GetResult(VariableLinker);
+        }
 
         public object CalculateArithmeticExpression(ArithmeticExpression ae)
-        {   
+        {
             return ae.GetResult(VariableLinker).Value;
         }
 
-        public string CalculateStringExpression()
+        public string CalculateStringExpression(StringExpression se)
         {
-            return null;
+            return se.GetResult(VariableLinker);
         }
     }
 }

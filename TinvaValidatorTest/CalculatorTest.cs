@@ -1,7 +1,6 @@
 using Aritiafel.Artifacts.Calculator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 
 namespace TinvaValidatorTest
 {
@@ -76,13 +75,13 @@ namespace TinvaValidatorTest
             NumberConst b = new DoubleConst(56.8);
             ObjectConst c = new DoubleConst(690.8);
             Assert.IsFalse((a < b).Value);
-            Assert.IsTrue((a < c).Value);            
+            Assert.IsTrue((a < c).Value);
             CompareExpression ce = new CompareExpression(new LongConst(30), new LongConst(30));
             Assert.IsTrue(ce.GetResult(fvl).Value);
             CompareExpression ce2 = new CompareExpression(new LongConst(30), new LongVar(FakeVariableLinker.IntA));
             Assert.IsFalse(ce2.GetResult(fvl).Value);
             ArithmeticExpression ae = new ArithmeticExpression(new LongConst(30), new DoubleConst(30d));
-            CompareExpression ce3 = new CompareExpression(ae, new LongVar(FakeVariableLinker.IntA));            
+            CompareExpression ce3 = new CompareExpression(ae, new LongVar(FakeVariableLinker.IntA));
             Assert.IsTrue(ce3.GetResult(fvl).Value);
             CompareExpression ce4 = new CompareExpression(new LongConst(40), new DoubleConst(30), Operator.GreaterThan);
             Assert.IsTrue(ce4.GetResult(fvl).Value);
@@ -99,6 +98,11 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void StringExpression()
         {
-
+            FakeVariableLinker fvl = new FakeVariableLinker();
+            StringExpression se = new StringExpression(new StringConst('a'), new StringConst("bbbb"));
+            Assert.IsTrue(se.GetResult(fvl).Value == "abbbb");
+            StringExpression se2 = new StringExpression(new StringConst("add"), new StringConst("__bb"));
+            Assert.IsTrue(se2.GetResult(fvl).Value == "add__bb");
         }
+    }
 }

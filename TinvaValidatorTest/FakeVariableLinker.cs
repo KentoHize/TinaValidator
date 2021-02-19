@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Aritiafel.Artifacts.Calculator;
+﻿using Aritiafel.Artifacts.Calculator;
+using System;
 
 namespace TinvaValidatorTest
 {

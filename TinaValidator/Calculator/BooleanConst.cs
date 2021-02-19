@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
@@ -48,7 +46,7 @@ namespace Aritiafel.Artifacts.Calculator
             => throw new ArithmeticException();
         public override BooleanConst EqualTo(DoubleConst b)
             => throw new ArithmeticException();
-        protected override BooleanConst ReverseGreaterThan(ObjectConst b) 
+        protected override BooleanConst ReverseGreaterThan(ObjectConst b)
             => throw new ArithmeticException();
         public override BooleanConst GreaterThan(LongConst b)
             => throw new ArithmeticException();

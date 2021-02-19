@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
@@ -69,7 +67,7 @@ namespace Aritiafel.Artifacts.Calculator
             if (d >= long.MinValue && d <= long.MaxValue)
                 return new LongConst((long)d);
             return new DoubleConst(d);
-        }            
+        }
         public static NumberConst LongMinusDouble(long a, double b)
         {
             if (Math.Round(b) != b)
@@ -78,7 +76,7 @@ namespace Aritiafel.Artifacts.Calculator
             if (d >= long.MinValue && d <= long.MaxValue)
                 return new LongConst((long)d);
             return new DoubleConst(d);
-        }            
+        }
         public static NumberConst DoubleMinusLong(double a, long b)
         {
             if (Math.Round(a) != a)
@@ -87,24 +85,24 @@ namespace Aritiafel.Artifacts.Calculator
             if (d >= long.MinValue && d <= long.MaxValue)
                 return new LongConst((long)d);
             return new DoubleConst(d);
-        }            
+        }
         public static NumberConst LongMultiplyDouble(long a, double b)
         {
             decimal m = (decimal)(b * a);
             if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
                 return new LongConst((long)m);
             return new DoubleConst((double)m);
-        }   
+        }
         public static NumberConst LongDivideDouble(long a, double b)
         {
             decimal m = a / (decimal)b;
             if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
                 return new LongConst((long)m);
             return new DoubleConst((double)m);
-        }            
+        }
         public static NumberConst DoubleDivideLong(double a, long b)
         {
-            decimal m = (decimal) a / b;
+            decimal m = (decimal)a / b;
             if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
                 return new LongConst((long)m);
             return new DoubleConst((double)m);
@@ -115,7 +113,7 @@ namespace Aritiafel.Artifacts.Calculator
             if (Math.Round(m) == m && m >= long.MinValue && m <= long.MaxValue)
                 return new LongConst((long)Math.Round(m));
             return new DoubleConst((double)Math.Round(m));
-        }   
+        }
         public static NumberConst LongDivideLong(long a, long b)
         {
             if (a % b == 0)

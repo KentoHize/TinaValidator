@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
@@ -18,7 +16,7 @@ namespace Aritiafel.Artifacts.Calculator
         }
         public NumberConst GetResult(IVariableLinker vl)
         {
-            switch(OP)
+            switch (OP)
             {
                 case Operator.Plus:
                     return A.GetResult(vl) + B.GetResult(vl);

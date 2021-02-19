@@ -15,7 +15,7 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestParse()
         {
-            ValidateLogic VL = new ValidateLogic(new Status());            
+            ValidateLogic VL = new ValidateLogic(new Status());
             UnitSet us = new UnitSet(CharUnits.AtoZ);
             us.Units.Add(CharUnits.atoz);
             VL.InitialStatus.Choices.Add(us);
@@ -49,7 +49,7 @@ namespace TinvaValidatorTest
         public void AreaParse()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
-            Area ar1 = new Area(null, new Status(), VL);            
+            Area ar1 = new Area(null, new Status(), VL);
             AreaPart ap1 = new AreaPart(ar1, new Status());
 
             VL.InitialStatus.Choices.Add(ap1);

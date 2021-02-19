@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
     public class StringConst : ObjectConst, IString
     {
         private string _Value;
+        public string Value => _Value;
         public StringConst(string value)
             => _Value = value;
         public StringConst(char value)

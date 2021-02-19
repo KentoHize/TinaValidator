@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Aritiafel.Locations;
 using System.Collections.Generic;
-using System.Text;
-using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.Calculator
 {
@@ -22,7 +20,7 @@ namespace Aritiafel.Artifacts.Calculator
         {
             Name = name ?? IdentifyShop.GetNewID();
             Keys = keys ?? new List<object>();
-            Source = source;            
+            Source = source;
         }
     }
 }

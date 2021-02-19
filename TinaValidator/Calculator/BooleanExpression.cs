@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
@@ -22,9 +20,9 @@ namespace Aritiafel.Artifacts.Calculator
             switch (OP)
             {
                 case Operator.Or:
-                    return A.GetResult(vl) | B.GetResult(vl);
+                    return A.GetResult(vl) || B.GetResult(vl);
                 case Operator.And:
-                    return A.GetResult(vl) & B.GetResult(vl);
+                    return A.GetResult(vl) && B.GetResult(vl);
                 case Operator.Not:
                     return !A.GetResult(vl);
                 default:
