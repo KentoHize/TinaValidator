@@ -47,17 +47,17 @@ namespace Aritiafel.Artifacts.Calculator
         public static BooleanConst operator >(DoubleConst a, DoubleConst b)
             => a.GreaterThan(b);
         public static BooleanConst operator >=(DoubleConst a, LongConst b)
-            => a.GreaterThan(b) || a.EqualTo(b);
+            => a.GreaterThan(b) | a.EqualTo(b);
         public static BooleanConst operator >=(DoubleConst a, DoubleConst b)
-            => a.GreaterThan(b) || a.EqualTo(b);
+            => a.GreaterThan(b) | a.EqualTo(b);
         public static BooleanConst operator <(DoubleConst a, LongConst b)
             => a.LessThan(b);
         public static BooleanConst operator <(DoubleConst a, DoubleConst b)
             => a.LessThan(b);
         public static BooleanConst operator <=(DoubleConst a, LongConst b)
-            => a.LessThan(b) || a.EqualTo(b);
+            => a.LessThan(b) | a.EqualTo(b);
         public static BooleanConst operator <=(DoubleConst a, DoubleConst b)
-            => a.LessThan(b) || a.EqualTo(b);
+            => a.LessThan(b) | a.EqualTo(b);
         public override string ToString()
             => _Value.ToString();
         public object GetValue()
@@ -85,7 +85,7 @@ namespace Aritiafel.Artifacts.Calculator
         public override NumberConst Multiply(DoubleConst b)
             => new DoubleConst(_Value * b._Value);
         public override NumberConst Remainder(LongConst b)
-            => new DoubleConst(_Value % (double)b.Value); //0v0?
+            => new DoubleConst(_Value % (double)b.Value); //0v0? Scan
         public override NumberConst Remainder(DoubleConst b)
             => new DoubleConst(_Value * b._Value);
         protected override NumberConst ReverseAdd(NumberConst b)
@@ -101,15 +101,15 @@ namespace Aritiafel.Artifacts.Calculator
         protected override NumberConst ReverseRemainder(NumberConst b)
             => b.Remainder(this);
         protected override BooleanConst ReverseEqualTo(ObjectConst b)
-            => b is NumberConst ? b.EqualTo(this) : BooleanConst.False;        
+            => b is NumberConst ? b.EqualTo(this) : throw new ArithmeticException();        
         public override BooleanConst EqualTo(DoubleConst b)
             => new BooleanConst(_Value == b._Value);
         public override BooleanConst EqualTo(LongConst b)
             => new BooleanConst(_Value == (long)b.Value);
         protected override BooleanConst ReverseGreaterThan(ObjectConst b)
-            => b is NumberConst ? b.GreaterThan(this) : BooleanConst.False;
+            => b is NumberConst ? b.GreaterThan(this) : throw new ArithmeticException();
         protected override BooleanConst ReverseLessThan(ObjectConst b)
-            => b is NumberConst ? b.LessThan(this) : BooleanConst.False;        
+            => b is NumberConst ? b.LessThan(this) : throw new ArithmeticException();        
         public override BooleanConst GreaterThan(DoubleConst b)
             => new BooleanConst(_Value > b._Value);
         public override BooleanConst GreaterThan(LongConst b)

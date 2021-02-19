@@ -47,17 +47,17 @@ namespace Aritiafel.Artifacts.Calculator
         public static BooleanConst operator >(LongConst a, DoubleConst b)
             => a.GreaterThan(b);
         public static BooleanConst operator >=(LongConst a, LongConst b)
-            => a.GreaterThan(b) || a.EqualTo(b);
+            => a.GreaterThan(b) | a.EqualTo(b);
         public static BooleanConst operator >=(LongConst a, DoubleConst b)
-            => a.GreaterThan(b) || a.EqualTo(b);
+            => a.GreaterThan(b) | a.EqualTo(b);
         public static BooleanConst operator <(LongConst a, LongConst b)
             => a.LessThan(b);
         public static BooleanConst operator <(LongConst a, DoubleConst b)
             => a.LessThan(b);
         public static BooleanConst operator <=(LongConst a, LongConst b)
-            => a.LessThan(b) || a.EqualTo(b);
+            => a.LessThan(b) | a.EqualTo(b);
         public static BooleanConst operator <=(LongConst a, DoubleConst b)
-            => a.LessThan(b) || a.EqualTo(b);
+            => a.LessThan(b) | a.EqualTo(b);
 
         public override string ToString()
             => _Value.ToString();
@@ -114,11 +114,11 @@ namespace Aritiafel.Artifacts.Calculator
         public override BooleanConst LessThan(DoubleConst b)
             => new BooleanConst(_Value < (double)b.Value);
         protected override BooleanConst ReverseEqualTo(ObjectConst b)
-            => b is NumberConst ? b.EqualTo(this) : BooleanConst.False;
+            => b is NumberConst ? b.EqualTo(this) : throw new ArithmeticException();
         protected override BooleanConst ReverseGreaterThan(ObjectConst b)
-            => b is NumberConst ? b.GreaterThan(this) : BooleanConst.False;
+            => b is NumberConst ? b.GreaterThan(this) : throw new ArithmeticException();
         protected override BooleanConst ReverseLessThan(ObjectConst b)
-            => b is NumberConst ? b.LessThan(this) : BooleanConst.False;
+            => b is NumberConst ? b.LessThan(this) : throw new ArithmeticException();
         protected override BooleanConst ReverseEqualTo(NumberConst b)
             => b.EqualTo(this);
         protected override BooleanConst ReverseGreaterThan(NumberConst b)
