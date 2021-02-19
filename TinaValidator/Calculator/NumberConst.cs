@@ -139,7 +139,7 @@ namespace Aritiafel.Artifacts.Calculator
         }
         public abstract NumberConst GetResult(IVariableLinker vl);
         public override ObjectConst GetObject(IVariableLinker vl)
-            =>GetResult(vl);
+            => GetResult(vl);
         public override Type GetObjectType()
             => typeof(INumber);
 

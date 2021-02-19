@@ -11,7 +11,6 @@ namespace Aritiafel.Artifacts.Calculator
         public BooleanConst(bool value)
             => _Value = value;
         public static readonly BooleanConst True = new BooleanConst(true);
-
         public static readonly BooleanConst False = new BooleanConst(false);
         public BooleanConst GetResult(IVariableLinker vl)
             => this;
@@ -37,7 +36,6 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(IBoolean);
-
         public override BooleanConst EqualTo(ObjectConst b)
             => b == this;
         public override BooleanConst GreaterThan(ObjectConst b)
