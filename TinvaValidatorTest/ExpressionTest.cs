@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace TinvaValidatorTest
 {
     [TestClass]
-    public partial class CalculatorTest
+    public class ExpressionTest
     {
         public TestContext TestContext { get; set; }
 

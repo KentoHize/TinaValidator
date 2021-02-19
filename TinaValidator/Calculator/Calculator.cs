@@ -5,8 +5,7 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class Calculator
     {
-        IVariableLinker VariableLinker { get; set; }
-
+        CalculatorMemory VariableLinker { get; set; }
         public Calculator()
             => VariableLinker = new CalculatorMemory();
         
@@ -19,14 +18,13 @@ namespace Aritiafel.Artifacts.Calculator
         {
             switch (statement)
             {
-                case DeclareVariableStatement d:
-
+                case DeclareVariableStatement dvs:
+                    VariableLinker.DeclareVariable(dvs.Name, dvs.Type, dvs.Dimension, dvs.Counts, dvs.InitialValue);
                     break;
                 default:
                     throw new NotImplementedException();
             }
         }
-
 
         public bool CalculateCompareExpression(CompareExpression ce)
         {

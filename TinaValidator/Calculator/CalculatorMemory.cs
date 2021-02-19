@@ -28,9 +28,9 @@ namespace Aritiafel.Artifacts.Calculator
 
             if (dimensions == 0)
             {
-                Variables.Add(name, value.GetObject(this));
+                Variables.Add(name, value?.GetObject(this));
                 VariablesType.Add(name, type);
-            }                
+            }
             else
             {
                 List<object> array = CreateArray(dimensions, counts);
