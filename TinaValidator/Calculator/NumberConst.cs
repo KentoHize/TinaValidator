@@ -7,6 +7,13 @@ namespace Aritiafel.Artifacts.Calculator
     public abstract class NumberConst : ObjectConst, INumber
     {
         public abstract object Value { get; }
+
+        public abstract BooleanConst EqualTo(NumberConst b);
+        public abstract BooleanConst EqualTo(LongConst b);
+        public abstract BooleanConst EqualTo(DoubleConst b);
+        public abstract BooleanConst NotEqualTo(NumberConst b);
+        public abstract BooleanConst NotEqualTo(LongConst b);
+        public abstract BooleanConst NotEqualTo(DoubleConst b);
         public abstract NumberConst ReverseAdd(NumberConst b);
         public abstract NumberConst Add(LongConst b);
         public abstract NumberConst Add(DoubleConst b);
@@ -45,6 +52,10 @@ namespace Aritiafel.Artifacts.Calculator
             => a + new LongConst(1);
         public static NumberConst operator --(NumberConst a)
             => a - new LongConst(1);
+        public static BooleanConst operator ==(NumberConst a, NumberConst b)
+            => a.EqualTo(b);
+        public static BooleanConst operator !=(NumberConst a, NumberConst b)
+            => a.NotEqualTo(b);
         public static NumberConst LongAddDouble(long a, double b)
         {
             if (Math.Round(b) != b)

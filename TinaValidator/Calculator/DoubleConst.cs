@@ -76,5 +76,17 @@ namespace Aritiafel.Artifacts.Calculator
             => b.ExactlyDivide(this);
         public override NumberConst ReverseRemainder(NumberConst b)
             => b.Remainder(this);
+        public override BooleanConst EqualTo(NumberConst b)
+            => b.EqualTo(this);
+        public override BooleanConst EqualTo(DoubleConst b)
+            => new BooleanConst(_Value == b._Value);
+        public override BooleanConst EqualTo(LongConst b)
+            => new BooleanConst(_Value == (long)b.Value);
+        public override BooleanConst NotEqualTo(NumberConst b)
+            => b.NotEqualTo(this);
+        public override BooleanConst NotEqualTo(DoubleConst b)
+            => new BooleanConst(_Value != b._Value);
+        public override BooleanConst NotEqualTo(LongConst b)
+             => new BooleanConst(_Value != (long)b.Value);
     }
 }
