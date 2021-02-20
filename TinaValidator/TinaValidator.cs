@@ -31,7 +31,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         private int AreaNodeSelection(List<object> things, int index, TNode node, AreaStart ap)
         {
-            int nextIndex = index;
+            int nextIndex = Invalid;
             switch(node)
             {
                 case EndNode _:
@@ -87,6 +87,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     break;
                 case Part p:
                     result.AddRange(p.Random());
+                    AreaGetRandom(result, p.NextNode, ap);
                     break;
                 case Status st:
                     Random rnd = new Random((int)DateTime.Now.Ticks);

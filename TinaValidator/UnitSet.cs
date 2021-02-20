@@ -14,13 +14,13 @@ namespace Aritiafel.Artifacts.TinaValidator
         { }
 
         public UnitSet(string id, Unit unit)
-            : base(null, null, id)
+            : base(null, id)
         {
             Units.Add(unit);
         }
 
         public UnitSet(string id, List<Unit> units = null)
-            : base(null, null, id)
+            : base(null, id)
         {
             if (units != null)
                 Units = units;

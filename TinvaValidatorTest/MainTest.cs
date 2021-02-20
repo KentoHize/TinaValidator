@@ -19,8 +19,7 @@ namespace TinvaValidatorTest
             UnitSet us = new UnitSet(CharUnits.AtoZ);
             us.Units.Add(CharUnits.atoz);
             VL.InitialStatus.Choices.Add(us);
-            us.NextStatus = new Status();
-            us.NextStatus.Choices.Add(EndNode.Instance);
+            us.NextNode = EndNode.Instance;
 
             string testString = "DJ";
 
@@ -31,21 +30,6 @@ namespace TinvaValidatorTest
         }
 
         [TestMethod]
-        public void GetRangeEffective()
-        {
-            List<object> aList = new List<object>();
-            for (int i = 0; i < 100000; i++)
-                aList.Add(i);
-
-            Stopwatch sw = new Stopwatch();
-            sw.Reset();
-            sw.Start();
-            aList.GetRange(5, aList.Count - 5);
-            sw.Stop();
-            TestContext.WriteLine(sw.ElapsedTicks.ToString());
-        }
-
-        [TestMethod]
         public void AreaParse()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
@@ -53,39 +37,31 @@ namespace TinvaValidatorTest
             AreaStart ap1 = new AreaStart(ar1, new Status());
 
             VL.InitialStatus.Choices.Add(ap1);
-            //12, 56 70 CHA
-            //08, 32 45 CHR            
-
             CharsToIntegerPart stip = new CharsToIntegerPart();
-            ar1.InitialStatus.Choices.Add(stip);
-            stip.NextStatus = new Status();
-            UnitSet us1 = new UnitSet(CharUnits.Comma);
+            ar1.InitialStatus.Choices.Add(stip);            
+            UnitSet us1 = new UnitSet(CharUnits.Comma);            
             us1.Units.Add(CharUnits.WhiteSpace);
-            stip.NextStatus.Choices.Add(us1);
-            Status s3 = new Status();
-            us1.NextStatus = s3;
+            stip.NextNode = us1;
             CharsToIntegerPart stip2 = new CharsToIntegerPart();
-            s3.Choices.Add(stip2);
+            us1.NextNode = stip2;
             UnitSet us2 = new UnitSet(CharUnits.WhiteSpace);
             Status s4 = new Status();
-            stip2.NextStatus = s4;
-            s4.Choices.Add(us2);
-            Status s5 = new Status();
-            us2.NextStatus = s5;
+            stip2.NextNode = us2;
             CharsToIntegerPart stip3 = new CharsToIntegerPart();
-            s5.Choices.Add(stip3);
-            stip3.NextStatus = new Status();
-            stip3.NextStatus.Choices.Add(EndNode.Instance);
+            us2.NextNode = stip3;
+            stip3.NextNode = EndNode.Instance;
 
             UnitSet us3 = " CH".ToUnitSet();
             us3.Units.Add(CharUnits.AtoZ);
-            ap1.NextStatus.Choices.Add(us3);
+            (ap1.NextNode as Status).Choices.Add(us3);
 
-            us3.NextStatus = new Status();
+            us3.NextNode = new Status();            
             UnitSet CRLF = "\r\n".ToUnitSet();
-            us3.NextStatus.Choices.Add(CRLF);
-            CRLF.NextStatus = VL.InitialStatus;
-            us3.NextStatus.Choices.Add(EndNode.Instance);
+            (us3.NextNode as Status).Choices.Add(CRLF);
+            (us3.NextNode as Status).Choices.Add(EndNode.Instance);
+            CRLF.NextNode = VL.InitialStatus;
+            //12, 56 70 CHA
+            //08, 32 45 CHR
 
             TinaValidator validator = new TinaValidator(VL);
             bool result;
