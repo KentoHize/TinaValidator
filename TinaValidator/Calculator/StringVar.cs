@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    class StringVar : Variable, IString
+    public class StringVar : Variable, IString
     {
         public StringConst GetResult(IVariableLinker vl)
             => new StringConst(vl.GetValue(this).ToString());

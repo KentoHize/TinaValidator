@@ -23,33 +23,39 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (things == null)
                 throw new ArgumentNullException(nameof(things));
 
-            return AreaStatusChoice(things, 0, Logic.InitialStatus, null) != Invalid;
+            return AreaNodeSelection(things, 0, Logic.InitialStatus, null) != Invalid;
         }
 
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        private int AreaStatusChoice(List<object> things, int index, Status st, AreaPart ap)
+        private int AreaNodeSelection(List<object> things, int index, TNode node, AreaStart ap)
         {
-            int nextIndex;
-            for (int i = 0; i < st.Choices.Count; i++)
+            int nextIndex = index;
+            switch(node)
             {
-                if (st.Choices[i] is EndPart)
+                case EndNode _:
                     return index;
-                else if (st.Choices[i] is SkipPart)
-                    nextIndex = index;
-                else if (st.Choices[i] is AreaPart nap)
-                    nextIndex = AreaStatusChoice(things, index, nap.Area.InitialStatus, nap);
-                else
-                {
+                case AreaStart ars:
+                    nextIndex = AreaNodeSelection(things, index, ars.Area.InitialStatus, ars);
+                    break;
+                case Part p:
                     if (index == things.Count)
-                        continue;
+                        break;
                     else
-                        nextIndex = st.Choices[i].Validate(things, index);
-                }
-                if (nextIndex != Invalid)
-                    return AreaStatusChoice(things, nextIndex, st.Choices[i].NextStatus, ap);
+                        nextIndex = p.Validate(things, index);
+                    break;
+                case Status st:
+                    for (int i = 0; i < st.Choices.Count; i++)
+                    { 
+                        nextIndex = AreaNodeSelection(things, index, st.Choices[i], ap);
+                        if (nextIndex != Invalid)
+                            return nextIndex;
+                    }
+                    return Invalid;
             }
+            if (nextIndex != Invalid)
+                return AreaNodeSelection(things, nextIndex, node.NextNode, ap);
             return Invalid;
         }
 
@@ -69,17 +75,25 @@ namespace Aritiafel.Artifacts.TinaValidator
             return result;
         }
 
-        private void AreaGetRandom(List<object> result, Status st, AreaPart ap)
+        private void AreaGetRandom(List<object> result, TNode node, AreaStart ap)
         {
-            Random rnd = new Random((int)DateTime.Now.Ticks);
-            int choiceIndex = rnd.Next(st.Choices.Count);
-            if (st.Choices[choiceIndex] is EndPart)
-                return;
-            else if (st.Choices[choiceIndex] is AreaPart nap)
-                AreaGetRandom(result, nap.Area.InitialStatus, nap);
-            else
-                result.AddRange(st.Choices[choiceIndex].Random());
-            AreaGetRandom(result, st.Choices[choiceIndex].NextStatus, ap);
+            switch (node)
+            {
+                case EndNode _:
+                    return;
+                case AreaStart ars:
+                    AreaGetRandom(result, ars.Area.InitialStatus, ars);
+                    AreaGetRandom(result, ars.NextNode, ap);
+                    break;
+                case Part p:
+                    result.AddRange(p.Random());
+                    break;
+                case Status st:
+                    Random rnd = new Random((int)DateTime.Now.Ticks);
+                    int choiceIndex = rnd.Next(st.Choices.Count);
+                    AreaGetRandom(result, st.Choices[choiceIndex], ap);
+                    break;
+            }
         }
     }
 }

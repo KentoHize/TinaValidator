@@ -20,7 +20,7 @@ namespace TinvaValidatorTest
             us.Units.Add(CharUnits.atoz);
             VL.InitialStatus.Choices.Add(us);
             us.NextStatus = new Status();
-            us.NextStatus.Choices.Add(EndPart.Instance);
+            us.NextStatus.Choices.Add(EndNode.Instance);
 
             string testString = "DJ";
 
@@ -50,7 +50,7 @@ namespace TinvaValidatorTest
         {
             ValidateLogic VL = new ValidateLogic(new Status());
             Area ar1 = new Area(null, new Status(), VL);
-            AreaPart ap1 = new AreaPart(ar1, new Status());
+            AreaStart ap1 = new AreaStart(ar1, new Status());
 
             VL.InitialStatus.Choices.Add(ap1);
             //12, 56 70 CHA
@@ -75,7 +75,7 @@ namespace TinvaValidatorTest
             CharsToIntegerPart stip3 = new CharsToIntegerPart();
             s5.Choices.Add(stip3);
             stip3.NextStatus = new Status();
-            stip3.NextStatus.Choices.Add(EndPart.Instance);
+            stip3.NextStatus.Choices.Add(EndNode.Instance);
 
             UnitSet us3 = " CH".ToUnitSet();
             us3.Units.Add(CharUnits.AtoZ);
@@ -85,7 +85,7 @@ namespace TinvaValidatorTest
             UnitSet CRLF = "\r\n".ToUnitSet();
             us3.NextStatus.Choices.Add(CRLF);
             CRLF.NextStatus = VL.InitialStatus;
-            us3.NextStatus.Choices.Add(EndPart.Instance);
+            us3.NextStatus.Choices.Add(EndNode.Instance);
 
             TinaValidator validator = new TinaValidator(VL);
             bool result;

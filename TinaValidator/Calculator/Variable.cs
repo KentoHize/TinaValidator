@@ -21,7 +21,7 @@ namespace Aritiafel.Artifacts.Calculator
         protected Variable(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
         {
             Name = name ?? IdentifyShop.GetNewID();
-            Keys = keys ?? new List<object>();
+            Keys = keys;
             Source = source;
         }
 

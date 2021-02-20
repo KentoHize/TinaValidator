@@ -6,10 +6,21 @@ namespace Aritiafel.Artifacts.Calculator
     public class Calculator
     {
         CalculatorMemory VariableLinker { get; set; }
+        public List<Statement> Statements { get; set; }
         public Calculator()
-            => VariableLinker = new CalculatorMemory();
+            : this(null)
+        { }
+
+        public Calculator(List<Statement> statements)
+        {
+            VariableLinker = new CalculatorMemory();
+            Statements = statements ?? new List<Statement>();
+        }
+
+        public void Run()
+            => RunStatements(Statements);
         
-        public void Run(List<Statement> statements)
+        public void RunStatements(List<Statement> statements)
         {
             foreach (Statement st in statements)
                 RunStatement(st);
@@ -21,29 +32,21 @@ namespace Aritiafel.Artifacts.Calculator
                 case DeclareVariableStatement dvs:
                     VariableLinker.DeclareVariable(dvs.Name, dvs.Type, dvs.Dimension, dvs.Counts, dvs.InitialValue);
                     break;
+                case SetVariableStatement svs:
+                    VariableLinker.SetValue(svs.Variable, svs.Value);
+                    break;
                 default:
                     throw new NotImplementedException();
             }
         }
 
         public bool CalculateCompareExpression(CompareExpression ce)
-        {
-            return ce.GetResult(VariableLinker);
-        }
-
+            => ce.GetResult(VariableLinker);
         public bool CalculateBooleanExpression(BooleanExpression be)
-        {
-            return be.GetResult(VariableLinker);
-        }
-
+            => be.GetResult(VariableLinker);
         public object CalculateArithmeticExpression(ArithmeticExpression ae)
-        {
-            return ae.GetResult(VariableLinker).Value;
-        }
-
+            => ae.GetResult(VariableLinker).Value;
         public string CalculateStringExpression(StringExpression se)
-        {
-            return se.GetResult(VariableLinker);
-        }
+            => se.GetResult(VariableLinker);
     }
 }

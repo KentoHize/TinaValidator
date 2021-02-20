@@ -41,7 +41,7 @@ namespace Aritiafel.Artifacts.Calculator
         public object GetValue(Variable v)
         {
             if (!Variables.ContainsKey(v.Name))
-                throw new ArgumentNullException();
+                throw new KeyNotFoundException();
             if (v.Keys == null)
                 return Variables[v.Name];
             else
@@ -55,8 +55,8 @@ namespace Aritiafel.Artifacts.Calculator
 
         public void SetValue(Variable v, object value)
         {
-            if (Variables.ContainsKey(v.Name))
-                throw new Exception();
+            if (!Variables.ContainsKey(v.Name))
+                throw new KeyNotFoundException();
             if (v.Keys == null)
                 Variables[v.Name] = value;
             else

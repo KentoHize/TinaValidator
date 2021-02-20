@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="TestArea\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Aritiafel">
       <HintPath>..\..\Aritiafel\Aritiafel\bin\Release\netstandard2.0\Aritiafel.dll</HintPath>
     </Reference>

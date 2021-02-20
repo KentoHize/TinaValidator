@@ -35,7 +35,7 @@
   <Class Name="Aritiafel.Artifacts.Calculator.Calculator" Collapsed="true">
     <Position X="20" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAQAAAAAAAAIAAAAAAAQAAIAAAIAI=</HashCode>
+      <HashCode>AQAAAAAAAAAAgAAAQAAAAAAAAIAABAAAAQAAIAAAIAI=</HashCode>
       <FileName>Calculator\Calculator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -169,18 +169,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Aritiafel.Artifacts.TinaValidator.Area" Collapsed="true">
+  <Class Name="Aritiafel.Artifacts.TinaValidator.AreaStart" Collapsed="true">
     <Position X="0.5" Y="12.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Area.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Aritiafel.Artifacts.TinaValidator.AreaPart" Collapsed="true">
-    <Position X="10" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAQAAAAA=</HashCode>
-      <FileName>AreaPart.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>AreaStart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.BooleanUnit" Collapsed="true">
@@ -232,11 +225,11 @@
       <FileName>DoubleUnit.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Aritiafel.Artifacts.TinaValidator.EndPart" Collapsed="true">
+  <Class Name="Aritiafel.Artifacts.TinaValidator.EndNode" Collapsed="true">
     <Position X="12.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAABAAAQAAAAAAAAAA=</HashCode>
-      <FileName>EndPart.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>EndNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Extensions" Collapsed="true">
@@ -264,29 +257,22 @@
   <Class Name="Aritiafel.Artifacts.TinaValidator.Part" Collapsed="true">
     <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAggAAAAAAAAAAAQAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAAAEAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Part.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Aritiafel.Artifacts.TinaValidator.SetValueBox" Collapsed="true">
+  <Class Name="Aritiafel.Artifacts.TinaValidator.RunStatements" Collapsed="true">
     <Position X="21.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SetValueBox.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Aritiafel.Artifacts.TinaValidator.SkipPart" Collapsed="true">
-    <Position X="14.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SkipPart.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RunStatements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Status" Collapsed="true">
     <Position X="23.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAABAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Status.cs</FileName>
     </TypeIdentifier>
   </Class>
