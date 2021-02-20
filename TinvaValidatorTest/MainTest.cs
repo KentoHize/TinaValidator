@@ -77,6 +77,7 @@ namespace TinvaValidatorTest
             ex2.NextNode = ap1;
             //12, 56 70 CHA
             //08, 32 45 CHR
+            //98, -3 45 CHD
 
             TinaValidator validator = new TinaValidator(VL);
             bool result;
@@ -84,11 +85,12 @@ namespace TinvaValidatorTest
             {
                 using StreamReader sr = new StreamReader(fs);
                 string s = sr.ReadToEnd();
-                List<object> thing = s.Select(m => (object)m).ToList();
+                List<object> thing = s.ToObjectList();
                 result = validator.Validate(thing);
             }
             TestContext.WriteLine(result.ToString());
 
+            
             for (int i = 0; i < 100; i++)
             {
                 List<object> list = validator.CreateRandom();

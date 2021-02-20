@@ -41,7 +41,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     break;
                 case Execute e:
                     CalMain.RunStatements(e.Statements);
-                    nextIndex = NodeValidate(things, index, e.NextNode, ap);
+                    nextIndex = index;
                     break;
                 case Part p:
                     if (index == things.Count)
@@ -52,7 +52,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case Status st:
                     for (int i = 0; i < st.Choices.Count; i++)
                     {
-                        if (st.Choices[i].Conditon == null || CalMain.CalculateBooleanExpression(st.Choices[i].Conditon)) // TO DO
+                        if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO
                         {
                             nextIndex = NodeValidate(things, index, st.Choices[i].Node, ap);
                             if (nextIndex != Invalid)
