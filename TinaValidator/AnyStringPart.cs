@@ -99,10 +99,10 @@ namespace Aritiafel.Artifacts.TinaValidator
                     break;
                 else if (EscapeChars.Contains(c))
                     break;
-                sb.Append(c);
                 for (int j = 0; j < EscapeStrings.Count; j++)
                     if (sb.ToString().EndsWith(EscapeStrings[j]))
                         return MinMaxLengthCheck(sb.ToString()) ? startIndex + i : -1;
+                sb.Append(c);                
             }
             return MinMaxLengthCheck(sb.ToString()) ? startIndex + i : -1;
         }

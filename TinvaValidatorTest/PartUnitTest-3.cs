@@ -31,6 +31,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(asp.Validate(asp.Random()) != -1);
             TestContext.WriteLine(asp.Random().ForEachToString());
             asp = new AnyStringPart(null, null, new List<string> { "AA", "BB", "CCC" }, 10, 200);
+            Assert.IsTrue(asp.Validate("rrrd145ddaabb".ToObjectList()) == 13);
+            Assert.IsTrue(asp.Validate("dd64416d".ToObjectList()) == -1);
+            Assert.IsTrue(asp.Validate("dd6t4416dBDDBB".ToObjectList()) == 14);
+            Assert.IsTrue(asp.Validate("dd64416d465dsa534586c89das".ToObjectList()) == 26);
             result = asp.Random();
             Assert.IsTrue(asp.Validate(result) != -1);
             TestContext.WriteLine(result.Count.ToString());
@@ -42,7 +46,9 @@ namespace TinvaValidatorTest
             asp.EscapeChars.Clear();
             asp.MaxLength = 10;
             asp.MinLength = 5;
-            
+            Assert.IsTrue(asp.Validate("rrrdddaaabvbb".ToObjectList()) == -1);
+            Assert.IsTrue(asp.Validate("ddd".ToObjectList()) == -1);
+
             result = asp.Random();
             Assert.IsTrue(result.Count >= 5 && result.Count <= 10);
             Assert.IsTrue(asp.Validate(result) != -1);
@@ -91,6 +97,7 @@ namespace TinvaValidatorTest
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => asp.RandomEndChance = 2.3);
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => asp.MinLength = -9);
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => asp.MaxLength = -7);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => asp.MinLength = 255);
         }        
     }
 }
