@@ -17,14 +17,14 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public int MinLength {
             get => _MinLength;
-            set => _MinLength = MinLength > MaxLength || MinLength < 0 ?
+            set => _MinLength = value > MaxLength || value < 0 ?
                 throw new ArgumentOutOfRangeException(nameof(MinLength)) : value;
         }
         private int _MinLength;
         public int MaxLength
         {
             get => _MaxLength;
-            set => _MaxLength = MinLength > MaxLength || MaxLength < 0 ?
+            set => _MaxLength = MinLength > value || value < 0 ?
                 throw new ArgumentOutOfRangeException(nameof(MaxLength)) : value;
         }
         private int _MaxLength;
