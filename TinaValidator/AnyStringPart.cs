@@ -5,51 +5,77 @@ using System.Text;
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class AnyStringPart : Part
-    {   
+    {
         public List<char> EscapeChars { get; set; }
         public List<string> EscapeStrings { get; set; }
         public int RandomEndCharThreshold { get; set; } = 100;
         public int RandomEndStringThreshold { get; set; } = 100;
-        public int MinLength { 
+        public double RandomEndChance { get => _RandomEndChance;
+            set => _RandomEndChance = value >= 0 && value <= 1 ? value :
+            throw new ArgumentOutOfRangeException(nameof(RandomEndChance)); }
+        private double _RandomEndChance = 0.1d;
+
+        public int MinLength {
             get => _MinLength;
             set => _MinLength = MinLength > MaxLength || MinLength < 0 ?
-                throw new ArgumentOutOfRangeException() : value;
-             }
+                throw new ArgumentOutOfRangeException(nameof(MinLength)) : value;
+        }
         private int _MinLength;
         public int MaxLength
         {
             get => _MaxLength;
             set => _MaxLength = MinLength > MaxLength || MaxLength < 0 ?
-                throw new ArgumentOutOfRangeException() : value;
+                throw new ArgumentOutOfRangeException(nameof(MaxLength)) : value;
         }
         private int _MaxLength;
 
         public AnyStringPart()
-            : this(null, '"')
+            : this(null, '"', 0, 0)
         { }
 
-        public AnyStringPart(TNode nextNode = null, char escapeChar = '"', List<string> escapeString = null,
-           int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
-           : this(nextNode, null, new List<char> { escapeChar }, escapeString, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
-        { }
-        public AnyStringPart(TNode nextNode = null, List<char> escapeChar = null, List<string> escapeString = null,
-           int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
-           : this(nextNode, null, escapeChar, escapeString, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChars = null,
+            int minLength = 0, int maxLength = 0)
+           : this(nextNode, id, escapeChars, null, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, char escapeChar = '"', List<string> escapeString = null,
-           int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
-            : this(nextNode, id, new List<char> { escapeChar }, escapeString, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+        public AnyStringPart(TNode nextNode = null, char escapeChar = '"',
+            int minLength = 0, int maxLength = 0)
+           : this(nextNode, null, new List<char> { escapeChar }, null, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChar = null, List<string> escapeString = null, 
+        public AnyStringPart(TNode nextNode = null, char escapeChar = '"', List<string> escapeStrings = null,
+           int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
+           : this(nextNode, null, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+        { }
+
+        public AnyStringPart(TNode nextNode = null, string escapeStrings = null,
+           int minLength = 0, int maxLength = 0)
+           : this(nextNode, null, new List<string> { escapeStrings }, minLength, maxLength)
+        { }
+
+        public AnyStringPart(TNode nextNode = null, string id = null, string escapeStrings = null,
+           int minLength = 0, int maxLength = 0)
+           : this(nextNode, id, null, new List<string> { escapeStrings }, minLength, maxLength)
+        { }
+
+        public AnyStringPart(TNode nextNode = null, List<char> escapeChars = null, List<string> escapeStrings = null,
+           int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
+           : this(nextNode, null, escapeChars, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+        { }
+
+        public AnyStringPart(TNode nextNode = null, string id = null, char escapeChar = '"', List<string> escapeStrings = null,
+           int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
+            : this(nextNode, id, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+        { }
+
+        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChars = null, List<string> escapeStrings = null, 
             int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
             : base(nextNode, id)
         {
-            EscapeChars = escapeChar ?? new List<char>();
-            EscapeStrings = escapeString ?? new List<string>();
-            MinLength = minLength;
+            EscapeChars = escapeChars ?? new List<char>();
+            EscapeStrings = escapeStrings ?? new List<string>();
             MaxLength = maxLength;
+            MinLength = minLength;
             RandomEndStringThreshold = randomEndStringThreshold;
             RandomEndCharThreshold = randomEndCharThreshold;
         }
@@ -127,6 +153,10 @@ namespace Aritiafel.Artifacts.TinaValidator
                         break;
                     }
                 }
+
+                if(EscapeChars.Count == 0 && EscapeStrings.Count == 0 && sb.Length >= MinLength)
+                    if (rnd.NextDouble() < RandomEndChance)
+                        break;
             }
             while (MaxLength == 0 || sb.Length < MaxLength);
             return sb.ToString().ToObjectList();
