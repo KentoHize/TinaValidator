@@ -16,11 +16,15 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctbp.Validate("faLse458".ToObjectList()) == 5);
             Assert.IsTrue(ctbp.Validate("faLde".ToObjectList()) == -1);
             Assert.IsTrue(ctbp.Validate(new List<object> { 3 }) == -1);
+            Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
+            Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
             TestContext.WriteLine(ctbp.Random().ForEachToString());
             TestContext.WriteLine(ctbp.Random().ForEachToString());
             ctbp = new CharsToBooleanPart(true);
             Assert.IsTrue(ctbp.Validate("TRUe".ToObjectList()) == 4);
             Assert.IsTrue(ctbp.Validate("FalSE".ToObjectList()) == -1);
+            Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
+            Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
             TestContext.WriteLine(ctbp.Random().ForEachToString());
             TestContext.WriteLine(ctbp.Random().ForEachToString());
 
@@ -28,6 +32,8 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctbp.Validate("TRUe".ToObjectList()) == -1);
             Assert.IsTrue(ctbp.Validate("dfalSE".ToObjectList()) == -1);
             Assert.IsTrue(ctbp.Validate("FalSepo".ToObjectList()) == 5);
+            Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
+            Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
             TestContext.WriteLine(ctbp.Random().ForEachToString());
             TestContext.WriteLine(ctbp.Random().ForEachToString());
         }
@@ -47,6 +53,8 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctip.Validate("98789321897315678649889879324".ToObjectList()) == -1);
             Assert.IsTrue(ctip.Validate("-68788671897315678649889876587".ToObjectList()) == 30);
             Assert.IsTrue(ctip.Validate("-98788671897315678649889876587".ToObjectList()) == -1);
+            Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
+            Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
@@ -54,12 +62,16 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctip.Validate("203587631978drd".ToObjectList()) == 12);
             Assert.IsTrue(ctip.Validate("203587631979".ToObjectList()) == -1);
             Assert.IsTrue(ctip.Validate("203587631977".ToObjectList()) == -1);
+            Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
+            Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
             ctip = new CharsToIntegerPart(-25549, 5678913);
             Assert.IsTrue(ctip.Validate("0658d".ToObjectList()) == 4);
             Assert.IsTrue(ctip.Validate("-12253".ToObjectList()) == 6);
             Assert.IsTrue(ctip.Validate("-37253".ToObjectList()) == -1);
+            Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
+            Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
             TestContext.WriteLine(ctip.Random().ForEachToString());
@@ -82,6 +94,8 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctdp.Validate(s.ToObjectList()) == 330);
             s = string.Concat("-0.", new string('7', 300));
             Assert.IsTrue(ctdp.Validate(s.ToObjectList()) == 303);
+            Assert.IsTrue(ctdp.Validate(ctdp.Random()) != -1);
+            Assert.IsTrue(ctdp.Validate(ctdp.Random()) != -1);
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());
@@ -89,15 +103,20 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctdp.Validate("811.568478.324".ToObjectList()) == 10);
             Assert.IsTrue(ctdp.Validate("811.568479".ToObjectList()) == -1);
             Assert.IsTrue(ctdp.Validate("811.568477".ToObjectList()) == -1);
+            Assert.IsTrue(ctdp.Validate(ctdp.Random()) != -1);
+            Assert.IsTrue(ctdp.Validate(ctdp.Random()) != -1);
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             ctdp = new CharsToDoublePart(-788.49, 96633.12);
             Assert.IsTrue(ctdp.Validate("001264d".ToObjectList()) == 6);
             Assert.IsTrue(ctdp.Validate("96633.15".ToObjectList()) == -1);
             Assert.IsTrue(ctdp.Validate("-788.50".ToObjectList()) == -1);
+            Assert.IsTrue(ctdp.Validate(ctdp.Random()) != -1);
+            Assert.IsTrue(ctdp.Validate(ctdp.Random()) != -1);
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());
             TestContext.WriteLine(ctdp.Random().ForEachToString());
+
             ctdp = new CharsToDoublePart(81.3, -726.5);
             Assert.ThrowsException<ArgumentException>(() => ctdp.Random());
         }

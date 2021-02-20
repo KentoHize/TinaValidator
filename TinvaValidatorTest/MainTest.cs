@@ -1,8 +1,7 @@
-using Aritiafel.Artifacts.TinaValidator;
 using Aritiafel.Artifacts.Calculator;
+using Aritiafel.Artifacts.TinaValidator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -39,7 +38,7 @@ namespace TinvaValidatorTest
             Execute initialEx = new Execute();
             initialEx.Statements.Add(dvs);
             initialEx.Statements.Add(svs);
-            SetVariableStatement svs2 = new SetVariableStatement(new LongVar("Times"), 
+            SetVariableStatement svs2 = new SetVariableStatement(new LongVar("Times"),
                 new ArithmeticExpression(new LongVar("Times"), null, Operator.PlusOne));
             Execute ex2 = new Execute(svs2);
             CompareExpression AtLeast2 = new CompareExpression(new LongVar("Times"), new LongConst(2), Operator.GreaterThanOrEqualTo);
@@ -49,11 +48,9 @@ namespace TinvaValidatorTest
             VL.InitialStatus.Choices.Add(new Choice(initialEx));
             initialEx.NextNode = ap1;
 
-            //VL.InitialStatus.Choices.Add(new Choice(ap1));
-            
             CharsToIntegerPart stip = new CharsToIntegerPart();
             ar1.InitialStatus.Choices.Add(new Choice(stip));
-            UnitSet us1 = new UnitSet(CharUnits.Comma);            
+            UnitSet us1 = new UnitSet(CharUnits.Comma);
             us1.Units.Add(CharUnits.WhiteSpace);
             stip.NextNode = us1;
             CharsToIntegerPart stip2 = new CharsToIntegerPart();
@@ -69,7 +66,7 @@ namespace TinvaValidatorTest
             us3.Units.Add(CharUnits.AtoZ);
             (ap1.NextNode as Status).Choices.Add(new Choice(us3));
 
-            us3.NextNode = new Status();            
+            us3.NextNode = new Status();
             UnitSet CRLF = "\r\n".ToUnitSet();
             (us3.NextNode as Status).Choices.Add(new Choice(CRLF));
             (us3.NextNode as Status).Choices.Add(new Choice(EndNode.Instance, AtLeast2));
@@ -83,7 +80,7 @@ namespace TinvaValidatorTest
             bool result;
             string samplePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\";
             string[] files = Directory.GetFiles(samplePath);
-            for(int i = 0; i < files.Length; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 using (FileStream fs = new FileStream(files[i], FileMode.Open))
                 {
@@ -97,14 +94,14 @@ namespace TinvaValidatorTest
                 else
                     Assert.IsFalse(result);
             }
-            
+
             for (int i = 0; i < 100; i++)
             {
                 List<object> list = validator.CreateRandom();
                 TestContext.WriteLine(list.ForEachToString());
                 result = validator.Validate(list);
                 TestContext.WriteLine("");
-                Assert.IsTrue(result);                
+                Assert.IsTrue(result);
             }
         }
 

@@ -25,6 +25,6 @@ namespace Aritiafel.Artifacts.Calculator
             Source = source;
         }
 
-        
+
     }
 }

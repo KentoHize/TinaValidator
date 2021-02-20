@@ -8,14 +8,18 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public List<char> EscapeChars { get; set; }
         public List<string> EscapeStrings { get; set; }
-        public int RandomEndCharThreshold { get; set; } = 100;
-        public int RandomEndStringThreshold { get; set; } = 100;
-        public double RandomEndChance { get => _RandomEndChance;
+        public int RandomEndCharThreshold { get; set; }
+        public int RandomEndStringThreshold { get; set; }
+        public double RandomEndChance
+        {
+            get => _RandomEndChance;
             set => _RandomEndChance = value >= 0 && value <= 1 ? value :
-            throw new ArgumentOutOfRangeException(nameof(RandomEndChance)); }
-        private double _RandomEndChance = 0.1d;
+            throw new ArgumentOutOfRangeException(nameof(RandomEndChance));
+        }
+        private double _RandomEndChance;
 
-        public int MinLength {
+        public int MinLength
+        {
             get => _MinLength;
             set => _MinLength = value > MaxLength || value < 0 ?
                 throw new ArgumentOutOfRangeException(nameof(MinLength)) : value;
@@ -68,8 +72,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             : this(nextNode, id, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChars = null, List<string> escapeStrings = null, 
-            int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
+        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChars = null, List<string> escapeStrings = null,
+            int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100,
+            double randomEndChance = 0.1)
             : base(nextNode, id)
         {
             EscapeChars = escapeChars ?? new List<char>();
@@ -78,19 +83,17 @@ namespace Aritiafel.Artifacts.TinaValidator
             MinLength = minLength;
             RandomEndStringThreshold = randomEndStringThreshold;
             RandomEndCharThreshold = randomEndCharThreshold;
+            RandomEndChance = randomEndChance;
         }
-
         private bool MinMaxLengthCheck(string s)
             => s.Length >= MinLength && (MaxLength == 0 || s.Length <= MaxLength);
-
         public override int Validate(List<object> thing, int startIndex = 0)
         {
-            int i = 0;
+            int i;
             if (startIndex == thing.Count)
                 return -1;
             else if (thing[startIndex] is string s)
-                if (s.Length >= MinLength && (MaxLength == 0 || s.Length <= MaxLength))
-                    return MinMaxLengthCheck(s) ? startIndex + 1 : -1;
+                return MinMaxLengthCheck(s) ? startIndex + 1 : -1;
 
             StringBuilder sb = new StringBuilder();
             for (i = 0; startIndex + i < thing.Count; i++)
@@ -102,7 +105,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 for (int j = 0; j < EscapeStrings.Count; j++)
                     if (sb.ToString().EndsWith(EscapeStrings[j]))
                         return MinMaxLengthCheck(sb.ToString()) ? startIndex + i : -1;
-                sb.Append(c);                
+                sb.Append(c);
             }
             return MinMaxLengthCheck(sb.ToString()) ? startIndex + i : -1;
         }
@@ -115,7 +118,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Random rnd = new Random((int)DateTime.Now.Ticks);
             do
             {
-                c = (char)cu.Random();                
+                c = (char)cu.Random();
                 for (int i = 0; i < EscapeStrings.Count; i++)
                     if ($"{sb}{c}".EndsWith(EscapeStrings[i]))
                         if (sb.Length >= MinLength)
@@ -130,23 +133,23 @@ namespace Aritiafel.Artifacts.TinaValidator
 
                 sb.Append(c);
 
-                //Escape String 出現
+                //Escape String Appear
                 if (sb.Length >= RandomEndStringThreshold && EscapeStrings.Count != 0)
-                { 
-                    if(rnd.Next(20) == 0)
+                {
+                    if (rnd.Next(20) == 0)
                     {
                         int r = rnd.Next(EscapeStrings.Count);
                         if (EscapeStrings[r].Length + sb.Length <= MaxLength || MaxLength == 0)
-                        { 
+                        {
                             sb.Append(EscapeStrings[r]);
                             break;
                         }
                     }
                 }
 
-                //Escape Char 出現
+                //Escape Char Appear
                 if (sb.Length >= RandomEndCharThreshold && EscapeChars.Count != 0)
-                { 
+                {
                     if (rnd.Next(20) == 0 && (MaxLength == 0 || MaxLength >= sb.Length + 1))
                     {
                         sb.Append(EscapeChars[rnd.Next(EscapeChars.Count)]);
@@ -154,12 +157,12 @@ namespace Aritiafel.Artifacts.TinaValidator
                     }
                 }
 
-                if(EscapeChars.Count == 0 && EscapeStrings.Count == 0 && sb.Length >= MinLength)
+                if (EscapeChars.Count == 0 && EscapeStrings.Count == 0 && sb.Length >= MinLength)
                     if (rnd.NextDouble() < RandomEndChance)
                         break;
             }
             while (MaxLength == 0 || sb.Length < MaxLength);
             return sb.ToString().ToObjectList();
-        } 
-    } 
+        }
+    }
 }

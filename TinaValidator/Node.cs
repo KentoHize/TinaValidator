@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Aritiafel.Locations;
+﻿using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {

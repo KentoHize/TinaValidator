@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.Calculator
 {
@@ -19,7 +19,7 @@ namespace Aritiafel.Artifacts.Calculator
 
         public void Run()
             => RunStatements(Statements);
-        
+
         public void RunStatements(List<Statement> statements)
         {
             foreach (Statement st in statements)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -10,13 +9,13 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public const int Invalid = -1;
         public ValidateLogic Logic { get; set; }
-        Calculator.Calculator CalMain { get; set; } = new Calculator.Calculator();       
+        Calculator.Calculator CalMain { get; set; } = new Calculator.Calculator();
 
         public TinaValidator(ValidateLogic logic = null)
         {
             Logic = logic;
         }
-        
+
         public string Message { get; set; }
         public bool Validate(List<object> things)
         {
@@ -32,7 +31,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         private int NodeValidate(List<object> things, int index, TNode node, AreaStart ap)
         {
             int nextIndex = Invalid;
-            switch(node)
+            switch (node)
             {
                 case EndNode _:
                     return index;
@@ -106,7 +105,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     SortedList<int, TNode> ratioThreshold = new SortedList<int, TNode>();
                     int RationCount = 0;
                     for (int i = 0; i < st.Choices.Count; i++)
-                    { 
+                    {
                         if (st.Choices[i].Conditon == null || CalMain.CalculateBooleanExpression(st.Choices[i].Conditon))
                         {
                             RationCount += st.Choices[i].RadomRatio;

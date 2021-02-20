@@ -3,7 +3,7 @@
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class Choice
-    {   
+    {
         public TNode Node { get; set; }
         public IBoolean Conditon { get; set; }
         public int RadomRatio { get; set; }

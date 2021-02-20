@@ -1,7 +1,7 @@
 using Aritiafel.Artifacts.Calculator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Newtonsoft.Json;
+using System;
 
 namespace TinvaValidatorTest
 {
