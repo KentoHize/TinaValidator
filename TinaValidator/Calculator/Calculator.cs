@@ -40,13 +40,13 @@ namespace Aritiafel.Artifacts.Calculator
             }
         }
 
-        public bool CalculateCompareExpression(CompareExpression ce)
+        public bool CalculateCompareExpression(IBoolean ce)
             => ce.GetResult(VariableLinker);
-        public bool CalculateBooleanExpression(BooleanExpression be)
+        public bool CalculateBooleanExpression(IBoolean be)
             => be.GetResult(VariableLinker);
-        public object CalculateArithmeticExpression(ArithmeticExpression ae)
+        public object CalculateArithmeticExpression(INumber ae)
             => ae.GetResult(VariableLinker).Value;
-        public string CalculateStringExpression(StringExpression se)
+        public string CalculateStringExpression(IString se)
             => se.GetResult(VariableLinker);
     }
 }

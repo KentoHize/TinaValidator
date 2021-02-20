@@ -18,7 +18,7 @@ namespace TinvaValidatorTest
             ValidateLogic VL = new ValidateLogic(new Status());
             UnitSet us = new UnitSet(CharUnits.AtoZ);
             us.Units.Add(CharUnits.atoz);
-            VL.InitialStatus.Choices.Add(us);
+            VL.InitialStatus.Choices.Add(new Choice(us));
             us.NextNode = EndNode.Instance;
 
             string testString = "DJ";
@@ -33,12 +33,13 @@ namespace TinvaValidatorTest
         public void AreaParse()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
+            //Execute ex = new Execute();
             Area ar1 = new Area(null, new Status(), VL);
             AreaStart ap1 = new AreaStart(ar1, new Status());
 
-            VL.InitialStatus.Choices.Add(ap1);
+            VL.InitialStatus.Choices.Add(new Choice(ap1));
             CharsToIntegerPart stip = new CharsToIntegerPart();
-            ar1.InitialStatus.Choices.Add(stip);            
+            ar1.InitialStatus.Choices.Add(new Choice(stip));
             UnitSet us1 = new UnitSet(CharUnits.Comma);            
             us1.Units.Add(CharUnits.WhiteSpace);
             stip.NextNode = us1;
@@ -53,12 +54,12 @@ namespace TinvaValidatorTest
 
             UnitSet us3 = " CH".ToUnitSet();
             us3.Units.Add(CharUnits.AtoZ);
-            (ap1.NextNode as Status).Choices.Add(us3);
+            (ap1.NextNode as Status).Choices.Add(new Choice(us3));
 
             us3.NextNode = new Status();            
             UnitSet CRLF = "\r\n".ToUnitSet();
-            (us3.NextNode as Status).Choices.Add(CRLF);
-            (us3.NextNode as Status).Choices.Add(EndNode.Instance);
+            (us3.NextNode as Status).Choices.Add(new Choice(CRLF));
+            (us3.NextNode as Status).Choices.Add(Choice.EndChoice);
             CRLF.NextNode = VL.InitialStatus;
             //12, 56 70 CHA
             //08, 32 45 CHR
@@ -72,7 +73,6 @@ namespace TinvaValidatorTest
                 List<object> thing = s.Select(m => (object)m).ToList();
                 result = validator.Validate(thing);
             }
-
             TestContext.WriteLine(result.ToString());
 
             for (int i = 0; i < 100; i++)

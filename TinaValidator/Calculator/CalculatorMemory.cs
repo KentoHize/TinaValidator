@@ -22,7 +22,7 @@ namespace Aritiafel.Artifacts.Calculator
         public void DeclareVariable(string name, Type type, byte dimensions = 0, List<int> counts = null, IObject value = null)
         {
             if (dimensions > 10 || dimensions < 0)
-                throw new ArgumentOutOfRangeException("dimensions");
+                throw new ArgumentOutOfRangeException(nameof(dimensions));
             if(Variables.ContainsKey(name))
                 throw new Exception();
 

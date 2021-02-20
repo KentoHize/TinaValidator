@@ -61,11 +61,11 @@ namespace Aritiafel.Artifacts.Calculator
         public override BooleanConst LessThan(DoubleConst b)
             => throw new ArithmeticException();
         public override BooleanConst EqualTo(StringConst b)
-            => throw new ArgumentException();
+            => throw new ArithmeticException();
         public override BooleanConst GreaterThan(StringConst b)
-            => throw new ArgumentException();
+            => throw new ArithmeticException();
         public override BooleanConst LessThan(StringConst b)
-            => throw new ArgumentException();
+            => throw new ArithmeticException();
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))
