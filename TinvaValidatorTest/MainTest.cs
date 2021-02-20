@@ -31,7 +31,7 @@ namespace TinvaValidatorTest
         }
 
         [TestMethod]
-        public void AreaParse()
+        public void FirstTest()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
             DeclareVariableStatement dvs = new DeclareVariableStatement("Times", typeof(INumber));
@@ -81,21 +81,30 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             bool result;
-            using (FileStream fs = new FileStream(@"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\A.txt", FileMode.Open))
+            string samplePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\";
+            string[] files = Directory.GetFiles(samplePath);
+            for(int i = 0; i < files.Length; i++)
             {
-                using StreamReader sr = new StreamReader(fs);
-                string s = sr.ReadToEnd();
-                List<object> thing = s.ToObjectList();
-                result = validator.Validate(thing);
+                using (FileStream fs = new FileStream(files[i], FileMode.Open))
+                {
+                    using StreamReader sr = new StreamReader(fs);
+                    string s = sr.ReadToEnd();
+                    List<object> thing = s.ToObjectList();
+                    result = validator.Validate(thing);
+                }
+                if (i == 0)
+                    Assert.IsTrue(result);
+                else
+                    Assert.IsFalse(result);
             }
-            TestContext.WriteLine(result.ToString());
-
             
             for (int i = 0; i < 100; i++)
             {
                 List<object> list = validator.CreateRandom();
                 TestContext.WriteLine(list.ForEachToString());
-                TestContext.WriteLine(validator.Validate(list).ToString());
+                result = validator.Validate(list);
+                TestContext.WriteLine("");
+                Assert.IsTrue(result);                
             }
         }
 
