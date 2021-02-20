@@ -6,7 +6,7 @@ namespace Aritiafel.Artifacts.Calculator
     public class BooleanVar : Variable, IBoolean
     {
         public BooleanConst GetResult(IVariableLinker vl)
-            => new BooleanConst(Convert.ToBoolean(vl.GetValue(this)));
+            => vl.GetValue(this) as BooleanConst;
         public BooleanVar(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
             : base(name, keys, source)
         { }

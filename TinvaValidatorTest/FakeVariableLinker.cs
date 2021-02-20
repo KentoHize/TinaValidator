@@ -29,7 +29,7 @@ namespace TinvaValidatorTest
             };
         }
 
-        public void SetValue(Variable v, object value)
+        public void SetValue(Variable v, IObject value)
         {
             throw new NotImplementedException();
         }

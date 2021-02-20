@@ -48,5 +48,7 @@ namespace Aritiafel.Artifacts.Calculator
             => ae.GetResult(VariableLinker).Value;
         public string CalculateStringExpression(IString se)
             => se.GetResult(VariableLinker);
+        public void ClearMemory()
+            => VariableLinker.CleaerAllVariables();
     }
 }

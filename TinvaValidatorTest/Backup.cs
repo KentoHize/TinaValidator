@@ -8,7 +8,7 @@ namespace TinvaValidatorTest
     {
         public TestContext TestContext { get; set; }
 
-        [TestMethod]
+        //[TestMethod]
         public void BackupProject()
         {
             Residence rs = new Residence(@"E:\Backup");

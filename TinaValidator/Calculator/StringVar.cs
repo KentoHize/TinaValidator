@@ -7,7 +7,7 @@ namespace Aritiafel.Artifacts.Calculator
     public class StringVar : Variable, IString
     {
         public StringConst GetResult(IVariableLinker vl)
-            => new StringConst(vl.GetValue(this).ToString());
+            => vl.GetValue(this) as StringConst;
         public StringVar(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
             : base(name, keys, source)
         { }

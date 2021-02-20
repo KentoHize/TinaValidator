@@ -19,12 +19,18 @@ namespace Aritiafel.Artifacts.Calculator
             return result;
         }            
 
+        public void CleaerAllVariables()
+        {
+            Variables.Clear();
+            VariablesType.Clear();
+        }
+
         public void DeclareVariable(string name, Type type, byte dimensions = 0, List<int> counts = null, IObject value = null)
         {
             if (dimensions > 10 || dimensions < 0)
                 throw new ArgumentOutOfRangeException(nameof(dimensions));
-            if(Variables.ContainsKey(name))
-                throw new Exception();
+            if (Variables.ContainsKey(name))                
+                throw new ArgumentException(nameof(name));
 
             if (dimensions == 0)
             {
@@ -53,12 +59,12 @@ namespace Aritiafel.Artifacts.Calculator
             }
         }
 
-        public void SetValue(Variable v, object value)
+        public void SetValue(Variable v, IObject value)
         {
             if (!Variables.ContainsKey(v.Name))
                 throw new KeyNotFoundException();
             if (v.Keys == null)
-                Variables[v.Name] = value;
+                Variables[v.Name] = value.GetObject(this);
             else
             {
                 object o = Variables[v.Name];

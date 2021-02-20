@@ -22,7 +22,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             if (things == null)
                 throw new ArgumentNullException(nameof(things));
-
+            CalMain.ClearMemory();
             return NodeValidate(things, 0, Logic.InitialStatus, null) != Invalid;
         }
 
@@ -78,6 +78,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<object> CreateRandom()
         {
             List<object> result = new List<object>();
+            CalMain.ClearMemory();
             NodeCreateRandom(result, Logic.InitialStatus, null);
             return result;
         }

@@ -1,4 +1,5 @@
 using Aritiafel.Artifacts.TinaValidator;
+using Aritiafel.Artifacts.Calculator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,11 +34,23 @@ namespace TinvaValidatorTest
         public void AreaParse()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
-            //Execute ex = new Execute();
+            DeclareVariableStatement dvs = new DeclareVariableStatement("Times", typeof(INumber));
+            SetVariableStatement svs = new SetVariableStatement(new LongVar("Times"), new LongConst(0));
+            Execute initialEx = new Execute();
+            initialEx.Statements.Add(dvs);
+            initialEx.Statements.Add(svs);
+            SetVariableStatement svs2 = new SetVariableStatement(new LongVar("Times"), 
+                new ArithmeticExpression(new LongVar("Times"), null, Operator.PlusOne));
+            Execute ex2 = new Execute(svs2);
+            CompareExpression AtLeast2 = new CompareExpression(new LongVar("Times"), new LongConst(2), Operator.GreaterThanOrEqualTo);
             Area ar1 = new Area(null, new Status(), VL);
             AreaStart ap1 = new AreaStart(ar1, new Status());
 
-            VL.InitialStatus.Choices.Add(new Choice(ap1));
+            VL.InitialStatus.Choices.Add(new Choice(initialEx));
+            initialEx.NextNode = ap1;
+
+            //VL.InitialStatus.Choices.Add(new Choice(ap1));
+            
             CharsToIntegerPart stip = new CharsToIntegerPart();
             ar1.InitialStatus.Choices.Add(new Choice(stip));
             UnitSet us1 = new UnitSet(CharUnits.Comma);            
@@ -59,8 +72,9 @@ namespace TinvaValidatorTest
             us3.NextNode = new Status();            
             UnitSet CRLF = "\r\n".ToUnitSet();
             (us3.NextNode as Status).Choices.Add(new Choice(CRLF));
-            (us3.NextNode as Status).Choices.Add(Choice.EndChoice);
-            CRLF.NextNode = VL.InitialStatus;
+            (us3.NextNode as Status).Choices.Add(new Choice(EndNode.Instance, AtLeast2));
+            CRLF.NextNode = ex2;
+            ex2.NextNode = ap1;
             //12, 56 70 CHA
             //08, 32 45 CHR
 
