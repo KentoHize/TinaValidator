@@ -17,14 +17,14 @@ namespace TinvaValidatorTest
         {
             return v.Name switch
             {
-                IntA => 60,
-                IntB => -5,
-                IntC => 999990,
-                DoubleA => 2.55,
-                DoubleB => 7.8,
-                DoubleC => -65.237819,
-                True => true,
-                False => false,
+                IntA => new LongConst(60),
+                IntB => new LongConst(-5),
+                IntC => new LongConst(999990),
+                DoubleA => new DoubleConst(2.55),
+                DoubleB => new DoubleConst(7.8),
+                DoubleC => new DoubleConst(-65.237819),
+                True => BooleanConst.True,
+                False => BooleanConst.False,
                 _ => null,
             };
         }
