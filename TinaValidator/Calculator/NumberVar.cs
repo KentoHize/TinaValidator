@@ -9,7 +9,6 @@ namespace Aritiafel.Artifacts.Calculator
         protected NumberVar(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
             : base(name, keys, source)
         { }
-
         public override ObjectConst GetObject(IVariableLinker vl)
             => GetResult(vl);
         public override Type GetObjectType()

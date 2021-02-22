@@ -43,6 +43,7 @@ namespace TinvaValidatorTest
             Execute ex2 = new Execute(svs2);
             CompareExpression AtLeast2 = new CompareExpression(new LongVar("Times"), new LongConst(2), Operator.GreaterThanOrEqualTo);
             Area ar1 = new Area(null, new Status(), VL);
+            VL.Areas.Add(ar1);
             AreaStart ap1 = new AreaStart(ar1, new Status());
 
             VL.InitialStatus.Choices.Add(new Choice(initialEx));
@@ -77,6 +78,10 @@ namespace TinvaValidatorTest
             //98, -3 45 CHD
 
             TinaValidator validator = new TinaValidator(VL);
+            //
+            //Run Start
+            TestContext.WriteLine(VL.Save(""));
+            return;
             bool result;
             string samplePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\";
             string[] files = Directory.GetFiles(samplePath);
@@ -103,10 +108,13 @@ namespace TinvaValidatorTest
                 TestContext.WriteLine("");
                 Assert.IsTrue(result);
             }
+
+            TestContext.WriteLine(VL.Save(""));
+            return;
         }
 
         [TestMethod]
-        public void AreaParse2()
+        public void SaveTest()
         {
 
         }

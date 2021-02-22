@@ -1,4 +1,7 @@
-﻿namespace Aritiafel.Artifacts.TinaValidator
+﻿using System.IO;
+using System.Runtime.Serialization;
+
+namespace Aritiafel.Artifacts.TinaValidator
 {
     public class Area
     {
@@ -11,5 +14,18 @@
             InitialStatus = initialStatus;
             Parent = parent;
         }
+
+        //public string Save()
+        //{
+
+        //    { using (FileStream fs = new FileStream(filePath, FileMode.Create)
+        //    {
+
+        //    }}
+        //}
+        //public void Load(string filePath)
+        //{
+
+        //}
     }
 }

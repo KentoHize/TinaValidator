@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Aritiafel.Artifacts.Calculator.ArithmeticExpression" Collapsed="true">
-    <Position X="1" Y="8.75" Width="1.5" />
+    <Position X="0.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAACAAAAAAAAEAAIAEAAAA=</HashCode>
       <FileName>Calculator\ArithmeticExpression.cs</FileName>
@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.BooleanConst" Collapsed="true">
-    <Position X="11" Y="11.75" Width="1.5" />
+    <Position X="12.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ICACBAAAAACAIBBEgBECCAAAACAAQJAgAEhgAAAAAiA=</HashCode>
       <FileName>Calculator\BooleanConst.cs</FileName>
@@ -17,7 +17,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.BooleanExpression" Collapsed="true">
-    <Position X="3.25" Y="8.75" Width="1.5" />
+    <Position X="3" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAACAAAAAAAAEAAIAEAAAA=</HashCode>
       <FileName>Calculator\BooleanExpression.cs</FileName>
@@ -25,7 +25,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.BooleanVar" Collapsed="true">
-    <Position X="1" Y="11.75" Width="1.5" />
+    <Position X="0.75" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\BooleanVar.cs</FileName>
@@ -33,22 +33,22 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.Calculator" Collapsed="true">
-    <Position X="20.25" Y="0.5" Width="1.5" />
+    <Position X="22" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAgAAAQAAAAAAAAIAABAAAAQAAIAAAIAI=</HashCode>
+      <HashCode>AQAAAAAAAAAAgAAAQAAAAAAAAIAABAAAAQAAIAAAIAo=</HashCode>
       <FileName>Calculator\Calculator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.CalculatorMemory" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="22" Y="0.5" Width="1.5" />
+    <Position X="23.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAIAAAAgAAAAAAAABAAAAAAAAQAAQAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAIAAAAgAAAAAAAABABAAAAAAQAAQAAAAAAAA=</HashCode>
       <FileName>Calculator\CalculatorMemory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.CompareExpression" Collapsed="true">
-    <Position X="7.75" Y="8.75" Width="1.5" />
+    <Position X="7.5" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAACAAAAAAAAEAAIAEAAAA=</HashCode>
       <FileName>Calculator\CompareExpression.cs</FileName>
@@ -56,7 +56,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.ConvertToStringExpression" Collapsed="true">
-    <Position X="10" Y="8.75" Width="1.5" />
+    <Position X="9.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAIAAAAAA=</HashCode>
       <FileName>Calculator\ConvertToStringExpression.cs</FileName>
@@ -64,28 +64,28 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.DeclareVariableStatement">
-    <Position X="12.75" Y="1.75" Width="1.5" />
+    <Position X="12.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAAQAAAAQAAAAAAAAA=</HashCode>
       <FileName>Calculator\DeclareVariableStatement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.DoubleConst" Collapsed="true">
-    <Position X="15.5" Y="13.25" Width="1.5" />
+    <Position X="17.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACIABAAAIYAIYBhE4AWBDgYBJAAAIIAAAEAgAABAByA=</HashCode>
       <FileName>Calculator\DoubleConst.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.DoubleVar" Collapsed="true">
-    <Position X="5.5" Y="13.25" Width="1.5" />
+    <Position X="5.25" Y="15.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\DoubleVar.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.Expression" Collapsed="true">
-    <Position X="5.5" Y="7.5" Width="1.5" />
+    <Position X="5.25" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Calculator\Expression.cs</FileName>
@@ -93,21 +93,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.LongConst" Collapsed="true">
-    <Position X="17.75" Y="13.25" Width="1.5" />
+    <Position X="19.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACIABAAAIYAIYBhE4AWJCgIBJAAAIYAAAEAgAABAByA=</HashCode>
       <FileName>Calculator\LongConst.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.LongVar" Collapsed="true">
-    <Position X="7.75" Y="13.25" Width="1.5" />
+    <Position X="7.5" Y="15.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\LongVar.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.NumberConst" Collapsed="true">
-    <Position X="16.5" Y="11.75" Width="1.5" />
+    <Position X="18.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAICAAAABYAIYABAYIWBIgMBJAAAIAIAAEAkAABAByo=</HashCode>
       <FileName>Calculator\NumberConst.cs</FileName>
@@ -115,7 +115,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.NumberVar" Collapsed="true">
-    <Position X="6.5" Y="11.75" Width="1.5" />
+    <Position X="6.25" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\NumberVar.cs</FileName>
@@ -123,7 +123,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.ObjectConst" Collapsed="true">
-    <Position X="14.25" Y="10.5" Width="1.5" />
+    <Position X="16" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACACBAAAAAAAIABAAAGACgAAAAAAAAAAAAAAAAAAByA=</HashCode>
       <FileName>Calculator\ObjectConst.cs</FileName>
@@ -131,21 +131,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.SetVariableStatement">
-    <Position X="15" Y="1.75" Width="1.5" />
+    <Position X="14.75" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQgAAAAAAA=</HashCode>
       <FileName>Calculator\SetVariableStatement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.Statement" Collapsed="true">
-    <Position X="14" Y="0.5" Width="1.5" />
+    <Position X="13.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Calculator\Statement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.StringConst" Collapsed="true">
-    <Position X="13.25" Y="11.75" Width="1.5" />
+    <Position X="15" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ECACJAAAAAAAIBBEwAEACAAAAAAAAIAAAEAgAAAAAiA=</HashCode>
       <FileName>Calculator\StringConst.cs</FileName>
@@ -153,7 +153,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.StringExpression" Collapsed="true">
-    <Position X="5.5" Y="8.75" Width="1.5" />
+    <Position X="5.25" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAACAAAAAAAAEAAIAEAAAA=</HashCode>
       <FileName>Calculator\StringExpression.cs</FileName>
@@ -161,7 +161,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.StringVar" Collapsed="true">
-    <Position X="3.25" Y="11.75" Width="1.5" />
+    <Position X="3" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\StringVar.cs</FileName>
@@ -169,7 +169,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.Calculator.Variable" Collapsed="true">
-    <Position X="4.25" Y="10.5" Width="1.5" />
+    <Position X="4" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAgAgIAAACAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Calculator\Variable.cs</FileName>
@@ -177,91 +177,91 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Area" Collapsed="true">
-    <Position X="0.75" Y="13.5" Width="1.5" />
+    <Position X="10.5" Y="13.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Area.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.AreaStart" Collapsed="true">
-    <Position X="6" Y="4.75" Width="1.5" />
+    <Position X="3.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>AreaStart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.BooleanUnit">
-    <Position X="1" Y="1.75" Width="1.5" />
+    <Position X="0.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAABgAAAAAAA=</HashCode>
       <FileName>BooleanUnit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.CharsToBooleanPart" Collapsed="true">
-    <Position X="10.5" Y="6.25" Width="1.5" />
+    <Position X="10.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAACAAAAAAAAABAAAAAAgAAAAAAA=</HashCode>
       <FileName>CharsToBooleanPart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.CharsToDoublePart" Collapsed="true">
-    <Position X="12.75" Y="6.25" Width="1.5" />
+    <Position X="12.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAACAAAAAAAAABAAAAAAgAAAAAAA=</HashCode>
       <FileName>CharsToDoublePart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.CharsToIntegerPart" Collapsed="true">
-    <Position X="15" Y="6.25" Width="1.5" />
+    <Position X="14.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAACAAAAAAAAABAAAAAAgAAAAAAA=</HashCode>
       <FileName>CharsToIntegerPart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.CharUnit">
-    <Position X="5.5" Y="1.75" Width="1.5" />
+    <Position X="5.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAABgAAAAAAA=</HashCode>
       <FileName>CharUnit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.CharUnits" Collapsed="true">
-    <Position X="23.75" Y="0.5" Width="1.5" />
+    <Position X="25.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QEAAAAIAACAAIERUAIQEIAUQFoEAgAgiIwYAiAGBAGI=</HashCode>
       <FileName>CharUnits.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.DoubleUnit">
-    <Position X="7.75" Y="1.75" Width="1.5" />
+    <Position X="7.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAABgAAAAAAA=</HashCode>
       <FileName>DoubleUnit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.EndNode" Collapsed="true">
-    <Position X="8.25" Y="4.75" Width="1.5" />
+    <Position X="5.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>EndNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Extensions" Collapsed="true">
-    <Position X="20.25" Y="1.5" Width="1.5" />
+    <Position X="22" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAAAABA=</HashCode>
       <FileName>Extensions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.IntegerUnit">
-    <Position X="3.25" Y="1.75" Width="1.5" />
+    <Position X="3" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAABgAAAAAAA=</HashCode>
       <FileName>IntegerUnit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.ObjectUnit">
-    <Position X="10" Y="1.75" Width="1.5" />
+    <Position X="9.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABgAAAAAAA=</HashCode>
       <FileName>ObjectUnit.cs</FileName>
@@ -269,7 +269,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Part" Collapsed="true">
-    <Position X="13.75" Y="4.75" Width="1.5" />
+    <Position X="13.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Part.cs</FileName>
@@ -277,21 +277,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Status" Collapsed="true">
-    <Position X="3.75" Y="4.75" Width="1.5" />
+    <Position X="1.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Status.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Execute" Collapsed="true">
-    <Position X="10.75" Y="4.75" Width="1.5" />
+    <Position X="8" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAA=</HashCode>
       <FileName>Execute.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.Unit" Collapsed="true">
-    <Position X="5.5" Y="0.5" Width="1.5" />
+    <Position X="5.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAA=</HashCode>
       <FileName>Unit.cs</FileName>
@@ -299,92 +299,91 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.UnitSet" Collapsed="true">
-    <Position X="17.25" Y="6.25" Width="1.5" />
+    <Position X="17" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAA=</HashCode>
       <FileName>UnitSet.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.ValidateLogic" Collapsed="true">
-    <Position X="0.75" Y="14.75" Width="1.5" />
+    <Position X="10.5" Y="14.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ValidateLogic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Aritiafel.Artifacts.TinaValidator.TNode" Collapsed="true">
-    <Position X="9.25" Y="3.5" Width="1.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Node.cs</FileName>
-      <NewMemberFileName>Choice.cs</NewMemberFileName>
+      <FileName>TNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Aritiafel.Artifacts.Calculator.IBoolean" Collapsed="true">
-    <Position X="20.25" Y="2.75" Width="1.5" />
+    <Position X="22" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\IBoolean.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Aritiafel.Artifacts.Calculator.INumber" Collapsed="true">
-    <Position X="22" Y="2.75" Width="1.5" />
+    <Position X="23.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\INumber.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Aritiafel.Artifacts.Calculator.IObject" Collapsed="true">
-    <Position X="23.75" Y="2.75" Width="1.5" />
+    <Position X="25.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Calculator\IObject.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Aritiafel.Artifacts.Calculator.IString" Collapsed="true">
-    <Position X="22" Y="3.5" Width="1.5" />
+    <Position X="23.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Calculator\IString.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Aritiafel.Artifacts.Calculator.IVariableLinker" Collapsed="true">
-    <Position X="20.25" Y="4.25" Width="1.5" />
+    <Position X="22" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Calculator\IVariableLinker.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Aritiafel.Artifacts.TinaValidator.IPart" Collapsed="true">
-    <Position X="20.25" Y="3.5" Width="1.5" />
+    <Position X="22" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>IPart.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Aritiafel.Artifacts.TinaValidator.IUnit" Collapsed="true">
-    <Position X="23.75" Y="3.5" Width="1.5" />
+    <Position X="25.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAA=</HashCode>
       <FileName>IUnit.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Aritiafel.Artifacts.Calculator.Operator" Collapsed="true">
-    <Position X="22" Y="5.25" Width="1.5" />
+    <Position X="23.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>MCAABAAAAQAKAAAAAAAhIAABACAAAAAgACAAIAFgACA=</HashCode>
       <FileName>Calculator\Operator.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Aritiafel.Artifacts.Calculator.VariableSource" Collapsed="true">
-    <Position X="23.75" Y="5.25" Width="1.5" />
+    <Position X="25.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Calculator\Variable.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Aritiafel.Artifacts.TinaValidator.CompareMethod" Collapsed="true">
-    <Position X="20.25" Y="5.25" Width="1.5" />
+    <Position X="22" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>IntegerUnit.cs</FileName>

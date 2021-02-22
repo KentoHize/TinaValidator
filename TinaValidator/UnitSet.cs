@@ -40,6 +40,6 @@ namespace Aritiafel.Artifacts.TinaValidator
                 if (!Units[i].Compare(thing[startIndex + i]))
                     return -1;
             return startIndex + Units.Count;
-        }
+        }        
     }
 }
