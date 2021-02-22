@@ -57,7 +57,6 @@ namespace TinvaValidatorTest
             CharsToIntegerPart stip2 = new CharsToIntegerPart();
             us1.NextNode = stip2;
             UnitSet us2 = new UnitSet(CharUnits.WhiteSpace);
-            Status s4 = new Status();
             stip2.NextNode = us2;
             CharsToIntegerPart stip3 = new CharsToIntegerPart();
             us2.NextNode = stip3;

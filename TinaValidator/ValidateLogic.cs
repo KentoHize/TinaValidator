@@ -2,6 +2,8 @@
 using System;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Aritiafel.Artifacts.TinaValidator.Serialization;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -27,7 +29,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                         Save(st.Choices[i].Node, a);
                     break;
                 case null:
-                    throw new ArgumentNullException();
+                    throw new ArgumentNullException(nameof(node));
                 default:
                     if (!TNodes.ContainsKey(node.NextNode.ID))
                         Save(node.NextNode, a);
@@ -57,12 +59,18 @@ namespace Aritiafel.Artifacts.TinaValidator
                 
             //}
             JsonSerializerOptions jso = new JsonSerializerOptions
-            {
-                //ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true
+            {   
+                WriteIndented = true                
             };
-            jso.Converters.Add(new TNodeJsonConverter());            
-
+            jso.Converters.Add(new TNodeJsonConverter());
+            jso.Converters.Add(new AreaJsonConverter());
+            //TNodeJsonConverter tjc = new TNodeJsonConverter();
+            //JsonConverter<TNode> jc = (JsonConverter<TNode>)tjc.CreateConverter(typeof(TNode), jso);
+            
+            //for (int i = 0; i < TNodes.Count; i++)
+            //    jc.
+            //    s += jc.Write( TNodes[i], jso);
+            
             string s = JsonSerializer.Serialize<object>(this, jso);
             return s;
             
