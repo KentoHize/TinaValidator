@@ -21,8 +21,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             { }
 
             public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                
+            {   
                 throw new NotImplementedException();
             }
 

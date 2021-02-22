@@ -1,5 +1,6 @@
 ﻿using Aritiafel.Artifacts.Calculator;
 using System.Collections.Generic;
+using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -10,7 +11,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<Statement> RandomStatements { get; set; }
 
         public Execute(Statement statement, TNode nextNode = null, string id = null)
-            : base(nextNode, id)
+            : base(nextNode, id ?? IdentifyShop.GetNewID("E"))
         {
             Statements = new List<Statement> { statement };
         }
