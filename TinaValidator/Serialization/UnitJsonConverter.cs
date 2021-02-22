@@ -4,21 +4,23 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Reflection;
+using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator.Serialization
 {
-    public class ChoiceJsonConverter : JsonConverterFactory
+    public class UnitJsonConverter : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
-            => typeToConvert == typeof(Choice);
+            => typeToConvert == typeof(Unit) || typeToConvert.IsSubclassOf(typeof(Unit));
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
             => (JsonConverter)Activator.CreateInstance(
-                typeof(ChoiceJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
+                typeof(UnitJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
                 BindingFlags.Instance | BindingFlags.Public, null, new object[] { }, null);
-        private class ChoiceJsonConverterInner<T> : JsonConverter<T> where T : Choice
-        {        
-            public ChoiceJsonConverterInner()
+        private class UnitJsonConverterInner<T> : JsonConverter<T> where T : Unit
+        {
+            public UnitJsonConverterInner()
             { }
+
             public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
             {                
                 throw new NotImplementedException();
@@ -32,9 +34,11 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                     return;
                 }
                 
-                Type valueType = value.GetType();              
+                
+                Type valueType = value.GetType();                
                 PropertyInfo[] pis = valueType.GetProperties();
                 writer.WriteStartObject();
+                writer.WriteString("Type", valueType.Name);
                 foreach (PropertyInfo pi in pis)
                 {
                     if (pi.GetAccessors(true)[0].IsStatic)
@@ -45,10 +49,8 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                         writer.WriteNull(pi.Name);
                         continue;
                     }
-                    else if (pi.PropertyType == typeof(TNode))
-                        writer.WriteString(pi.Name, (p_value as TNode).ID);
                     else
-                    {
+                    {   
                         JsonConverter jc = options.GetConverter(p_value.GetType());
                         writer.WritePropertyName(pi.Name);
                         jc.GetType().GetMethod("Write").Invoke(jc, new object[] { writer, p_value, options });

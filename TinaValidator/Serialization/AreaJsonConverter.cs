@@ -33,26 +33,29 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                     writer.WriteNullValue();
                     return;
                 }
-                writer.WriteStartObject();
+                
                 Type valueType = value.GetType();              
                 PropertyInfo[] pis = valueType.GetProperties();
+                writer.WriteStartObject();
                 foreach (PropertyInfo pi in pis)
                 {
                     if (pi.GetAccessors(true)[0].IsStatic)
                         continue;
+                    object p_value = pi.GetValue(value);
+                    if (p_value == null)
+                    {
+                        writer.WriteNull(pi.Name);
+                        continue;
+                    }
                     else if (pi.Name == "InitialStatus")
-                    {
-                        writer.WriteString(pi.Name, (pi.GetValue(value) as TNode).ID);
-                    }
+                        writer.WriteString(pi.Name, (p_value as TNode).ID);
                     else if (pi.PropertyType == typeof(Area) && pi.GetValue(value) != null)
-                    {
-                        writer.WriteString(pi.Name, (pi.GetValue(value) as Area).Name);
-                    }
+                        writer.WriteString(pi.Name, (p_value as Area).Name);
                     else
-                    {
-                        JsonConverter jc = options.GetConverter(pi.PropertyType);
+                    {   
+                        JsonConverter jc = options.GetConverter(p_value.GetType());
                         writer.WritePropertyName(pi.Name);
-                        jc.GetType().GetMethod("Write").Invoke(jc, new object[] { writer, pi.GetValue(value), options });
+                        jc.GetType().GetMethod("Write").Invoke(jc, new object[] { writer, p_value, options });
                     }
                 }
                 writer.WriteEndObject();

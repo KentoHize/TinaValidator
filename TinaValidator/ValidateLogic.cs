@@ -65,13 +65,17 @@ namespace Aritiafel.Artifacts.TinaValidator
             jso.Converters.Add(new TNodeJsonConverter());
             jso.Converters.Add(new AreaJsonConverter());
             jso.Converters.Add(new ChoiceJsonConverter());
+            jso.Converters.Add(new IObjectJsonConverter());
+            jso.Converters.Add(new UnitJsonConverter());
+            jso.Converters.Add(new StatementJsonConverter());
+            jso.Converters.Add(new IBooleanJsonConverter());
             //TNodeJsonConverter tjc = new TNodeJsonConverter();
             //JsonConverter<TNode> jc = (JsonConverter<TNode>)tjc.CreateConverter(typeof(TNode), jso);
-            
+
             //for (int i = 0; i < TNodes.Count; i++)
             //    jc.
             //    s += jc.Write( TNodes[i], jso);
-            
+
             string s = JsonSerializer.Serialize<object>(this, jso);
             return s;
             
