@@ -11,7 +11,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
     public class IStringJsonConverter : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
-            => typeToConvert == typeof(IString) || typeToConvert.IsSubclassOf(typeof(IString));
+            => typeof(IString).IsAssignableFrom(typeToConvert);
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
             => (JsonConverter)Activator.CreateInstance(
                 typeof(IObjectJsonConverter.IObjectJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),

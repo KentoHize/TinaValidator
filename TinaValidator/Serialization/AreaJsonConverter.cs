@@ -10,7 +10,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
     public class AreaJsonConverter : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
-            => typeToConvert == typeof(Area) || typeToConvert.IsSubclassOf(typeof(Area));
+            => typeof(Area).IsAssignableFrom(typeToConvert);
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
             => (JsonConverter)Activator.CreateInstance(
                 typeof(AreaJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
