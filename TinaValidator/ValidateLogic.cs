@@ -64,6 +64,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             };
             jso.Converters.Add(new TNodeJsonConverter());
             jso.Converters.Add(new AreaJsonConverter());
+            jso.Converters.Add(new ChoiceJsonConverter());
             //TNodeJsonConverter tjc = new TNodeJsonConverter();
             //JsonConverter<TNode> jc = (JsonConverter<TNode>)tjc.CreateConverter(typeof(TNode), jso);
             

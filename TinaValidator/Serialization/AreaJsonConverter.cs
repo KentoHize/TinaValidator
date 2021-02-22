@@ -10,22 +10,14 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
     public class AreaJsonConverter : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
-        {   
-            if(typeToConvert == typeof(Area) || typeToConvert.IsSubclassOf(typeof(Area)))            
-                return true;
-            return false;
-        }
-
+            => typeToConvert == typeof(Area) || typeToConvert.IsSubclassOf(typeof(Area));
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
-        {
-            return (JsonConverter)Activator.CreateInstance(
+            => (JsonConverter)Activator.CreateInstance(
                 typeof(AreaJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
-                BindingFlags.Instance | BindingFlags.Public, null, new object[] { options }, null); ;
-        }
-
+                BindingFlags.Instance | BindingFlags.Public, null, new object[] { }, null);
         private class AreaJsonConverterInner<T> : JsonConverter<T> where T : Area
         {        
-            public AreaJsonConverterInner(JsonSerializerOptions options)
+            public AreaJsonConverterInner()
             { }
 
             public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -50,13 +42,12 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                         continue;
                     else if (pi.Name == "InitialStatus")
                     {
-                        writer.WritePropertyName(pi.Name);
-                        writer.WriteStartObject();
-                        writer.WriteString("ID", (pi.GetValue(value) as TNode).ID);
-                        writer.WriteEndObject();
+                        writer.WriteString(pi.Name, (pi.GetValue(value) as TNode).ID);
                     }
-                    else if (pi.PropertyType == typeof(Area))
-                    { }
+                    else if (pi.PropertyType == typeof(Area) && pi.GetValue(value) != null)
+                    {
+                        writer.WriteString(pi.Name, (pi.GetValue(value) as Area).Name);
+                    }
                     else
                     {
                         JsonConverter jc = options.GetConverter(pi.PropertyType);

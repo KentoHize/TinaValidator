@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
+using Aritiafel.Locations;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -10,7 +11,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public Area Parent { get; set; }
         public Area(string name = null, Status initialStatus = null, Area parent = null)
         {
-            Name = name;
+            Name = name ?? IdentifyShop.GetNewID("AR");
             InitialStatus = initialStatus;
             Parent = parent;
         }

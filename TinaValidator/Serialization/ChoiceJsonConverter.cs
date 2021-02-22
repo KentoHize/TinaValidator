@@ -7,30 +7,20 @@ using System.Reflection;
 
 namespace Aritiafel.Artifacts.TinaValidator.Serialization
 {
-    public class TNodeJsonConverter : JsonConverterFactory
+    public class ChoiceJsonConverter : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
-        {
-            if(typeToConvert == typeof(TNode) || typeToConvert.IsSubclassOf(typeof(TNode)))            
-                return true;
-            return false;
-        }
-
+            => typeToConvert == typeof(Choice);
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
-        {
-            return (JsonConverter)Activator.CreateInstance(
-                typeof(TNodeJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
-                BindingFlags.Instance | BindingFlags.Public, null, new object[] { options }, null); ;
-        }
-
-        private class TNodeJsonConverterInner<T> : JsonConverter<T> where T : TNode
+            => (JsonConverter)Activator.CreateInstance(
+                typeof(ChoiceJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
+                BindingFlags.Instance | BindingFlags.Public, null, new object[] { }, null);
+        private class ChoiceJsonConverterInner<T> : JsonConverter<T> where T : Choice
         {        
-            public TNodeJsonConverterInner(JsonSerializerOptions options)
+            public ChoiceJsonConverterInner()
             { }
-
             public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                
+            {                
                 throw new NotImplementedException();
             }
 
@@ -41,34 +31,19 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                     writer.WriteNullValue();
                     return;
                 }
-
-                
-                    
-                Type valueType = value.GetType();
                 writer.WriteStartObject();
+                Type valueType = value.GetType();              
                 PropertyInfo[] pis = valueType.GetProperties();
-
-
-                //PropertyInfo piID = typeof(T).GetProperty("ID");
-                //writer.WriteString("ID", piID.GetValue(value).ToString());
-                writer.WriteString("Type", valueType.Name);
-
-                //Console.WriteLine(value.GetType().Name);
                 foreach (PropertyInfo pi in pis)
                 {
-
-                    if (pi.Name == "ID")
-                        continue;
-                    else if (pi.GetAccessors(true)[0].IsStatic)
-                        continue;
+                    if (pi.GetAccessors(true)[0].IsStatic)
+                        continue;                    
                     else if (pi.PropertyType == typeof(TNode) && pi.GetValue(value) != null)
                     {
                         writer.WriteString(pi.Name, (pi.GetValue(value) as TNode).ID);
                     }
-                    else if (pi.PropertyType == typeof(Area))
-                    { }                    
                     else
-                    {   
+                    {
                         JsonConverter jc = options.GetConverter(pi.PropertyType);
                         writer.WritePropertyName(pi.Name);
                         jc.GetType().GetMethod("Write").Invoke(jc, new object[] { writer, pi.GetValue(value), options });
