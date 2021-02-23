@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Aritiafel.Artifacts.TinaValidator.Serialization;
 using Aritiafel.Artifacts.Calculator;
+using Aritiafel.Locations.StorageHouse;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -48,15 +49,12 @@ namespace Aritiafel.Artifacts.TinaValidator
             {   
                 WriteIndented = true                
             };
+
             jso.Converters.Add(new TNodeJsonConverter());
             jso.Converters.Add(new AreaJsonConverter());
             jso.Converters.Add(new ChoiceJsonConverter());
-            jso.Converters.Add(new IObjectJsonConverter());
-            jso.Converters.Add(new UnitJsonConverter());
             jso.Converters.Add(new StatementJsonConverter());
-            jso.Converters.Add(new IBooleanJsonConverter());
-            jso.Converters.Add(new IStringJsonConverter());
-            jso.Converters.Add(new INumberJsonConverter());
+            jso.Converters.Add(new DefaultJsonConverterFactory());
             string s = JsonSerializer.Serialize<object>(this, jso);
             return s;
             

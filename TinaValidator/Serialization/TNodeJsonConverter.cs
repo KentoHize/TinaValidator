@@ -8,11 +8,16 @@ using Aritiafel.Locations.StorageHouse;
 
 namespace Aritiafel.Artifacts.TinaValidator.Serialization
 {
-    public class TNodeJsonConverter : DefalutJsonConverterFactory
+    public class TNodeJsonConverter : DefaultJsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
             => typeof(TNode).IsAssignableFrom(typeToConvert);
-        private class TNodeJsonConverterInner<T> : DefalutJsonConverter<T> where T : TNode
+
+        public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
+            => (JsonConverter)Activator.CreateInstance(
+                typeof(TNodeJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
+                BindingFlags.Instance | BindingFlags.Public, null, new object[] { }, null);
+        private class TNodeJsonConverterInner<T> : DefaultJsonConverter<T> where T : TNode
         {        
             public TNodeJsonConverterInner()
             { }
@@ -23,9 +28,9 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                 if (propertyName == "ID")
                     skip = true;
                 else if (CanConvert(p_type))
-                    return ((TNode)base.GetPropertyValueAndWrite(propertyName, instance, skip)).ID;
+                    return ((TNode)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.ID;
                 else if (typeof(Area).IsAssignableFrom(p_type))
-                    return ((Area)base.GetPropertyValueAndWrite(propertyName, instance, skip)).Name;
+                    return ((Area)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.Name;
                 return base.GetPropertyValueAndWrite(propertyName, instance, skip);
             }
         }

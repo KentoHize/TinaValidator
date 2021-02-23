@@ -18,7 +18,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public Execute(List<Statement> statements = null,
             List<Statement> ranStatements = null,
             TNode nextNode = null, string id = null)
-            : base(nextNode, id)
+            : base(nextNode, id ?? IdentifyShop.GetNewID("E"))
         {
             Statements = statements ?? new List<Statement>();
             RandomStatements = ranStatements;
