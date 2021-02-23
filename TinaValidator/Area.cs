@@ -15,18 +15,5 @@ namespace Aritiafel.Artifacts.TinaValidator
             InitialStatus = initialStatus;
             Parent = parent;
         }
-
-        //public string Save()
-        //{
-
-        //    { using (FileStream fs = new FileStream(filePath, FileMode.Create)
-        //    {
-
-        //    }}
-        //}
-        //public void Load(string filePath)
-        //{
-
-        //}
     }
 }

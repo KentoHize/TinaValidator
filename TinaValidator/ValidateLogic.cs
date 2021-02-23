@@ -54,8 +54,8 @@ namespace Aritiafel.Artifacts.TinaValidator
             jso.Converters.Add(new AreaJsonConverter());
             jso.Converters.Add(new ChoiceJsonConverter());
             jso.Converters.Add(new StatementJsonConverter());
-            jso.Converters.Add(new DefaultJsonConverterFactory());
-            string s = JsonSerializer.Serialize<object>(this, jso);
+            jso.Converters.Add(new OtherJsonConverter());
+            string s = JsonSerializer.Serialize<ValidateLogic>(this, jso);
             return s;
             
         }
