@@ -7,8 +7,8 @@ namespace Aritiafel.Artifacts.Calculator
     {
         public BooleanConst GetResult(IVariableLinker vl)
             => vl.GetValue(this) as BooleanConst;
-        public BooleanVar(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
-            : base(name, keys, source)
+        public BooleanVar(string name = null, object parent = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
+            : base(name, parent, keys, source)
         { }
         public override ObjectConst GetObject(IVariableLinker vl)
             => GetResult(vl);

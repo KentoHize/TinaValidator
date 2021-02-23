@@ -10,6 +10,9 @@ namespace TinvaValidatorTest
     [TestClass]
     public class MainTest
     {
+        public const string SaveLoadPath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\SaveLoad";
+        public const string NumberFilePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File";
+
         public TestContext TestContext { get; set; }
 
         [TestMethod]
@@ -79,11 +82,10 @@ namespace TinvaValidatorTest
             TinaValidator validator = new TinaValidator(VL);
             //
             //Run Start
-            TestContext.WriteLine(VL.Save(""));
-            return;
-            bool result;
-            string samplePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File\";
-            string[] files = Directory.GetFiles(samplePath);
+            //TestContext.WriteLine(VL.Save(""));
+            //return;
+            bool result;            
+            string[] files = Directory.GetFiles(NumberFilePath);
             for (int i = 0; i < files.Length; i++)
             {
                 using (FileStream fs = new FileStream(files[i], FileMode.Open))
@@ -108,7 +110,7 @@ namespace TinvaValidatorTest
                 Assert.IsTrue(result);
             }
 
-            TestContext.WriteLine(VL.Save(""));
+            VL.Save(Path.Combine(SaveLoadPath, "Main1.json"));
             return;
         }
 

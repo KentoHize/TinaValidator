@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using Aritiafel.Artifacts.TinaValidator.Serialization;
 using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Locations.StorageHouse;
+using System.IO;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -39,25 +40,28 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public string Save(string filePath)
+        public void Save(string filePath)
         {
             TNodes.Clear();
             for (int i = 0; i < Areas.Count; i++)            
                 Save(Areas[i].InitialStatus, Areas[i]);
             Save(InitialStatus, this);
             JsonSerializerOptions jso = new JsonSerializerOptions
-            {   
-                WriteIndented = true                
-            };
+            { WriteIndented = true };
 
             jso.Converters.Add(new TNodeJsonConverter());
             jso.Converters.Add(new AreaJsonConverter());
             jso.Converters.Add(new ChoiceJsonConverter());
             jso.Converters.Add(new StatementJsonConverter());
             jso.Converters.Add(new OtherJsonConverter());
-            string s = JsonSerializer.Serialize<ValidateLogic>(this, jso);
-            return s;
-            
+            string s = JsonSerializer.Serialize(this, jso);
+            using(FileStream fs = new FileStream(filePath, FileMode.Create))                
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(s);
+                }
+            }
         }
 
         public ValidateLogic(Status initialStatus = null)

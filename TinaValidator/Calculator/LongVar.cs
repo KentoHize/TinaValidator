@@ -6,8 +6,8 @@ namespace Aritiafel.Artifacts.Calculator
     {
         public override NumberConst GetResult(IVariableLinker vl)
             => vl.GetValue(this) as NumberConst;
-        public LongVar(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
-            : base(name, keys, source)
+        public LongVar(string name = null, object parent = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
+            : base(name, parent, keys, source)
         { }
     }
 }

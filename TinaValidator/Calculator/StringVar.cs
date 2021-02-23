@@ -7,8 +7,8 @@ namespace Aritiafel.Artifacts.Calculator
     {
         public StringConst GetResult(IVariableLinker vl)
             => vl.GetValue(this) as StringConst;
-        public StringVar(string name = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
-            : base(name, keys, source)
+        public StringVar(string name = null, object parent = null, List<object> keys = null, VariableSource source = VariableSource.CustomVariable)
+            : base(name, parent, keys, source)
         { }
 
         public override ObjectConst GetObject(IVariableLinker vl)
