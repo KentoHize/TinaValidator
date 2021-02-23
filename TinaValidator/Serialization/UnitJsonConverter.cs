@@ -34,7 +34,6 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                     return;
                 }
                 
-                
                 Type valueType = value.GetType();                
                 PropertyInfo[] pis = valueType.GetProperties();
                 writer.WriteStartObject();
