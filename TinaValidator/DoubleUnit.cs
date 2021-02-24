@@ -50,11 +50,19 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (CompareMethod == CompareMethod.MinMax)
             {
                 if (Value1 > Value2)
-                    throw new ArgumentException();
-                return rnd.NextRandomDouble(Value1, Value2);
+                    throw new ArgumentException();                
+                return rnd.NextRandomDouble(Value1, Value2); 
             }
             else
-                return rnd.NextRandomDouble();
+            {
+                double result;
+                do
+                { // Scan
+                    result = rnd.NextRandomDouble();
+                } while (result == double.NaN || result == double.NegativeInfinity || result == double.PositiveInfinity);
+                return result;
+            }
+                
         }
     }
 }

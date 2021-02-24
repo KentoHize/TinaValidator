@@ -119,6 +119,12 @@ namespace TinvaValidatorTest
 
             ctdp = new CharsToDoublePart(81.3, -726.5);
             Assert.ThrowsException<ArgumentException>(() => ctdp.Random());
+
+            ctdp = new CharsToDoublePart();
+            Assert.IsTrue(ctdp.Validate("2.3001810487634357E-21".ToObjectList()) == 22);
+            Assert.IsTrue(ctdp.Validate("2.3001810487635857E+125".ToObjectList()) == 23);
+            Assert.IsTrue(ctdp.Validate("2.3009818107634357E+3".ToObjectList()) == 21);
+            Assert.IsTrue(ctdp.Validate("NaN".ToObjectList()) == -1);
         }
     }
 }

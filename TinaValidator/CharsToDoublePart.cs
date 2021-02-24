@@ -50,7 +50,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 }
                 else if(hasE == 1)
                 {
-                    if (c != '+' || c != '-')
+                    if (c != '+' && c != '-')
                     {
                         sb.Remove(sb.Length - 1, 1);
                         break;

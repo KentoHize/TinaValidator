@@ -121,43 +121,49 @@ namespace Aritiafel.Artifacts.TinaValidator
                 c = (char)cu.Random();
                 for (int i = 0; i < EscapeStrings.Count; i++)
                     if ($"{sb}{c}".EndsWith(EscapeStrings[i]))
+                    { 
                         if (sb.Length >= MinLength)
+                        {
+                            sb.Remove(sb.Length - EscapeStrings[i].Length + 1, EscapeStrings[i].Length + 1);
                             break;
+                        }   
                         else
                             continue;
+                    }
                 if (EscapeChars.Contains(c))
+                {
                     if (sb.Length >= MinLength)
                         break;
                     else
                         continue;
-
+                }
                 sb.Append(c);
 
-                //Escape String Appear
-                if (sb.Length >= RandomEndStringThreshold && EscapeStrings.Count != 0)
-                {
-                    if (rnd.Next(20) == 0)
-                    {
-                        int r = rnd.Next(EscapeStrings.Count);
-                        if (EscapeStrings[r].Length + sb.Length <= MaxLength || MaxLength == 0)
-                        {
-                            sb.Append(EscapeStrings[r]);
-                            break;
-                        }
-                    }
-                }
+                ////Escape String Appear
+                //if (sb.Length >= RandomEndStringThreshold && EscapeStrings.Count != 0)
+                //{
+                //    if (rnd.Next(20) == 0)
+                //    {
+                //        int r = rnd.Next(EscapeStrings.Count);
+                //        if (EscapeStrings[r].Length + sb.Length <= MaxLength || MaxLength == 0)
+                //        {
+                //            sb.Append(EscapeStrings[r]);
+                //            break;
+                //        }
+                //    }
+                //}
 
-                //Escape Char Appear
-                if (sb.Length >= RandomEndCharThreshold && EscapeChars.Count != 0)
-                {
-                    if (rnd.Next(20) == 0 && (MaxLength == 0 || MaxLength >= sb.Length + 1))
-                    {
-                        sb.Append(EscapeChars[rnd.Next(EscapeChars.Count)]);
-                        break;
-                    }
-                }
+                ////Escape Char Appear
+                //if (sb.Length >= RandomEndCharThreshold && EscapeChars.Count != 0)
+                //{
+                //    if (rnd.Next(20) == 0 && (MaxLength == 0 || MaxLength >= sb.Length + 1))
+                //    {
+                //        sb.Append(EscapeChars[rnd.Next(EscapeChars.Count)]);
+                //        break;
+                //    }
+                //}
 
-                if (EscapeChars.Count == 0 && EscapeStrings.Count == 0 && sb.Length >= MinLength)
+                if (sb.Length >= MinLength)
                     if (rnd.NextDouble() < RandomEndChance)
                         break;
             }

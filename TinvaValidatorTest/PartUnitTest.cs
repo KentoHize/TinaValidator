@@ -103,9 +103,9 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
-
+            
             du = new DoubleUnit(6933.988, 5932.648819);
-            Assert.ThrowsException<ArgumentException>(() => du.Random());
+            Assert.ThrowsException<ArgumentException>(() => du.Random());            
         }
 
         [TestMethod]

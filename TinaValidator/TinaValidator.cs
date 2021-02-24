@@ -11,6 +11,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         public ValidateLogic Logic { get; set; }
         Calculator.Calculator CalMain { get; set; } = new Calculator.Calculator();
 
+        public long LongerErrorLocation { get; set; }
+        public TNode ErrorNode { get; set; }
+
         public TinaValidator(ValidateLogic logic = null)
         {
             Logic = logic;
@@ -22,6 +25,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (things == null)
                 throw new ArgumentNullException(nameof(things));
             CalMain.ClearMemory();
+            LongerErrorLocation = 0;
             return NodeValidate(things, 0, Logic.InitialStatus, null) != Invalid;
         }
 
@@ -30,7 +34,15 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         private int NodeValidate(List<object> things, int index, TNode node, AreaStart ap)
         {
-            int nextIndex = Invalid;
+            int nextIndex = Invalid;    
+            if(index > LongerErrorLocation)
+            { 
+                if(index != things.Count)
+                { 
+                    LongerErrorLocation = index;
+                    ErrorNode = node;
+                }
+            }
             switch (node)
             {
                 case EndNode _:
@@ -51,7 +63,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case Status st:
                     for (int i = 0; i < st.Choices.Count; i++)
                     {
-                        if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO
+                        if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
                         {
                             nextIndex = NodeValidate(things, index, st.Choices[i].Node, ap);
                             if (nextIndex != Invalid)
