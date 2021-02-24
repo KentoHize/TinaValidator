@@ -14,6 +14,8 @@ namespace Aritiafel.Artifacts.TinaValidator
         public long LongerErrorLocation { get; set; }
         public TNode ErrorNode { get; set; }
 
+        public List<AreaStart> EntryPoints = new List<AreaStart>();
+
         public TinaValidator(ValidateLogic logic = null)
         {
             Logic = logic;
@@ -26,30 +28,44 @@ namespace Aritiafel.Artifacts.TinaValidator
                 throw new ArgumentNullException(nameof(things));
             CalMain.ClearMemory();
             LongerErrorLocation = 0;
-            return NodeValidate(things, 0, Logic.InitialStatus, null) != Invalid;
+            EntryPoints = new List<AreaStart>();
+            return NodeValidate(things, 0, Logic.InitialStatus, 0) != Invalid;
         }
 
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        private int NodeValidate(List<object> things, int index, TNode node, AreaStart ap)
+        private int NodeValidate(List<object> things, int index, TNode node, int depth)
         {
-            int nextIndex = Invalid;    
+            int nextIndex = Invalid;
+            bool isLongTesting = false;
             if(index > LongerErrorLocation)
             { 
-                if(index != things.Count)
-                { 
+                //if(index != things.Count)
+                //{ 
                     LongerErrorLocation = index;
                     ErrorNode = node;
-                }
+                    isLongTesting = true;
+                //}
             }
             switch (node)
             {
                 case EndNode _:
-                    return index;
+                    if (depth == 0)
+                        return index;
+                    else
+                    {
+                        AreaStart ars = EntryPoints[depth - 1];
+                        EntryPoints.RemoveAt(EntryPoints.Count - 1);
+                        nextIndex = NodeValidate(things, index, ars.NextNode, depth - 1);
+                        EntryPoints.Add(ars);
+                        return nextIndex;
+                    }                        
                 case AreaStart ars:
-                    nextIndex = NodeValidate(things, index, ars.Area.InitialStatus, ars);
-                    break;
+                    EntryPoints.Add(ars);
+                    nextIndex = NodeValidate(things, index, ars.Area.InitialStatus, depth + 1);
+                    EntryPoints.RemoveAt(EntryPoints.Count - 1);
+                    return nextIndex;
                 case Execute e:
                     CalMain.RunStatements(e.Statements);
                     nextIndex = index;
@@ -63,9 +79,13 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case Status st:
                     for (int i = 0; i < st.Choices.Count; i++)
                     {
+                        //if (st.Choices.Count == 6 && i == 2)
+                        //    Console.WriteLine("A");
+                        //if (st.Choices.Count == 6 && i == 3)
+                        //    Console.WriteLine("A");
                         if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
-                        {
-                            nextIndex = NodeValidate(things, index, st.Choices[i].Node, ap);
+                        {   
+                            nextIndex = NodeValidate(things, index, st.Choices[i].Node, depth);
                             if (nextIndex != Invalid)
                                 return nextIndex;
                         }
@@ -73,7 +93,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     return Invalid;
             }
             if (nextIndex != Invalid)
-                return NodeValidate(things, nextIndex, node.NextNode, ap);
+                return NodeValidate(things, nextIndex, node.NextNode, depth);
             return Invalid;
         }
 
