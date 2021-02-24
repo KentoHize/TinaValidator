@@ -170,7 +170,7 @@ namespace TinvaValidatorTest
             skSt.NextNode = st1;
             UnitSet us5 = new UnitSet(CharUnits.Comma, arrayArea);
             st1.Choices.Add(new Choice(us5));
-            st1.Choices.Add(new Choice(rightCurlBracket));            
+            st1.Choices.Add(new Choice(rightSquareBracket));            
             us5.NextNode = vaSt;
             skSt = new AreaStart(skipChars, arrayArea);
             rightCurlBracket.NextNode = skSt;
@@ -182,19 +182,34 @@ namespace TinvaValidatorTest
             cdp.Parent = valueArea;
             CharsToIntegerPart cip = new CharsToIntegerPart();
             cip.Parent = valueArea;
-            AnyStringPart asp = new AnyStringPart(null, valueArea, '"', 0, 0);
+            AnyStringPart asp1 = new AnyStringPart(null, valueArea, null, new List<char> { '\"' }, 0, 0);
+            AnyStringPart asp2 = new AnyStringPart(null, valueArea, null, new List<char> { '\\' }, 0, 0);
             UnitSet us6 = new UnitSet(CharUnits.QuotationMark, valueArea);
+            valueArea.InitialStatus.Choices.Add(new Choice("null".ToUnitSet()));
             valueArea.InitialStatus.Choices.Add(new Choice(cbp));
             valueArea.InitialStatus.Choices.Add(new Choice(cip));
-            valueArea.InitialStatus.Choices.Add(new Choice(cdp));
-            valueArea.InitialStatus.Choices.Add(new Choice(us6));
+            valueArea.InitialStatus.Choices.Add(new Choice(cdp));            
+            Status st2 = new Status(valueArea);
+            us6.NextNode = st2;
+            st2.Choices.Add(new Choice(asp2));
+            st2.Choices.Add(new Choice(asp1));
+            Status st3 = new Status(valueArea);
+            asp2.NextNode = st3;
+            st3.Choices.Add(new Choice("\"".ToUnitSet()));
+            st3.Choices.Add(new Choice(new UnitSet(new CharUnit(), valueArea)));
+            st3.Choices[0].Node = st2;
+            st3.Choices[1].Node = st2;
+            asp1.NextNode = EndNode.Instance;             
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
             valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
+            AreaStart arSt = new AreaStart(arrayArea, valueArea);
+            valueArea.InitialStatus.Choices.Add(new Choice(arSt));
+            for (int i = 0; i < valueArea.InitialStatus.Choices.Count; i++)
+                valueArea.InitialStatus.Choices[i].Node = EndNode.Instance;
+            valueArea.InitialStatus.Choices.Add(new Choice(us6));
 
 
-
-
-
+            propertiesArea
         }
 
         [TestMethod]
