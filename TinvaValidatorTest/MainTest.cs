@@ -1,9 +1,12 @@
 using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Artifacts.TinaValidator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace TinvaValidatorTest
 {
@@ -12,6 +15,7 @@ namespace TinvaValidatorTest
     {
         public const string SaveLoadPath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\SaveLoad";
         public const string NumberFilePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File";
+        public const string WrongRecordsPath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\WrongRecords";
 
         public TestContext TestContext { get; set; }
 
@@ -118,11 +122,11 @@ namespace TinvaValidatorTest
         public void JsonTest()
         {
             ValidateLogic VL = new ValidateLogic(new Status());            
-            Area skipChars = new Area("SkipArea", new Status(), null);            
-            Area objectArea = new Area("ObjectArea", new Status(), null);
-            Area arrayArea = new Area("ArrayArea", new Status(), null);
-            Area valueArea = new Area("ValueArea", new Status(), null);            
-            Area propertiesArea =  new Area("PropertiesArea", new Status(), null);
+            Area skipChars = new Area("SkipArea", new Status("SkipArea_Start"), null);            
+            Area objectArea = new Area("ObjectArea", new Status("ObjectArea_Start"), null);
+            Area arrayArea = new Area("ArrayArea", new Status("ArrayArea_Start"), null);
+            Area valueArea = new Area("ValueArea", new Status("ValueArea_Start"), null);            
+            Area propertiesArea =  new Area("PropertiesArea", new Status("PropertiesArea_Start"), null);
             VL.Areas.Add(skipChars);
             VL.Areas.Add(objectArea);
             VL.Areas.Add(arrayArea);
@@ -263,17 +267,43 @@ namespace TinvaValidatorTest
                 List<object> ol = validator.CreateRandom();                
                 if (!validator.Validate(ol))
                 {
+                    TestContext.WriteLine("-----------------------------");
                     TestContext.WriteLine("Wrong happen: " + i);
                     TestContext.WriteLine(ol.ForEachToString());
-
                     TestContext.WriteLine("TotalObjectCount:" + ol.Count);
                     TestContext.WriteLine("Error Node:" + validator.ErrorNode.ID);
-                    TestContext.WriteLine(validator.ErrorNode.GetType().Name);
+                    TestContext.WriteLine("Node Type:" + validator.ErrorNode.GetType().Name);
+                    string ss = "";
+                    for (int j = (int)validator.LongerErrorLocation - 5; j < validator.LongerErrorLocation + 5; j++)
+                    {
+                        if (j >= 0 && j < ol.Count)
+                            ss += ol[j].ToString();
+                        if (j == validator.LongerErrorLocation)
+                            ss += "!";
+                    }
+                    TestContext.WriteLine("NearbyString:" + ss);                    
                     TestContext.WriteLine("Error Location:" + validator.LongerErrorLocation);
-                    bool second = validator.Validate(ol);
+                    //bool second = validator.Validate(ol);
+
+                    JsonSerializerOptions jso = new JsonSerializerOptions { WriteIndented = true };
+                    jso.Converters.Add(new Aritiafel.Locations.StorageHouse.DefaultJsonConverterFactory());
+                    using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"TestRecord-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}-{i.ToString("0000")}.json"), FileMode.Create))
+                    {
+                        StreamWriter sw = new StreamWriter(fs);
+                        sw.Write(JsonSerializer.Serialize(ol, jso));
+                        sw.Close();
+                    }
                 }
             }
-            TestContext.WriteLine("End");            
+            TestContext.WriteLine("Test End");
+        }
+
+        [TestMethod]
+        public void ClearRecords()
+        {
+            string[] files = Directory.GetFiles(WrongRecordsPath);
+            foreach (string file in files)
+                File.Delete(file);
         }
 
         [TestMethod]

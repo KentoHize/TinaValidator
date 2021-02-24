@@ -64,7 +64,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     else
                         break;
                 }
-                else if (!char.IsDigit(c) && (c != '-' || i != 0))
+                else if (!char.IsDigit(c) && (i != 0 || c != '-'))
                     break;
                 else if (i > 329) // too long for a double
                     break;
