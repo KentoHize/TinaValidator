@@ -34,48 +34,48 @@ namespace Aritiafel.Artifacts.TinaValidator
         private int _MaxLength;
 
         public AnyStringPart()
-            : this(null, '"', 0, 0)
+            : this(null, null, '"', 0, 0)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChars = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, string id = null, List<char> escapeChars = null,
             int minLength = 0, int maxLength = 0)
-           : this(nextNode, id, escapeChars, null, minLength, maxLength)
+           : this(nextNode, parent, id, escapeChars, null, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, char escapeChar = '"',
+        public AnyStringPart(TNode nextNode = null, Area parent = null, char escapeChar = '"',
             int minLength = 0, int maxLength = 0)
-           : this(nextNode, null, new List<char> { escapeChar }, null, minLength, maxLength)
+           : this(nextNode, parent, null, new List<char> { escapeChar }, null, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, char escapeChar = '"', List<string> escapeStrings = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, char escapeChar = '"', List<string> escapeStrings = null,
            int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
-           : this(nextNode, null, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+           : this(nextNode, parent, null, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string escapeStrings = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, string escapeStrings = null,
            int minLength = 0, int maxLength = 0)
-           : this(nextNode, null, new List<string> { escapeStrings }, minLength, maxLength)
+           : this(nextNode, parent, null, new List<string> { escapeStrings }, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, string escapeStrings = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, string id = null, string escapeStrings = null,
            int minLength = 0, int maxLength = 0)
-           : this(nextNode, id, null, new List<string> { escapeStrings }, minLength, maxLength)
+           : this(nextNode, parent, id, null, new List<string> { escapeStrings }, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, List<char> escapeChars = null, List<string> escapeStrings = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, List<char> escapeChars = null, List<string> escapeStrings = null,
            int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
-           : this(nextNode, null, escapeChars, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+           : this(nextNode, parent, null, escapeChars, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, char escapeChar = '"', List<string> escapeStrings = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, string id = null, char escapeChar = '"', List<string> escapeStrings = null,
            int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100)
-            : this(nextNode, id, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
+            : this(nextNode, parent, id, new List<char> { escapeChar }, escapeStrings, minLength, maxLength, randomEndCharThreshold, randomEndStringThreshold)
         { }
 
-        public AnyStringPart(TNode nextNode = null, string id = null, List<char> escapeChars = null, List<string> escapeStrings = null,
+        public AnyStringPart(TNode nextNode = null, Area parent = null, string id = null, List<char> escapeChars = null, List<string> escapeStrings = null,
             int minLength = 0, int maxLength = 0, int randomEndCharThreshold = 100, int randomEndStringThreshold = 100,
             double randomEndChance = 0.1)
-            : base(nextNode, id)
+            : base(nextNode, parent, id)
         {
             EscapeChars = escapeChars ?? new List<char>();
             EscapeStrings = escapeStrings ?? new List<string>();

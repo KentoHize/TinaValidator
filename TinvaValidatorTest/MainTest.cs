@@ -120,6 +120,7 @@ namespace TinvaValidatorTest
             ValidateLogic VL = new ValidateLogic(new Status());
             Area jumpArea = new Area("JumpArea", new Status(), VL);
             AreaStart ap1 = new AreaStart(jumpArea, new Status());
+
             //VL.InitialStatus.Choices[0].Conditon
             //jumpArea.
         }

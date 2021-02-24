@@ -5,22 +5,22 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class UnitSet : Part
     {
         public List<Unit> Units { get; set; } = new List<Unit>();
-        public UnitSet(Unit unit)
-            : this(null, unit)
+        public UnitSet(Unit unit, Area parent = null)
+            : this(null, parent, unit)
         { }
 
-        public UnitSet(List<Unit> units = null)
-            : this(null, units)
+        public UnitSet(List<Unit> units = null, Area parent = null)
+            : this(null, parent, units)
         { }
 
-        public UnitSet(string id, Unit unit)
-            : base(null, id)
+        public UnitSet(string id, Area parent, Unit unit)
+            : base(null, parent, id)
         {
             Units.Add(unit);
         }
 
-        public UnitSet(string id, List<Unit> units = null)
-            : base(null, id)
+        public UnitSet(string id, Area parent = null, List < Unit> units = null)
+            : base(null, parent)
         {
             if (units != null)
                 Units = units;

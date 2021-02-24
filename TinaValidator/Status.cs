@@ -7,23 +7,23 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public Area Parent { get; set; }
         public List<Choice> Choices { get; set; } = new List<Choice>();
-        public Status(List<Choice> choices)
-            : this(null, choices)
+        public Status(List<Choice> choices, Area parent = null)
+            : this(null, parent, choices)
         { }
 
-        public Status(string id = null, List<Choice> choices = null)
-            : base(null, id ?? IdentifyShop.GetNewID("ST"))
+        public Status(string id = null, Area parent = null, List < Choice> choices = null)
+            : base(null, parent, id ?? IdentifyShop.GetNewID("ST"))
         {
             if (choices != null)
                 Choices = choices;
         }
 
-        public Status(Choice choice)
-            : this(null, choice)
+        public Status(Choice choice, Area parent = null)
+            : this(null, parent, choice)
         { }
 
-        public Status(string id, Choice choice)
-            : base(null, id ?? IdentifyShop.GetNewID("ST"))
+        public Status(string id, Area parent, Choice choice)
+            : base(null, parent, id ?? IdentifyShop.GetNewID("ST"))
         {
             if (choice != null)
                 Choices.Add(choice);
