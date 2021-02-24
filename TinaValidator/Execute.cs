@@ -10,15 +10,15 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<Statement> Statements { get; set; }
         public List<Statement> RandomStatements { get; set; }
 
-        public Execute(Statement statement, TNode nextNode = null, string id = null)
-            : base(nextNode, id ?? IdentifyShop.GetNewID("E"))
+        public Execute(Statement statement, TNode nextNode = null, Area parent = null, string id = null)
+            : base(nextNode, parent, id ?? IdentifyShop.GetNewID("E"))
         {
             Statements = new List<Statement> { statement };
         }
         public Execute(List<Statement> statements = null,
             List<Statement> ranStatements = null,
-            TNode nextNode = null, string id = null)
-            : base(nextNode, id ?? IdentifyShop.GetNewID("E"))
+            TNode nextNode = null, Area parent = null, string id = null)
+            : base(nextNode, parent, id ?? IdentifyShop.GetNewID("E"))
         {
             Statements = statements ?? new List<Statement>();
             RandomStatements = ranStatements;

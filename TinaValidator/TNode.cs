@@ -2,15 +2,16 @@
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public abstract class TNode/* : IJsonObject*/
+    public abstract class TNode
     {
         public string ID { get; set; }
+        public Area Parent { get; set; }
         public TNode NextNode { get; set; }
-        protected TNode(TNode nextNode = null, string id = null)
+        protected TNode(TNode nextNode = null, Area parent = null, string id = null)
         {
             ID = id ?? IdentifyShop.GetNewID();
+            Parent = parent;
             NextNode = nextNode;
-        }
-        //public abstract string Serialize();
+        }        
     }
 }

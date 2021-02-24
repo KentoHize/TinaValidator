@@ -20,7 +20,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             type[0] = typeof(IObject).IsAssignableFrom(typeToConvert) ? typeof(IObject) : typeof(Unit);
             return (JsonConverter)Activator.CreateInstance(
                 typeof(OtherJsonConverterInner<>).MakeGenericType(type),
-                BindingFlags.Instance | BindingFlags.Public, null, new object[] { }, null);
+                BindingFlags.Instance | BindingFlags.Public, null, Array.Empty<object>(), null);
         }
 
         private class OtherJsonConverterInner<T> : DefaultJsonConverter<T>

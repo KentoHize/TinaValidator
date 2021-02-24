@@ -18,6 +18,7 @@ namespace TinvaValidatorTest
             Residence rs = new Residence(backupPath);
             rs.SaveVSSolution(@"C:\Programs\Standard\TinaValidator", false);
             rs.SaveVSSolution(@"C:\Programs\Standard\Aritiafel", false);
+            TestContext.WriteLine("Save Successed.");
         }
     }
 }

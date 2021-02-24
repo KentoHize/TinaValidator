@@ -16,7 +16,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
             => (JsonConverter)Activator.CreateInstance(
                 typeof(StatementJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
-                BindingFlags.Instance | BindingFlags.Public, null, new object[] { }, null);
+                BindingFlags.Instance | BindingFlags.Public, null, Array.Empty<object>(), null);
         private class StatementJsonConverterInner<T> : DefaultJsonConverter<T> where T : Statement
         {
             public StatementJsonConverterInner()
