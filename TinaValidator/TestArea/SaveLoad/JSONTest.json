@@ -1,0 +1,56 @@
+{
+  "Areas": [],
+  "TNodes": {
+    "STTZBINsB9Z9054": {
+      "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Status",
+      "Parent": null,
+      "Choices": [
+        {
+          "Node": "AGQk2IsEHGTH56",
+          "Conditon": null,
+          "RadomRatio": 1
+        }
+      ],
+      "NextNode": null
+    },
+    "AGQk2IsEHGTH56": {
+      "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
+      "Area": "SkipArea",
+      "Parent": "ARcFo7GTHpK8o55",
+      "NextNode": "STzrvICnUib0x57"
+    },
+    "STzrvICnUib0x57": {
+      "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Status",
+      "Parent": null,
+      "Choices": [
+        {
+          "Node": "AUpRz2JTD6nQ58",
+          "Conditon": null,
+          "RadomRatio": 1
+        }
+      ],
+      "NextNode": null
+    },
+    "AUpRz2JTD6nQ58": {
+      "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
+      "Area": "ValueArea",
+      "Parent": null,
+      "NextNode": "AfIyMuft38WW59"
+    },
+    "AfIyMuft38WW59": {
+      "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
+      "Area": "SkipArea",
+      "Parent": "ARcFo7GTHpK8o55",
+      "NextNode": "__ENDNODE62ADB0E6"
+    },
+    "__ENDNODE62ADB0E6": {
+      "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.EndNode",
+      "Parent": null,
+      "NextNode": null
+    }
+  },
+  "Variables": {},
+  "Name": "ARcFo7GTHpK8o55",
+  "InitialStatus": "STTZBINsB9Z9054",
+  "Parent": null
+}

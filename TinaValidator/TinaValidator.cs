@@ -112,6 +112,8 @@ namespace Aritiafel.Artifacts.TinaValidator
                             ratioThreshold.Add(RationCount, st.Choices[i].Node);
                         }
                     }
+                    if (ratioThreshold.Count == 0)
+                        throw new Exception($"No Route in {st.ID}");
                     int index = rnd.Next(RationCount);
                     if (ratioThreshold.ContainsKey(index))
                     {

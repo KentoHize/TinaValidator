@@ -116,14 +116,12 @@ namespace TinvaValidatorTest
 
         [TestMethod]
         public void JsonTest()
-        {
-            ValidateLogic VL = new ValidateLogic(new Status());
+        {   
             Area skipChars = new Area("SkipArea", new Status(), null);
             Area objectArea = new Area("ObjectArea", new Status(), null);
             Area arrayArea = new Area("ArrayArea", new Status(), null);
             Area valueArea = new Area("ValueArea", new Status(), null);
-            Area propertiesArea =  new Area("PropertiesArea", new Status(), null);
-            AreaStart ap1 = new AreaStart(skipChars, VL);
+            Area propertiesArea =  new Area("PropertiesArea", new Status(), null);           
             
             UnitSet us = new UnitSet(CharUnits.WhiteSpace, skipChars);
             UnitSet us2 = new UnitSet(CharUnits.CarriageReturn, skipChars);
@@ -134,16 +132,13 @@ namespace TinvaValidatorTest
             skipChars.InitialStatus.Choices.Add(new Choice(us3));
             skipChars.InitialStatus.Choices.Add(new Choice(us4));
             skipChars.InitialStatus.Choices.Add(Choice.EndChoice);
-            Status loopStatus = new Status(skipChars);
-            us.NextNode = us2.NextNode = us3.NextNode = loopStatus;
-            loopStatus.Choices.Add(new Choice(skipChars.InitialStatus));
-            loopStatus.Choices.Add(Choice.EndChoice);
+            us.NextNode = us2.NextNode = us3.NextNode = skipChars.InitialStatus;
 
             UnitSet leftCurlBracket = new UnitSet(CharUnits.LeftCurlyBracket);
             UnitSet rightCurlBracket = new UnitSet(CharUnits.RightCurlyBracket);
             AreaStart skSt = new AreaStart(skipChars, objectArea);
             objectArea.InitialStatus.Choices.Add(new Choice(skSt));
-            skSt.NextNode = leftCurlBracket;            
+            skSt.NextNode = leftCurlBracket;
             AreaStart paSt = new AreaStart(propertiesArea, objectArea);
             skSt = new AreaStart(skipChars, objectArea);
             leftCurlBracket.NextNode = skSt;
@@ -170,11 +165,14 @@ namespace TinvaValidatorTest
             skSt.NextNode = st1;
             UnitSet us5 = new UnitSet(CharUnits.Comma, arrayArea);
             st1.Choices.Add(new Choice(us5));
-            st1.Choices.Add(new Choice(rightSquareBracket));            
-            us5.NextNode = vaSt;
+            st1.Choices.Add(new Choice(rightSquareBracket));
+            skSt = new AreaStart(skipChars, arrayArea);
+            us5.NextNode = skSt;
+            skSt.NextNode = vaSt;
             skSt = new AreaStart(skipChars, arrayArea);
             rightCurlBracket.NextNode = skSt;
             skSt.NextNode = EndNode.Instance;
+            
 
             CharsToBooleanPart cbp = new CharsToBooleanPart();
             cbp.Parent = valueArea;
@@ -197,19 +195,68 @@ namespace TinvaValidatorTest
             asp2.NextNode = st3;
             st3.Choices.Add(new Choice("\"".ToUnitSet()));
             st3.Choices.Add(new Choice(new UnitSet(new CharUnit(), valueArea)));
-            st3.Choices[0].Node = st2;
-            st3.Choices[1].Node = st2;
+            st3.Choices[0].Node.NextNode = st2;
+            st3.Choices[1].Node.NextNode = st2;
             asp1.NextNode = EndNode.Instance;             
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
-            valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
+            //valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
             AreaStart arSt = new AreaStart(arrayArea, valueArea);
-            valueArea.InitialStatus.Choices.Add(new Choice(arSt));
+            //valueArea.InitialStatus.Choices.Add(new Choice(arSt));
             for (int i = 0; i < valueArea.InitialStatus.Choices.Count; i++)
-                valueArea.InitialStatus.Choices[i].Node = EndNode.Instance;
+                valueArea.InitialStatus.Choices[i].Node.NextNode = EndNode.Instance;
             valueArea.InitialStatus.Choices.Add(new Choice(us6));
 
+            UnitSet us7 = new UnitSet(CharUnits.QuotationMark, propertiesArea);
+            propertiesArea.InitialStatus.NextNode = us7;
+            asp1 = new AnyStringPart(null, propertiesArea, null, new List<char> { '\"' }, 0, 0);
+            asp2 = new AnyStringPart(null, propertiesArea, null, new List<char> { '\\' }, 0, 0);
+            st2 = new Status(propertiesArea);
+            us7.NextNode = st2;
+            st2.Choices.Add(new Choice(asp2));
+            st2.Choices.Add(new Choice(asp1));
+            st3 = new Status(propertiesArea);
+            asp2.NextNode = st3;
+            st3.Choices.Add(new Choice("\"".ToUnitSet()));
+            st3.Choices.Add(new Choice(new UnitSet(new CharUnit(), propertiesArea)));
+            st3.Choices[0].Node.NextNode = st2;
+            st3.Choices[1].Node.NextNode = st2;
 
-            propertiesArea
+            skSt = new AreaStart(skipChars, propertiesArea);
+            asp1.NextNode = skSt;
+            UnitSet us8 = new UnitSet(CharUnits.Colon, propertiesArea);
+            skSt.NextNode = us8;
+            skSt = new AreaStart(skipChars, propertiesArea);
+            us8.NextNode = skSt;
+            vaSt = new AreaStart(valueArea, propertiesArea);
+            skSt.NextNode = vaSt;
+            Status s3 = new Status();            
+            vaSt.NextNode = s3;            
+            s3.Choices.Add(new Choice(EndNode.Instance));
+            skSt = new AreaStart(skipChars, propertiesArea);
+            s3.Choices.Add(new Choice(skSt));
+            UnitSet us9 = new UnitSet(CharUnits.Comma, propertiesArea);
+            skSt.NextNode = us9;
+            skSt = new AreaStart(skipChars, propertiesArea);
+            us9.NextNode = skSt;
+            skSt.NextNode = propertiesArea.InitialStatus;
+
+            ValidateLogic VL = new ValidateLogic(new Status());
+            AreaStart ap1 = new AreaStart(skipChars, VL);
+            VL.InitialStatus.Choices.Add(new Choice(ap1));
+            Status JsonStartStatus = new Status(null, VL);
+            ap1.NextNode = JsonStartStatus;            
+            AreaStart ap2 = new AreaStart(valueArea, null);            
+            AreaStart ap3 = new AreaStart(skipChars, VL);
+            ap2.NextNode = ap3;
+            ap3.NextNode = EndNode.Instance;
+            JsonStartStatus.Choices.Add(new Choice(ap2));
+
+            TinaValidator validator = new TinaValidator(VL);
+            VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
+            for (int i = 0; i < 10; i++)
+                TestContext.WriteLine(validator.CreateRandomToString());
+            TestContext.WriteLine("End");
+
         }
 
         [TestMethod]

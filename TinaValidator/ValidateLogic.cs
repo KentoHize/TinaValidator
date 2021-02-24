@@ -15,7 +15,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<Area> Areas { get; set; } = new List<Area>();
         public Dictionary<string, TNode> TNodes { get; set; } = new Dictionary<string, TNode>();
         public Dictionary<string, Variable> Variables { get; set; } = new Dictionary<string, Variable>();
-        public void Save(TNode node, Area a)
+        private void Save(TNode node, Area a)
         {
             if (TNodes.ContainsKey(node.ID))
                 return;
