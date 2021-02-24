@@ -47,7 +47,7 @@ namespace TinvaValidatorTest
             CompareExpression AtLeast2 = new CompareExpression(new LongVar("Times"), new LongConst(2), Operator.GreaterThanOrEqualTo);
             Area ar1 = new Area(null, new Status(), VL);
             VL.Areas.Add(ar1);
-            AreaStart ap1 = new AreaStart(ar1, new Status());
+            AreaStart ap1 = new AreaStart(ar1, null, new Status());
 
             VL.InitialStatus.Choices.Add(new Choice(initialEx));
             initialEx.NextNode = ap1;
@@ -118,11 +118,83 @@ namespace TinvaValidatorTest
         public void JsonTest()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
-            Area jumpArea = new Area("JumpArea", new Status(), VL);
-            AreaStart ap1 = new AreaStart(jumpArea, new Status());
+            Area skipChars = new Area("SkipArea", new Status(), null);
+            Area objectArea = new Area("ObjectArea", new Status(), null);
+            Area arrayArea = new Area("ArrayArea", new Status(), null);
+            Area valueArea = new Area("ValueArea", new Status(), null);
+            Area propertiesArea =  new Area("PropertiesArea", new Status(), null);
+            AreaStart ap1 = new AreaStart(skipChars, VL);
+            
+            UnitSet us = new UnitSet(CharUnits.WhiteSpace, skipChars);
+            UnitSet us2 = new UnitSet(CharUnits.CarriageReturn, skipChars);
+            UnitSet us3 = new UnitSet(CharUnits.LineFeed, skipChars);
+            UnitSet us4 = new UnitSet(CharUnits.HorizontalTab, skipChars);
+            skipChars.InitialStatus.Choices.Add(new Choice(us));
+            skipChars.InitialStatus.Choices.Add(new Choice(us2));
+            skipChars.InitialStatus.Choices.Add(new Choice(us3));
+            skipChars.InitialStatus.Choices.Add(new Choice(us4));
+            skipChars.InitialStatus.Choices.Add(Choice.EndChoice);
+            Status loopStatus = new Status(skipChars);
+            us.NextNode = us2.NextNode = us3.NextNode = loopStatus;
+            loopStatus.Choices.Add(new Choice(skipChars.InitialStatus));
+            loopStatus.Choices.Add(Choice.EndChoice);
 
-            //VL.InitialStatus.Choices[0].Conditon
-            //jumpArea.
+            UnitSet leftCurlBracket = new UnitSet(CharUnits.LeftCurlyBracket);
+            UnitSet rightCurlBracket = new UnitSet(CharUnits.RightCurlyBracket);
+            AreaStart skSt = new AreaStart(skipChars, objectArea);
+            objectArea.InitialStatus.Choices.Add(new Choice(skSt));
+            skSt.NextNode = leftCurlBracket;            
+            AreaStart paSt = new AreaStart(propertiesArea, objectArea);
+            skSt = new AreaStart(skipChars, objectArea);
+            leftCurlBracket.NextNode = skSt;
+            skSt.NextNode = paSt;
+            skSt = new AreaStart(skipChars, objectArea);
+            paSt.NextNode = skSt;
+            skSt.NextNode = rightCurlBracket;            
+            skSt = new AreaStart(skipChars, objectArea);
+            rightCurlBracket.NextNode = skSt;
+            skSt.NextNode = EndNode.Instance;
+
+            UnitSet leftSquareBracket = new UnitSet(CharUnits.LeftSquareBracket);
+            UnitSet rightSquareBracket = new UnitSet(CharUnits.RightSquareBracket);
+            skSt = new AreaStart(skipChars, arrayArea);
+            arrayArea.InitialStatus.Choices.Add(new Choice(skSt));
+            skSt.NextNode = leftSquareBracket;
+            skSt = new AreaStart(skipChars, arrayArea);
+            leftSquareBracket.NextNode = skSt;            
+            AreaStart vaSt = new AreaStart(valueArea, arrayArea);
+            skSt.NextNode = vaSt;
+            skSt = new AreaStart(skipChars, arrayArea);
+            vaSt.NextNode = skSt;            
+            Status st1 = new Status(null, arrayArea);            
+            skSt.NextNode = st1;
+            UnitSet us5 = new UnitSet(CharUnits.Comma, arrayArea);
+            st1.Choices.Add(new Choice(us5));
+            st1.Choices.Add(new Choice(rightCurlBracket));            
+            us5.NextNode = vaSt;
+            skSt = new AreaStart(skipChars, arrayArea);
+            rightCurlBracket.NextNode = skSt;
+            skSt.NextNode = EndNode.Instance;
+
+            CharsToBooleanPart cbp = new CharsToBooleanPart();
+            cbp.Parent = valueArea;
+            CharsToDoublePart cdp = new CharsToDoublePart();
+            cdp.Parent = valueArea;
+            CharsToIntegerPart cip = new CharsToIntegerPart();
+            cip.Parent = valueArea;
+            AnyStringPart asp = new AnyStringPart(null, valueArea, '"', 0, 0);
+            UnitSet us6 = new UnitSet(CharUnits.QuotationMark, valueArea);
+            valueArea.InitialStatus.Choices.Add(new Choice(cbp));
+            valueArea.InitialStatus.Choices.Add(new Choice(cip));
+            valueArea.InitialStatus.Choices.Add(new Choice(cdp));
+            valueArea.InitialStatus.Choices.Add(new Choice(us6));
+            AreaStart oaSt = new AreaStart(objectArea, valueArea);
+            valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
+
+
+
+
+
         }
 
         [TestMethod]

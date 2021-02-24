@@ -7,7 +7,7 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public Area Parent { get; set; }
         public List<Choice> Choices { get; set; } = new List<Choice>();
-        public Status(List<Choice> choices, Area parent = null)
+        public Status(Area parent, List<Choice> choices)
             : this(null, parent, choices)
         { }
 
@@ -18,7 +18,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 Choices = choices;
         }
 
-        public Status(Choice choice, Area parent = null)
+        public Status(Area parent, Choice choice = null)
             : this(null, parent, choice)
         { }
 
