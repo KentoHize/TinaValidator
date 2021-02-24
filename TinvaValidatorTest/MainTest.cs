@@ -16,7 +16,7 @@ namespace TinvaValidatorTest
         public const string SaveLoadPath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\SaveLoad";
         public const string NumberFilePath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\Number File";
         public const string WrongRecordsPath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\WrongRecords";
-
+        public const string RandomJsonPath = @"C:\Programs\Standard\TinaValidator\TinaValidator\TestArea\RandomJson";
         public TestContext TestContext { get; set; }
 
         [TestMethod]
@@ -199,7 +199,7 @@ namespace TinvaValidatorTest
             asp2.NextNode = st3;
             st3.Choices.Add(new Choice("\\\"".ToUnitSet()));
             UnitSet us11 = new UnitSet(CharUnits.BackSlash);
-            us11.Units.Add(new CharUnit());
+            us11.Units.Add(CharUnits.atoz);
             st3.Choices.Add(new Choice(us11));
             st3.Choices[0].Node.NextNode = st2;
             st3.Choices[1].Node.NextNode = st2;
@@ -226,7 +226,7 @@ namespace TinvaValidatorTest
             asp2.NextNode = st3;
             st3.Choices.Add(new Choice("\\\"".ToUnitSet()));
             UnitSet us10 = new UnitSet(CharUnits.BackSlash);
-            us10.Units.Add(new CharUnit());
+            us10.Units.Add(CharUnits.atoz);
             st3.Choices.Add(new Choice(us10));
             st3.Choices[0].Node.NextNode = st2;
             st3.Choices[1].Node.NextNode = st2;
@@ -251,14 +251,16 @@ namespace TinvaValidatorTest
             skSt.NextNode = propertiesArea.InitialStatus;
 
             //Start Main
-            AreaStart ap1 = new AreaStart(skipChars, VL);
-            VL.InitialStatus.Choices.Add(new Choice(ap1));
+            skSt = new AreaStart(skipChars, VL);
+            VL.InitialStatus.Choices.Add(new Choice(skSt));
             Status JsonStartStatus = new Status(null, VL);
-            ap1.NextNode = JsonStartStatus;
-            AreaStart ap2 = new AreaStart(objectArea, null);
-            AreaStart ap3 = new AreaStart(skipChars, VL);
-            ap2.NextNode = ap3;
-            ap3.NextNode = EndNode.Instance;
+            skSt.NextNode = JsonStartStatus;
+            AreaStart ap1 = new AreaStart(objectArea, null);
+            AreaStart ap2 = new AreaStart(arrayArea, null);
+            skSt = new AreaStart(skipChars, VL);
+            ap1.NextNode = ap2.NextNode = skSt;
+            skSt.NextNode = EndNode.Instance;
+            JsonStartStatus.Choices.Add(new Choice(ap1));
             JsonStartStatus.Choices.Add(new Choice(ap2));
             return VL;
         }
@@ -270,9 +272,34 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10; i++)
             {
                 List<object> ol = validator.CreateRandom();
+                string s = ol.ForEachToString();
+                byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
+                //s = System.Text.Encoding.UTF8.GetString(buffer);
+                if (i < 10)
+                {
+                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"RandomJson-{i.ToString("0000")}.json"), FileMode.Create))
+                    {
+                        BinaryWriter bw = new BinaryWriter(fs);
+                        bw.Write(buffer);
+                        bw.Close();
+                        //StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
+                        
+                    }
+                }
+                //try
+                //{
+                
+                //JsonSerializer.Deserialize(s, typeof(object));
+                //}
+                //catch (Exception ex)
+                //{
+                //    TestContext.WriteLine("Wrong Happen:" + i);
+                //    TestContext.WriteLine(s);
+                //}
+
                 if (!validator.Validate(ol))
                 {
                     TestContext.WriteLine("-----------------------------");
@@ -309,19 +336,19 @@ namespace TinvaValidatorTest
         {
             ValidateLogic VL = JsonLogic();
             string recordNeedRun = "02-25-00-13-30-0029";
-            
+
             List<char> ol;
             using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"TestRecord-{DateTime.Now.Year}-{recordNeedRun}.json"), FileMode.Open))
             {
                 StreamReader sr = new StreamReader(fs);
                 JsonSerializerOptions jso = new JsonSerializerOptions { WriteIndented = true };
                 jso.Converters.Add(new Aritiafel.Locations.StorageHouse.DefaultJsonConverterFactory());
-                ol = (List<char>)JsonSerializer.Deserialize(sr.ReadToEnd(), typeof(List<char>));                
+                ol = (List<char>)JsonSerializer.Deserialize(sr.ReadToEnd(), typeof(List<char>));
                 sr.Close();
             }
 
-            List<object> oll = new List<object>();            
-            for(int i = 0; i < ol.Count; i++)
+            List<object> oll = new List<object>();
+            for (int i = 0; i < ol.Count; i++)
                 oll.Add(ol[i]);
 
             TinaValidator validator = new TinaValidator(VL);

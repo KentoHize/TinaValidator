@@ -49,7 +49,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public override List<object> Random()
         {
             BooleanUnit bu = new BooleanUnit(this);
-            return bu.Random().ToString().ToObjectList();
+            return bu.Random().ToString().ToLower().ToObjectList();
         }
     }
 }

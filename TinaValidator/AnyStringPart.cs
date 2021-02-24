@@ -7,7 +7,7 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class AnyStringPart : Part
     {
         public List<char> EscapeChars { get; set; }
-        public List<string> EscapeStrings { get; set; }
+        public List<string> EscapeStrings { get; set; }        
         public int RandomEndCharThreshold { get; set; }
         public int RandomEndStringThreshold { get; set; }
         public double RandomEndChance
