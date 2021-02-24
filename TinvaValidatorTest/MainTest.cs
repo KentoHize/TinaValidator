@@ -116,13 +116,20 @@ namespace TinvaValidatorTest
 
         [TestMethod]
         public void JsonTest()
-        {   
-            Area skipChars = new Area("SkipArea", new Status(), null);
+        {
+            ValidateLogic VL = new ValidateLogic(new Status());            
+            Area skipChars = new Area("SkipArea", new Status(), null);            
             Area objectArea = new Area("ObjectArea", new Status(), null);
             Area arrayArea = new Area("ArrayArea", new Status(), null);
             Area valueArea = new Area("ValueArea", new Status(), null);
-            Area propertiesArea =  new Area("PropertiesArea", new Status(), null);           
-            
+            Area propertiesArea =  new Area("PropertiesArea", new Status(), null);
+            VL.Areas.Add(skipChars);
+            VL.Areas.Add(objectArea);
+            VL.Areas.Add(arrayArea);
+            VL.Areas.Add(valueArea);
+            VL.Areas.Add(propertiesArea);
+
+
             UnitSet us = new UnitSet(CharUnits.WhiteSpace, skipChars);
             UnitSet us2 = new UnitSet(CharUnits.CarriageReturn, skipChars);
             UnitSet us3 = new UnitSet(CharUnits.LineFeed, skipChars);
@@ -132,7 +139,7 @@ namespace TinvaValidatorTest
             skipChars.InitialStatus.Choices.Add(new Choice(us3));
             skipChars.InitialStatus.Choices.Add(new Choice(us4));
             skipChars.InitialStatus.Choices.Add(Choice.EndChoice);
-            us.NextNode = us2.NextNode = us3.NextNode = skipChars.InitialStatus;
+            us.NextNode = us2.NextNode = us3.NextNode = us4.NextNode = skipChars.InitialStatus;
 
             UnitSet leftCurlBracket = new UnitSet(CharUnits.LeftCurlyBracket);
             UnitSet rightCurlBracket = new UnitSet(CharUnits.RightCurlyBracket);
@@ -152,9 +159,7 @@ namespace TinvaValidatorTest
 
             UnitSet leftSquareBracket = new UnitSet(CharUnits.LeftSquareBracket);
             UnitSet rightSquareBracket = new UnitSet(CharUnits.RightSquareBracket);
-            skSt = new AreaStart(skipChars, arrayArea);
-            arrayArea.InitialStatus.Choices.Add(new Choice(skSt));
-            skSt.NextNode = leftSquareBracket;
+            arrayArea.InitialStatus.Choices.Add(new Choice(leftSquareBracket));            
             skSt = new AreaStart(skipChars, arrayArea);
             leftSquareBracket.NextNode = skSt;            
             AreaStart vaSt = new AreaStart(valueArea, arrayArea);
@@ -169,9 +174,7 @@ namespace TinvaValidatorTest
             skSt = new AreaStart(skipChars, arrayArea);
             us5.NextNode = skSt;
             skSt.NextNode = vaSt;
-            skSt = new AreaStart(skipChars, arrayArea);
-            rightCurlBracket.NextNode = skSt;
-            skSt.NextNode = EndNode.Instance;
+            rightSquareBracket.NextNode = EndNode.Instance;
             
 
             CharsToBooleanPart cbp = new CharsToBooleanPart();
@@ -197,7 +200,7 @@ namespace TinvaValidatorTest
             st3.Choices.Add(new Choice(new UnitSet(new CharUnit(), valueArea)));
             st3.Choices[0].Node.NextNode = st2;
             st3.Choices[1].Node.NextNode = st2;
-            asp1.NextNode = EndNode.Instance;             
+            asp1.NextNode = EndNode.Instance;
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
             //valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
             AreaStart arSt = new AreaStart(arrayArea, valueArea);
@@ -240,7 +243,7 @@ namespace TinvaValidatorTest
             us9.NextNode = skSt;
             skSt.NextNode = propertiesArea.InitialStatus;
 
-            ValidateLogic VL = new ValidateLogic(new Status());
+            
             AreaStart ap1 = new AreaStart(skipChars, VL);
             VL.InitialStatus.Choices.Add(new Choice(ap1));
             Status JsonStartStatus = new Status(null, VL);
@@ -253,8 +256,15 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
-            for (int i = 0; i < 10; i++)
-                TestContext.WriteLine(validator.CreateRandomToString());
+            for (int i = 0; i < 100; i++)
+            {
+                List<object> ol = validator.CreateRandom();
+                if (!validator.Validate(ol))
+                {
+                    TestContext.WriteLine("Wrong happen: " + i);
+                    TestContext.WriteLine(ol.ForEachToString());
+                }   
+            }   
             TestContext.WriteLine("End");
 
         }

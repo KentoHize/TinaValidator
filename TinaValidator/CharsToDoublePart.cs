@@ -35,6 +35,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             StringBuilder sb = new StringBuilder();
             bool hasPoint = false;
+            int hasE = 0;
             int i;
             for (i = 0; startIndex + i < thing.Count; i++)
             {
@@ -46,6 +47,22 @@ namespace Aritiafel.Artifacts.TinaValidator
                         break;
                     else
                         hasPoint = true;
+                }
+                else if(hasE == 1)
+                {
+                    if (c != '+' || c != '-')
+                    {
+                        sb.Remove(sb.Length - 1, 1);
+                        break;
+                    }
+                    hasE++;
+                }
+                else if (c == 'E' || c == 'e')
+                {
+                    if (hasE == 0)
+                        hasE++;
+                    else
+                        break;
                 }
                 else if (!char.IsDigit(c) && (c != '-' || i != 0))
                     break;

@@ -17,6 +17,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         public Dictionary<string, Variable> Variables { get; set; } = new Dictionary<string, Variable>();
         private void Save(TNode node, Area a)
         {
+            if (node == null)
+                throw new Exception($"Node Missing");
+
             if (TNodes.ContainsKey(node.ID))
                 return;
             TNodes.Add(node.ID, node);
