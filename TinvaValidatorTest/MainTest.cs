@@ -144,18 +144,14 @@ namespace TinvaValidatorTest
             UnitSet leftCurlBracket = new UnitSet(CharUnits.LeftCurlyBracket);
             UnitSet rightCurlBracket = new UnitSet(CharUnits.RightCurlyBracket);
             AreaStart skSt = new AreaStart(skipChars, objectArea);
-            objectArea.InitialStatus.Choices.Add(new Choice(skSt));
-            skSt.NextNode = leftCurlBracket;
-            AreaStart paSt = new AreaStart(propertiesArea, objectArea);
-            skSt = new AreaStart(skipChars, objectArea);
+            objectArea.InitialStatus.Choices.Add(new Choice(leftCurlBracket));            
+            AreaStart paSt = new AreaStart(propertiesArea, objectArea);            
             leftCurlBracket.NextNode = skSt;
             skSt.NextNode = paSt;
             skSt = new AreaStart(skipChars, objectArea);
             paSt.NextNode = skSt;
-            skSt.NextNode = rightCurlBracket;            
-            skSt = new AreaStart(skipChars, objectArea);
-            rightCurlBracket.NextNode = skSt;
-            skSt.NextNode = EndNode.Instance;
+            skSt.NextNode = rightCurlBracket;
+            rightCurlBracket.NextNode = EndNode.Instance;
 
             UnitSet leftSquareBracket = new UnitSet(CharUnits.LeftSquareBracket);
             UnitSet rightSquareBracket = new UnitSet(CharUnits.RightSquareBracket);
@@ -202,7 +198,7 @@ namespace TinvaValidatorTest
             st3.Choices[1].Node.NextNode = st2;
             asp1.NextNode = EndNode.Instance;
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
-            //valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
+            valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
             AreaStart arSt = new AreaStart(arrayArea, valueArea);
             //valueArea.InitialStatus.Choices.Add(new Choice(arSt));
             for (int i = 0; i < valueArea.InitialStatus.Choices.Count; i++)
@@ -210,7 +206,7 @@ namespace TinvaValidatorTest
             valueArea.InitialStatus.Choices.Add(new Choice(us6));
 
             UnitSet us7 = new UnitSet(CharUnits.QuotationMark, propertiesArea);
-            propertiesArea.InitialStatus.NextNode = us7;
+            propertiesArea.InitialStatus.Choices.Add(new Choice(us7));
             asp1 = new AnyStringPart(null, propertiesArea, null, new List<char> { '\"' }, 0, 0);
             asp2 = new AnyStringPart(null, propertiesArea, null, new List<char> { '\\' }, 0, 0);
             st2 = new Status(propertiesArea);
@@ -223,7 +219,6 @@ namespace TinvaValidatorTest
             st3.Choices.Add(new Choice(new UnitSet(new CharUnit(), propertiesArea)));
             st3.Choices[0].Node.NextNode = st2;
             st3.Choices[1].Node.NextNode = st2;
-
             skSt = new AreaStart(skipChars, propertiesArea);
             asp1.NextNode = skSt;
             UnitSet us8 = new UnitSet(CharUnits.Colon, propertiesArea);
@@ -231,9 +226,10 @@ namespace TinvaValidatorTest
             skSt = new AreaStart(skipChars, propertiesArea);
             us8.NextNode = skSt;
             vaSt = new AreaStart(valueArea, propertiesArea);
-            skSt.NextNode = vaSt;
-            Status s3 = new Status();            
-            vaSt.NextNode = s3;            
+            skSt.NextNode = vaSt;            
+            skSt = new AreaStart(skipChars, propertiesArea);
+            Status s3 = new Status();
+            vaSt.NextNode = s3;
             s3.Choices.Add(new Choice(EndNode.Instance));
             skSt = new AreaStart(skipChars, propertiesArea);
             s3.Choices.Add(new Choice(skSt));
@@ -248,7 +244,7 @@ namespace TinvaValidatorTest
             VL.InitialStatus.Choices.Add(new Choice(ap1));
             Status JsonStartStatus = new Status(null, VL);
             ap1.NextNode = JsonStartStatus;            
-            AreaStart ap2 = new AreaStart(valueArea, null);            
+            AreaStart ap2 = new AreaStart(propertiesArea, null);            
             AreaStart ap3 = new AreaStart(skipChars, VL);
             ap2.NextNode = ap3;
             ap3.NextNode = EndNode.Instance;
@@ -263,8 +259,8 @@ namespace TinvaValidatorTest
                 {
                     TestContext.WriteLine("Wrong happen: " + i);
                     TestContext.WriteLine(ol.ForEachToString());
-                }   
-            }   
+                }
+            }
             TestContext.WriteLine("End");
 
         }
