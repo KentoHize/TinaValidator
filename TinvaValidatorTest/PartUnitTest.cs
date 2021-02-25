@@ -16,16 +16,26 @@ namespace TinvaValidatorTest
             BooleanUnit bu = new BooleanUnit();
             Assert.IsTrue(bu.Compare(true));
             Assert.IsTrue(bu.Compare(false));
-            Assert.IsTrue(!bu.Compare("aa"));
-            Assert.IsTrue(!bu.Compare(0));
+            Assert.IsFalse(bu.Compare("aa"));
+            Assert.IsFalse(bu.Compare(0));
+            Assert.IsTrue(bu.Compare(bu.Random()));
+            Assert.IsTrue(bu.Compare(bu.Random()));
             TestContext.WriteLine(bu.Random().ToString());
-            bu = new BooleanUnit(true);
+            bu = BooleanUnit.True;
             Assert.IsTrue(bu.Compare(true));
-            Assert.IsTrue(!bu.Compare(false));
+            Assert.IsFalse(bu.Compare(false));
+            Assert.IsTrue(bu.Compare(bu.Random()));            
             TestContext.WriteLine(bu.Random().ToString());
-            bu = new BooleanUnit(false);
-            Assert.IsTrue(!bu.Compare(true));
+            bu = BooleanUnit.False;
+            Assert.IsFalse(bu.Compare(true));
             Assert.IsTrue(bu.Compare(false));
+            Assert.IsTrue(bu.Compare(bu.Random()));            
+            TestContext.WriteLine(bu.Random().ToString());
+
+            bu.CompareMethod = CompareMethod.Not;
+            Assert.IsTrue(bu.Compare(true));
+            Assert.IsFalse(bu.Compare(false));
+            Assert.IsTrue(bu.Compare(bu.Random()));            
             TestContext.WriteLine(bu.Random().ToString());
         }
 
@@ -98,6 +108,14 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
+
+            iu = new IntegerUnit(-9869, 87689986, CompareMethod.NotMinMax);
+            decimal m;
+            for(int i = 0; i < 5000; i++)
+            {
+                //m = (decimal)iu.Random();
+                Assert.IsTrue(iu.Compare(iu.Random()));
+            }   
         }
 
         [TestMethod]
@@ -114,6 +132,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(du.Compare(double.MaxValue));
             Assert.IsTrue(!du.Compare("dd"));
             Assert.IsTrue(!du.Compare('\n'));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
@@ -121,6 +143,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(du.Compare(56.6875));
             Assert.IsTrue(!du.Compare(56.6876));
             Assert.IsTrue(!du.Compare(56.6874));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             du = new DoubleUnit(-15.988, 360.62559);
@@ -132,6 +158,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(du.Compare(360.62559));
             Assert.IsTrue(!du.Compare(360.62560));
             Assert.IsTrue(!du.Compare(578.698));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
+            Assert.IsTrue(du.Compare(du.Random()));
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
@@ -139,7 +169,11 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(du.Random().ToString());
             
             du = new DoubleUnit(6933.988, 5932.648819);
-            Assert.ThrowsException<ArgumentException>(() => du.Random());            
+            Assert.ThrowsException<ArgumentException>(() => du.Random());
+
+            du = new DoubleUnit(-965378515.5646, 8534832.683458, CompareMethod.NotMinMax);
+            for (int i = 0; i < 5000; i++)
+                Assert.IsTrue(du.Compare(du.Random()));
         }
 
         [TestMethod]

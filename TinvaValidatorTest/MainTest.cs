@@ -136,8 +136,12 @@ namespace TinvaValidatorTest
 
             //StringArea
             UnitSet us12 = new UnitSet(CharUnits.QuotationMark);
-            stringArea.InitialStatus.Choices.Add(new Choice(us12));            
-            AnyStringPart asp1 = new AnyStringPart(null, stringArea, null, new List<char> { '\\', '\"' }, 0, 0);
+            stringArea.InitialStatus.Choices.Add(new Choice(us12));
+            List<char> excludeChars = new List<char>
+            { '\\', '\"' };
+            for (int i = 0; i < 20; i++)
+                excludeChars.Add((char)i);
+            AnyStringPart asp1 = new AnyStringPart(null, stringArea, "asp1", new List<char> { '\\', '\"' }, excludeChars, 0, 0);
             us12.NextNode = asp1;
             Status st4 = new Status("st4");
             asp1.NextNode = st4;
@@ -154,13 +158,13 @@ namespace TinvaValidatorTest
             st5.Choices.Add(new Choice(new UnitSet(CharUnits.BackSlash)));
             st5.Choices.Add(new Choice(new UnitSet(CharUnits.QuotationMark)));
             UnitSet unicodeSet = new UnitSet(new CharUnit('u'));
-            unicodeSet.Units.Add(new CharUnit());
-            unicodeSet.Units.Add(new CharUnit());
-            unicodeSet.Units.Add(new CharUnit());
-            unicodeSet.Units.Add(new CharUnit());
+            unicodeSet.Units.Add(CharUnits.HexdecimalDigit);
+            unicodeSet.Units.Add(CharUnits.HexdecimalDigit);
+            unicodeSet.Units.Add(CharUnits.HexdecimalDigit);
+            unicodeSet.Units.Add(CharUnits.HexdecimalDigit);
             st5.Choices.Add(new Choice(unicodeSet));
             for (int i = 0; i < st5.Choices.Count; i++)
-                st5.Choices[i].Node.NextNode = stringArea.InitialStatus;
+                st5.Choices[i].Node.NextNode = asp1;
 
             //Skip Area
             UnitSet us = new UnitSet(CharUnits.WhiteSpace, skipChars);
@@ -271,12 +275,12 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 List<object> ol = validator.CreateRandom();
                 string s = ol.ForEachToString();
                 byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
-                //s = System.Text.Encoding.UTF8.GetString(buffer);
+                s = System.Text.Encoding.UTF8.GetString(buffer);
                 if (i < 10)
                 {
                     using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"RandomJson-{i.ToString("0000")}.json"), FileMode.Create))
@@ -291,7 +295,7 @@ namespace TinvaValidatorTest
                 //try
                 //{
                 
-                //JsonSerializer.Deserialize(s, typeof(object));
+                JsonSerializer.Deserialize(s, typeof(object));
                 ////}
                 //catch (Exception ex)
                 //{

@@ -30,7 +30,7 @@ namespace TinvaValidatorTest
             Assert.IsTrue(asp.Validate(asp.Random()) != -1);
             Assert.IsTrue(asp.Validate(asp.Random()) != -1);
             TestContext.WriteLine(asp.Random().ForEachToString());
-            asp = new AnyStringPart(null, null, null, new List<string> { "AA", "BB", "CCC" }, 10, 200);
+            asp = new AnyStringPart(null, null, null, null, new List<string> { "AA", "BB", "CCC" }, 10, 200);
             Assert.IsTrue(asp.Validate("rrrd145ddaabb".ToObjectList()) == 13);
             Assert.IsTrue(asp.Validate("dd64416d".ToObjectList()) == -1);
             Assert.IsTrue(asp.Validate("dd6t4416dBDDBB".ToObjectList()) == 14);

@@ -14,6 +14,10 @@
             => CharUnit.Digit;
         public static CharUnit NotDigit
             => CharUnit.NotDigit;
+        public static CharUnit HexdecimalDigit
+            => CharUnit.HexadecimalDigit;
+        public static CharUnit NotHexdecimalDigit
+            => CharUnit.NotHexadecimalDigit;
         public static CharUnit Comma
             => new CharUnit(',');
         public static CharUnit Semicolon

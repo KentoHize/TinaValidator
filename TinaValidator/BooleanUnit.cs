@@ -4,6 +4,8 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class BooleanUnit : Unit
     {
+        public static BooleanUnit True => new BooleanUnit(true);
+        public static BooleanUnit False => new BooleanUnit(false);
         public CompareMethod CompareMethod { get; set; }
         public bool Value { get; set; }
 

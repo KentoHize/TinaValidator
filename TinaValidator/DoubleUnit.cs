@@ -55,9 +55,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = select;
         }
 
-        public override bool Compare(object b)
+        public override bool Compare(object o)
         {
-            if (!double.TryParse(b.ToString(), out double d))
+            if (!double.TryParse(o.ToString(), out double d))
                 return false;
             else if (d == double.NaN)
                 return false;
@@ -115,7 +115,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     return rnd.NextRandomDouble(_Value1, _Value2);
                 case CompareMethod.NotMinMax:
                     //Scan
-                    double rd = (double)rnd.NextDouble() * (_Value1 - double.MinValue + double.MaxValue - _Value2);
+                    double rd = (double)rnd.NextDouble() * Math.Abs(_Value1 - _Value2);
                     if (rd < _Value1)
                         return rd;
                     else

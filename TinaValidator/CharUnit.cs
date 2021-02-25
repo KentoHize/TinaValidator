@@ -4,7 +4,9 @@ using System.Collections.Generic;
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class CharUnit : Unit
-    {   
+    {
+        public static CharUnit HexadecimalDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'h' };
+        public static CharUnit NotHexadecimalDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'H' };
         public static CharUnit Letter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'w' };
         public static CharUnit NotLetter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'W' };
         public static CharUnit Space => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 's' };
@@ -42,9 +44,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = select;
         }
 
-        public override bool Compare(object b)
+        public override bool Compare(object o)
         {
-            if (!(b is char c))
+            if (!(o is char c))
                 return false;
             switch (CompareMethod)
             {
@@ -97,6 +99,12 @@ namespace Aritiafel.Artifacts.TinaValidator
                             return c >= '0' && c <= '9';
                         case 'D':
                             return c < '0' || c > '9';
+                        case 'h':
+                            return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') ||
+                                (c >= 'A' && c <= 'F');
+                        case 'H':
+                            return (c < '0' || c > '9') && (c < 'a' || c > 'f') &&
+                                (c < 'A' || c > 'F');
                         default:
                             throw new ArgumentOutOfRangeException(nameof(Value1));
                     }
@@ -205,6 +213,20 @@ namespace Aritiafel.Artifacts.TinaValidator
                             {
                                 c = (char)rnd.Next(char.MaxValue + 1);
                                 if (c < '0' || c > '9')
+                                    return c;
+                            }
+                        case 'h':
+                            samplesTotal = 16;
+                            r = rnd.Next(samplesTotal);
+                            if (r < 10)
+                                return (char)(r + '0');
+                            return (char)(r + 'a' - 10);
+                        case 'H':
+                            while (true)
+                            {
+                                c = (char)rnd.Next(char.MaxValue + 1);
+                                if ((c < '0' || c > '9') && (c < 'a' || c > 'f') &&
+                                    (c < 'A' || c > 'F'))
                                     return c;
                             }
                         default:

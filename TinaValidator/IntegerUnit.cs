@@ -74,9 +74,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = select;
         }
 
-        public override bool Compare(object b)
+        public override bool Compare(object o)
         {
-            if (!decimal.TryParse(b.ToString(), out decimal d))
+            if (!decimal.TryParse(o.ToString(), out decimal d))
                 return false;
             else if (Math.Round(d) != d) // Not Integer
                 return false;
@@ -134,11 +134,11 @@ namespace Aritiafel.Artifacts.TinaValidator
                     return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);
                 case CompareMethod.NotMinMax:
                     //Scan
-                    decimal ri = (decimal)rnd.NextDouble() * (_Value1 - decimal.MinValue + decimal.MaxValue - _Value2);
+                    decimal ri = Math.Round((decimal)rnd.NextDouble() * Math.Abs(_Value1 - _Value2));
                     if (ri < _Value1)
                         return ri;
                     else
-                        return (_Value2 + ri - _Value1 + decimal.MinValue);
+                        return (decimal)Math.Round((_Value2 + ri - _Value1 + decimal.MinValue));
                 case CompareMethod.Select:
                     if (_Select == null || _Select.Length == 0)
                         return null;
