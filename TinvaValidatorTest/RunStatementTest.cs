@@ -29,8 +29,6 @@ namespace TinvaValidatorTest
             cal.Statements.Add(dvs);
             cal.Statements.Add(svs);
             cal.Run();
-
-
         }
 
         [TestMethod]
