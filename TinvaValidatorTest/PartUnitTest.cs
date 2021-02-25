@@ -41,13 +41,21 @@ namespace TinvaValidatorTest
             Assert.IsTrue(iu.Compare(int.MaxValue));
             Assert.IsFalse(iu.Compare("dd"));
             Assert.IsFalse(iu.Compare('\n'));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(3000);
             Assert.IsTrue(iu.Compare(3000));
             Assert.IsFalse(iu.Compare(3001));
-            Assert.IsFalse(iu.Compare(2999));
+            Assert.IsFalse(iu.Compare(2999)); 
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(-200, 200);
@@ -57,6 +65,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(iu.Compare(200));
             Assert.IsFalse(iu.Compare(-100.3));
             Assert.IsFalse(iu.Compare(500));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
@@ -65,7 +77,27 @@ namespace TinvaValidatorTest
             iu = new IntegerUnit(30, -68);
             Assert.ThrowsException<ArgumentException>(() => iu.Random());
 
-            iu = new IntegerUnit(new decimal[] { 36, 57, 589435, 12368, 54867, 25728 })
+            iu = new IntegerUnit(new decimal[] { 36, 57, 589435, 12368, 54867, 25728 });
+            TestContext.WriteLine(iu.Random().ToString());
+            TestContext.WriteLine(iu.Random().ToString());
+            TestContext.WriteLine(iu.Random().ToString());
+            TestContext.WriteLine(iu.Random().ToString());
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+            Assert.IsTrue(iu.Compare(iu.Random()));
+
+            iu.CompareMethod = CompareMethod.NotSelect;
+            for(int i = 0; i < 300; i++)
+                Assert.IsTrue(iu.Compare(iu.Random()));
+
+            iu = IntegerUnit.UnsignedInt;
+            for (int i = 0; i < 300; i++)
+                Assert.IsTrue(iu.Compare(iu.Random()));
+            TestContext.WriteLine(iu.Random().ToString());
+            TestContext.WriteLine(iu.Random().ToString());
+            TestContext.WriteLine(iu.Random().ToString());
+            TestContext.WriteLine(iu.Random().ToString());
         }
 
         [TestMethod]

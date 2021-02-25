@@ -36,7 +36,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 if (value != null)
                 {
                     for (long i = 0; i < value.Length; i++)
-                        if (Math.Ceiling(_Select[i]) != _Select[i])
+                        if (Math.Ceiling(value[i]) != value[i])
                             throw new ArgumentException(nameof(Select));
                 }
                 _Select = value;
