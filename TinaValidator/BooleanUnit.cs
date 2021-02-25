@@ -7,8 +7,10 @@ namespace Aritiafel.Artifacts.TinaValidator
         public CompareMethod CompareMethod { get; set; }
         public bool Value { get; set; }
 
-        public BooleanUnit()
-            => CompareMethod = CompareMethod.Any;
+        public BooleanUnit(CompareMethod compareMethod = CompareMethod.Any)
+        {
+            CompareMethod = CompareMethod.Any;
+        }
 
         public BooleanUnit(CharsToBooleanPart ctbp)
         {
@@ -16,28 +18,45 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value = ctbp.Value;
         }
 
-        public BooleanUnit(bool value)
+        public BooleanUnit(bool value, CompareMethod compareMethod = CompareMethod.Exact)
         {
-            CompareMethod = CompareMethod.Exact;
+            CompareMethod = compareMethod;
             Value = value;
         }
 
-        public override bool Compare(object b)
+        public override bool Compare(object o)
         {
-            if (!(b is bool))
+            if (!(o is bool b))
                 return false;
-            if (CompareMethod == CompareMethod.Any)
-                return true;
-            else
-                return (bool)b == Value;
+
+            switch(CompareMethod)
+            {
+                case CompareMethod.Any:
+                    return true;
+                case CompareMethod.Exact:
+                    return b == Value;
+                case CompareMethod.Not:
+                    return b != Value;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(CompareMethod));
+            }
         }
 
         public override object Random()
         {
             if (CompareMethod == CompareMethod.Exact)
                 return Value;
+
             Random rnd = new Random((int)DateTime.Now.Ticks);
-            return rnd.Next(2) == 1;
+            switch (CompareMethod)
+            {
+                case CompareMethod.Any:
+                    return rnd.Next(2) == 1;
+                case CompareMethod.Not:
+                    return !Value;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(CompareMethod));
+            }       
         }
     }
 }

@@ -2,12 +2,18 @@
 {
     public static class CharUnits
     {
+        public static CharUnit Letter
+            => CharUnit.Letter;
+        public static CharUnit NotLetter
+            => CharUnit.NotLetter;
         public static CharUnit AtoZ
             => new CharUnit('A', 'Z');
         public static CharUnit atoz
             => new CharUnit('a', 'z');
         public static CharUnit Digit
-            => new CharUnit('0', '9');
+            => CharUnit.Digit;
+        public static CharUnit NotDigit
+            => CharUnit.NotDigit;
         public static CharUnit Comma
             => new CharUnit(',');
         public static CharUnit Semicolon
@@ -34,6 +40,10 @@
             => new CharUnit('\t');
         public static CharUnit Backspace
             => new CharUnit('\b');
+        public static CharUnit Space
+            => CharUnit.Space;
+        public static CharUnit NotSpace
+            => CharUnit.NotSpace;
         public static CharUnit Null
             => new CharUnit('\0');
         public static CharUnit Slash
