@@ -10,7 +10,8 @@ namespace Aritiafel.Artifacts.TinaValidator
         MinMax = 3,
         NotMinMax = 4,
         Select = 5,
-        Special = 6
+        NotSelect = 6,
+        Special = 7
     }
 
     public class IntegerUnit : Unit
