@@ -41,9 +41,9 @@ namespace Aritiafel.Artifacts.TinaValidator
            : this(nextNode, parent, id, escapeChars, excludeChars, null, minLength, maxLength)
         { }
 
-        public AnyStringPart(TNode nextNode = null, Area parent = null, char escapeChar = '\"', char excludeChar = '\"',
+        public AnyStringPart(TNode nextNode = null, Area parent = null, char escapeChar = '\"', List<char> excludeChars = null,
             int minLength = 0, int maxLength = 0)
-           : this(nextNode, parent, null, new List<char> { escapeChar }, new List<char> { excludeChar }, null, minLength, maxLength)
+           : this(nextNode, parent, null, new List<char> { escapeChar }, excludeChars,  null, minLength, maxLength)
         { }
 
         public AnyStringPart(TNode nextNode = null, Area parent = null, char escapeChar = '\"', char excludeChar = '\"', List<string> escapeStrings = null,

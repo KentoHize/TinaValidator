@@ -139,7 +139,7 @@ namespace TinvaValidatorTest
             stringArea.InitialStatus.Choices.Add(new Choice(us12));
             List<char> excludeChars = new List<char>
             { '\\', '\"' };
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 32; i++)
                 excludeChars.Add((char)i);
             AnyStringPart asp1 = new AnyStringPart(null, stringArea, "asp1", new List<char> { '\\', '\"' }, excludeChars, 0, 0);
             us12.NextNode = asp1;
@@ -155,6 +155,7 @@ namespace TinvaValidatorTest
             st5.Choices.Add(new Choice(new UnitSet(new CharUnit('n'))));
             st5.Choices.Add(new Choice(new UnitSet(new CharUnit('r'))));
             st5.Choices.Add(new Choice(new UnitSet(new CharUnit('t'))));
+            st5.Choices.Add(new Choice(new UnitSet(CharUnits.Slash)));
             st5.Choices.Add(new Choice(new UnitSet(CharUnits.BackSlash)));
             st5.Choices.Add(new Choice(new UnitSet(CharUnits.QuotationMark)));
             UnitSet unicodeSet = new UnitSet(new CharUnit('u'));
@@ -275,7 +276,7 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 List<object> ol = validator.CreateRandom();
                 string s = ol.ForEachToString();
@@ -288,20 +289,26 @@ namespace TinvaValidatorTest
                         BinaryWriter bw = new BinaryWriter(fs);
                         bw.Write(buffer);
                         bw.Close();
-                        //StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
-                        
                     }
                 }
-                //try
-                //{
-                
-                JsonSerializer.Deserialize(s, typeof(object));
-                ////}
-                //catch (Exception ex)
-                //{
-                //    TestContext.WriteLine("Wrong Happen:" + i);
-                //    TestContext.WriteLine(s);
-                //}
+                try
+                {                
+                    JsonSerializer.Deserialize(s, typeof(object));
+                }
+                catch (Exception ex)
+                {
+                    TestContext.WriteLine("Wrong Happen:" + i);
+                    TestContext.WriteLine("Message:" + ex.Message);
+                    TestContext.WriteLine(s);
+                    using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"DeserializeRecord-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}-{i.ToString("0000")}.json"), FileMode.Create))
+                    {
+                        StreamWriter sw = new StreamWriter(fs);
+                        sw.WriteLine($"Message: {ex.Message}");                        
+                        sw.WriteLine("Content:");
+                        sw.Write(s);
+                        sw.Close();
+                    }
+                }
 
                 if (!validator.Validate(ol))
                 {
