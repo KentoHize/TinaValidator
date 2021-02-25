@@ -126,11 +126,41 @@ namespace TinvaValidatorTest
             Area arrayArea = new Area("ArrayArea", new Status("ArrayArea_Start"), null);
             Area valueArea = new Area("ValueArea", new Status("ValueArea_Start"), null);
             Area propertiesArea = new Area("PropertiesArea", new Status("PropertiesArea_Start"), null);
+            Area stringArea = new Area("StringArea", new Status("StringArea_Start"), null);
             VL.Areas.Add(skipChars);
             VL.Areas.Add(objectArea);
             VL.Areas.Add(arrayArea);
             VL.Areas.Add(valueArea);
             VL.Areas.Add(propertiesArea);
+            VL.Areas.Add(stringArea);
+
+            //StringArea
+            UnitSet us12 = new UnitSet(CharUnits.QuotationMark);
+            stringArea.InitialStatus.Choices.Add(new Choice(us12));            
+            AnyStringPart asp1 = new AnyStringPart(null, stringArea, null, new List<char> { '\\', '\"' }, 0, 0);
+            us12.NextNode = asp1;
+            Status st4 = new Status("st4");
+            asp1.NextNode = st4;
+            st4.Choices.Add(new Choice(new UnitSet(CharUnits.BackSlash)));
+            st4.Choices.Add(new Choice(new UnitSet(CharUnits.QuotationMark)));
+            st4.Choices[1].Node.NextNode = EndNode.Instance;
+            Status st5 = new Status("st5");
+            st4.Choices[0].Node.NextNode = st5;
+            st5.Choices.Add(new Choice(new UnitSet(new CharUnit('b'))));
+            st5.Choices.Add(new Choice(new UnitSet(new CharUnit('f'))));
+            st5.Choices.Add(new Choice(new UnitSet(new CharUnit('n'))));
+            st5.Choices.Add(new Choice(new UnitSet(new CharUnit('r'))));
+            st5.Choices.Add(new Choice(new UnitSet(new CharUnit('t'))));
+            st5.Choices.Add(new Choice(new UnitSet(CharUnits.BackSlash)));
+            st5.Choices.Add(new Choice(new UnitSet(CharUnits.QuotationMark)));
+            UnitSet unicodeSet = new UnitSet(new CharUnit('u'));
+            unicodeSet.Units.Add(new CharUnit());
+            unicodeSet.Units.Add(new CharUnit());
+            unicodeSet.Units.Add(new CharUnit());
+            unicodeSet.Units.Add(new CharUnit());
+            st5.Choices.Add(new Choice(unicodeSet));
+            for (int i = 0; i < st5.Choices.Count; i++)
+                st5.Choices[i].Node.NextNode = stringArea.InitialStatus;
 
             //Skip Area
             UnitSet us = new UnitSet(CharUnits.WhiteSpace, skipChars);
@@ -184,66 +214,35 @@ namespace TinvaValidatorTest
             cdp.Parent = valueArea;
             CharsToIntegerPart cip = new CharsToIntegerPart();
             cip.Parent = valueArea;
-            AnyStringPart asp1 = new AnyStringPart(null, valueArea, null, new List<char> { '\"' }, 0, 0);
-            AnyStringPart asp2 = new AnyStringPart(null, valueArea, null, new List<char> { '\\' }, 0, 0);
-            UnitSet us6 = new UnitSet(CharUnits.QuotationMark, valueArea);
+            AreaStart stSt = new AreaStart(stringArea, valueArea);
             valueArea.InitialStatus.Choices.Add(new Choice("null".ToUnitSet()));
             valueArea.InitialStatus.Choices.Add(new Choice(cbp));
             valueArea.InitialStatus.Choices.Add(new Choice(cip));
-            valueArea.InitialStatus.Choices.Add(new Choice(cdp));
-            Status st2 = new Status("va_st2", valueArea);
-            us6.NextNode = st2;
-            st2.Choices.Add(new Choice(asp2));
-            st2.Choices.Add(new Choice(asp1));
-            Status st3 = new Status("va_st3", valueArea);
-            asp2.NextNode = st3;
-            st3.Choices.Add(new Choice("\\\"".ToUnitSet()));
-            UnitSet us11 = new UnitSet(CharUnits.BackSlash);
-            us11.Units.Add(CharUnits.atoz);
-            st3.Choices.Add(new Choice(us11));
-            st3.Choices[0].Node.NextNode = st2;
-            st3.Choices[1].Node.NextNode = st2;
-            asp1.NextNode = "\"".ToUnitSet();
-            asp1.NextNode.NextNode = EndNode.Instance;
+            valueArea.InitialStatus.Choices.Add(new Choice(cdp));            
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
             valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
             AreaStart arSt = new AreaStart(arrayArea, valueArea);
             valueArea.InitialStatus.Choices.Add(new Choice(arSt));
+            valueArea.InitialStatus.Choices.Add(new Choice(stSt));
             for (int i = 0; i < valueArea.InitialStatus.Choices.Count; i++)
                 valueArea.InitialStatus.Choices[i].Node.NextNode = EndNode.Instance;
-            valueArea.InitialStatus.Choices.Add(new Choice(us6));
 
-            //Properties Area
-            UnitSet us7 = new UnitSet("us7", propertiesArea, CharUnits.QuotationMark);
-            propertiesArea.InitialStatus.Choices.Add(new Choice(us7));
-            asp1 = new AnyStringPart(null, propertiesArea, null, new List<char> { '\"' }, 0, 0);
-            asp2 = new AnyStringPart(null, propertiesArea, null, new List<char> { '\\' }, 0, 0);
-            st2 = new Status("pa_st2", propertiesArea);
-            us7.NextNode = st2;
-            st2.Choices.Add(new Choice(asp2));
-            st2.Choices.Add(new Choice(asp1));
-            st3 = new Status("pa_st3", propertiesArea);
-            asp2.NextNode = st3;
-            st3.Choices.Add(new Choice("\\\"".ToUnitSet()));
-            UnitSet us10 = new UnitSet(CharUnits.BackSlash);
-            us10.Units.Add(CharUnits.atoz);
-            st3.Choices.Add(new Choice(us10));
-            st3.Choices[0].Node.NextNode = st2;
-            st3.Choices[1].Node.NextNode = st2;
+            //Properties Area            
+            stSt = new AreaStart(stringArea, propertiesArea);
+            propertiesArea.InitialStatus.Choices.Add(new Choice(stSt));
             skSt = new AreaStart(skipChars, propertiesArea);
-            asp1.NextNode = "\"".ToUnitSet();
-            asp1.NextNode.NextNode = skSt;
+            stSt.NextNode = skSt;
             UnitSet us8 = new UnitSet(CharUnits.Colon, propertiesArea);
             skSt.NextNode = us8;
             skSt = new AreaStart(skipChars, propertiesArea);
             us8.NextNode = skSt;
             vaSt = new AreaStart(valueArea, propertiesArea);
             skSt.NextNode = vaSt;
-            Status st4 = new Status("pa_st4");
-            vaSt.NextNode = st4;
-            st4.Choices.Add(Choice.EndChoice);
+            Status st6 = new Status("pa_st6");
+            vaSt.NextNode = st6;
+            st6.Choices.Add(Choice.EndChoice);
             skSt = new AreaStart(skipChars, propertiesArea);
-            st4.Choices.Add(new Choice(skSt));
+            st6.Choices.Add(new Choice(skSt));
             UnitSet us9 = new UnitSet(CharUnits.Comma, propertiesArea);
             skSt.NextNode = us9;
             skSt = new AreaStart(skipChars, propertiesArea);
@@ -272,7 +271,7 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 List<object> ol = validator.CreateRandom();
                 string s = ol.ForEachToString();
@@ -293,7 +292,7 @@ namespace TinvaValidatorTest
                 //{
                 
                 //JsonSerializer.Deserialize(s, typeof(object));
-                //}
+                ////}
                 //catch (Exception ex)
                 //{
                 //    TestContext.WriteLine("Wrong Happen:" + i);

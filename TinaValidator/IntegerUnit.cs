@@ -4,9 +4,13 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public enum CompareMethod
     {
-        Any = 0,
+        Any = 0,        
         Exact = 1,
-        MinMax = 2
+        Not = 2,
+        MinMax = 3,
+        NotMinMax = 4,
+        Select = 5,
+        Special = 6
     }
 
     public class IntegerUnit : Unit
