@@ -120,34 +120,95 @@ namespace TinvaValidatorTest
             Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
             Assert.IsTrue(cu.Compare(char.MinValue));
             Assert.IsTrue(cu.Compare(char.MaxValue));
-            Assert.IsTrue(!cu.Compare("dd"));
-            Assert.IsTrue(!cu.Compare(7));
+            Assert.IsFalse(cu.Compare("dd"));
+            Assert.IsFalse(cu.Compare(7));
             Assert.IsTrue(cu.Compare('\a'));
-            TestContext.WriteLine(cu.Random().ToString());
-            TestContext.WriteLine(cu.Random().ToString());
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));            
             TestContext.WriteLine(cu.Random().ToString());
             cu = new CharUnit('y');
             Assert.IsTrue(cu.Compare('y'));
-            Assert.IsTrue(!cu.Compare('z'));
-            Assert.IsTrue(!cu.Compare('x'));
-            TestContext.WriteLine(cu.Random().ToString());
+            Assert.IsFalse(cu.Compare('z'));
+            Assert.IsFalse(cu.Compare('x'));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
             TestContext.WriteLine(cu.Random().ToString());
             cu = new CharUnit('d', 'n');
-            Assert.IsTrue(!cu.Compare('a'));
+            Assert.IsFalse(cu.Compare('a'));
             Assert.IsTrue(cu.Compare('d'));
             Assert.IsTrue(cu.Compare('f'));
             Assert.IsTrue(cu.Compare('k'));
             Assert.IsTrue(cu.Compare('n'));
-            Assert.IsTrue(!cu.Compare('o'));
-            Assert.IsTrue(!cu.Compare('z'));
-            TestContext.WriteLine(cu.Random().ToString());
-            TestContext.WriteLine(cu.Random().ToString());
-            TestContext.WriteLine(cu.Random().ToString());
-            TestContext.WriteLine(cu.Random().ToString());
+            Assert.IsFalse(cu.Compare('o'));
+            Assert.IsFalse(cu.Compare('z'));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
             TestContext.WriteLine(cu.Random().ToString());
 
             cu = new CharUnit('z', 'r');
             Assert.ThrowsException<ArgumentException>(() => cu.Random());
+
+            cu = new CharUnit('a', CompareMethod.Not);
+            Assert.IsTrue(cu.Compare('d'));
+            Assert.IsTrue(cu.Compare('f'));
+            Assert.IsFalse(cu.Compare('a'));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+            Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu = new CharUnit('a', 'z', CompareMethod.NotMinMax);
+            Assert.IsFalse(cu.Compare('d'));
+            Assert.IsTrue(cu.Compare('A'));
+            Assert.IsFalse(cu.Compare('a'));
+            Assert.IsFalse(cu.Compare('z'));
+            Assert.IsTrue(cu.Compare('-'));
+
+            char c;
+            for (int i = 0; i < 500; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu = new CharUnit("dhfejuteATR");            
+            for (int i = 0; i < 1000; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu.CompareMethod = CompareMethod.NotSelect;
+            for (int i = 0; i < 1000; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu = CharUnit.Letter;
+            for (int i = 0; i < 1000; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu = CharUnit.Space;
+            for (int i = 0; i < 300; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+            
+            cu = CharUnit.NotLetter;
+            for (int i = 0; i < 3000; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu = CharUnit.NotSpace;
+            for (int i = 0; i < 300; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            cu = CharUnit.NotDigit;
+            for (int i = 0; i < 300; i++)
+                Assert.IsTrue(cu.Compare(cu.Random()));
+
+            //for (int i = 0; i < 300; i++)
+            //{
+            //    //TestContext.Write(cu.Random().ToString());
+            //    TestContext.Write((Convert.ToInt32(cu.Random()).ToString() + ","));
+            //    if (i % 50 == 0)
+            //        TestContext.WriteLine("");
+            //}
         }
     }
 }
