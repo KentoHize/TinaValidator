@@ -4,15 +4,14 @@ using System.Collections.Generic;
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class CharUnit : Unit
-    {
-        public CompareMethod CompareMethod { get; set; }
-
+    {   
         public static CharUnit Letter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'w' };
         public static CharUnit NotLetter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'W' };
         public static CharUnit Space => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 's' };
         public static CharUnit NotSpace => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'S' };
         public static CharUnit Digit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'd' };
         public static CharUnit NotDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'D' };
+        public CompareMethod CompareMethod { get; set; }
         public char Value1 { get; set; } //min exact
         public char Value2 { get; set; } //max
         public char[] Select { get; set; }

@@ -39,24 +39,24 @@ namespace TinvaValidatorTest
             Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
             Assert.IsTrue(iu.Compare(int.MinValue));
             Assert.IsTrue(iu.Compare(int.MaxValue));
-            Assert.IsTrue(!iu.Compare("dd"));
-            Assert.IsTrue(!iu.Compare('\n'));
+            Assert.IsFalse(iu.Compare("dd"));
+            Assert.IsFalse(iu.Compare('\n'));
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(3000);
             Assert.IsTrue(iu.Compare(3000));
-            Assert.IsTrue(!iu.Compare(3001));
-            Assert.IsTrue(!iu.Compare(2999));
+            Assert.IsFalse(iu.Compare(3001));
+            Assert.IsFalse(iu.Compare(2999));
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(-200, 200);
-            Assert.IsTrue(!iu.Compare(-300));
+            Assert.IsFalse(iu.Compare(-300));
             Assert.IsTrue(iu.Compare(-200));
             Assert.IsTrue(iu.Compare(0));
             Assert.IsTrue(iu.Compare(200));
-            Assert.IsTrue(!iu.Compare(-100.3));
-            Assert.IsTrue(!iu.Compare(500));
+            Assert.IsFalse(iu.Compare(-100.3));
+            Assert.IsFalse(iu.Compare(500));
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
@@ -64,6 +64,8 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(30, -68);
             Assert.ThrowsException<ArgumentException>(() => iu.Random());
+
+            iu = new IntegerUnit(new decimal[] { 36, 57, 589435, 12368, 54867, 25728 })
         }
 
         [TestMethod]

@@ -16,10 +16,33 @@ namespace Aritiafel.Artifacts.TinaValidator
 
     public class IntegerUnit : Unit
     {
+        public static IntegerUnit Byte => new IntegerUnit(byte.MinValue, byte.MaxValue);
+        public static IntegerUnit Short => new IntegerUnit(short.MinValue, short.MaxValue);
+        public static IntegerUnit UnsignedShort => new IntegerUnit(ushort.MinValue, ushort.MaxValue);
+        public static IntegerUnit Int => new IntegerUnit(int.MinValue, int.MaxValue);
+        public static IntegerUnit UnsignedInt => new IntegerUnit(uint.MinValue, uint.MaxValue);
+        public static IntegerUnit Long => new IntegerUnit(long.MinValue, long.MaxValue);
+        public static IntegerUnit UnsignedLong => new IntegerUnit(ulong.MinValue, ulong.MaxValue);
         public CompareMethod CompareMethod { get; set; }
-        public decimal Value1 { get; set; } //min exact
-        public decimal Value2 { get; set; } //max
-        public decimal[] Select { get; set; }
+        public decimal Value1 { get => _Value1; set => _Value1 = Math.Ceiling(value) == value ? value : throw new ArgumentException(nameof(Value1)); }
+        private decimal _Value1; //min exact
+        public decimal Value2 { get => _Value2; set => _Value2 = Math.Ceiling(value) == value ? value : throw new ArgumentException(nameof(Value2)); }
+        private decimal _Value2; //max
+        public decimal[] Select
+        {
+            get => _Select;
+            set
+            {
+                if (value != null)
+                {
+                    for (long i = 0; i < value.Length; i++)
+                        if (Math.Ceiling(_Select[i]) != _Select[i])
+                            throw new ArgumentException(nameof(Select));
+                }
+                _Select = value;
+            }
+        }
+        private decimal[] _Select;
 
         public IntegerUnit(CompareMethod compareMethod = CompareMethod.Any)
         {
@@ -45,6 +68,11 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value1 = minValue;
             Value2 = maxValue;
         }
+        public IntegerUnit(decimal[] select, CompareMethod compareMethod = CompareMethod.Select)
+        {
+            CompareMethod = compareMethod;
+            Select = select;
+        }
 
         public override bool Compare(object b)
         {
@@ -58,25 +86,25 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case CompareMethod.Any:
                     return true;
                 case CompareMethod.Exact:
-                    return Value1 == d;
+                    return _Value1 == d;
                 case CompareMethod.Not:
-                    return Value1 != d;
+                    return _Value1 != d;
                 case CompareMethod.MinMax:
-                    return d >= Value1 && d <= Value2;
+                    return d >= _Value1 && d <= _Value2;
                 case CompareMethod.NotMinMax:
-                    return d < Value1 || d > Value2;
+                    return d < _Value1 || d > _Value2;
                 case CompareMethod.Select:
-                    if (Select == null)
+                    if (_Select == null)
                         return false;
-                    for (int i = 0; i < Select.Length; i++)
-                        if (Select[i] == d)
+                    for (int i = 0; i < _Select.Length; i++)
+                        if (_Select[i] == d)
                             return true;
                     return false;
                 case CompareMethod.NotSelect:
-                    if (Select == null)
+                    if (_Select == null)
                         return true;
-                    for (int i = 0; i < Select.Length; i++)
-                        if (Select[i] == d)
+                    for (int i = 0; i < _Select.Length; i++)
+                        if (_Select[i] == d)
                             return false;
                     return true;
                 case CompareMethod.Special:
@@ -88,7 +116,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public override object Random()
         {
             if (CompareMethod == CompareMethod.Exact)
-                return Value1;
+                return _Value1;
             Random rnd = new Random((int)DateTime.Now.Ticks);
             decimal d;
 
@@ -98,35 +126,35 @@ namespace Aritiafel.Artifacts.TinaValidator
                     return new decimal(rnd.Next(), rnd.Next(), rnd.Next(), rnd.Next(2) == 1, 0);
                 case CompareMethod.Not:
                     do { d = new decimal(rnd.Next(), rnd.Next(), rnd.Next(), rnd.Next(2) == 1, 0); }
-                    while (d == Value1);
+                    while (d == _Value1);
                     return d;
                 case CompareMethod.MinMax:
-                    if (Value1 > Value2)
+                    if (_Value1 > _Value2)
                         throw new ArgumentException(nameof(Value1) + nameof(Value2));
                     return Math.Round((decimal)rnd.NextDouble() * (Value2 - Value1) + Value1);
                 case CompareMethod.NotMinMax:
                     //Scan
-                    decimal ri = (decimal)rnd.NextDouble() * (Value1 - decimal.MinValue + decimal.MaxValue - Value2);
-                    if (ri < Value1)
+                    decimal ri = (decimal)rnd.NextDouble() * (_Value1 - decimal.MinValue + decimal.MaxValue - _Value2);
+                    if (ri < _Value1)
                         return ri;
                     else
-                        return (Value2 + ri - Value1 + decimal.MinValue);
+                        return (_Value2 + ri - _Value1 + decimal.MinValue);
                 case CompareMethod.Select:
-                    if (Select == null || Select.Length == 0)
+                    if (_Select == null || _Select.Length == 0)
                         return null;
-                    return Select[rnd.Next(Select.Length)];
+                    return _Select[rnd.Next(_Select.Length)];
                 case CompareMethod.NotSelect:
-                    if (Select == null || Select.Length == 0)
+                    if (_Select == null || _Select.Length == 0)
                         goto case CompareMethod.Any;
                     while (true)
                     {
                         d = new decimal(rnd.Next(), rnd.Next(), rnd.Next(), rnd.Next(2) == 1, 0);
-                        for (int i = 0; i < Select.Length; i++)
-                            if (Select[i] == d)
+                        for (int i = 0; i < _Select.Length; i++)
+                            if (_Select[i] == d)
                                 continue;
                         return d;
                     }
-                case CompareMethod.Special:                  
+                case CompareMethod.Special:
                 default:
                     throw new ArgumentOutOfRangeException(nameof(CompareMethod));
             }
