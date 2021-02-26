@@ -172,8 +172,18 @@ namespace TinvaValidatorTest
             Assert.ThrowsException<ArgumentException>(() => du.Random());
 
             du = new DoubleUnit(-965378515.5646, 8534832.683458, CompareMethod.NotMinMax);
+
+            du = new DoubleUnit();
             for (int i = 0; i < 5000; i++)
-                Assert.IsTrue(du.Compare(du.Random()));
+            {
+                double d = (double)du.Random();
+                //if (d.ToString().Contains("NaN"))
+                //    TestContext.Write($"{i}=\"{d.ToString()}\"");
+                if (double.IsNaN(d))
+                    TestContext.Write($"{i}=NaN");
+                //Assert.IsTrue(du.Compare(du.Random()));
+            }
+                
         }
 
         [TestMethod]

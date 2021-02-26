@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace TinvaValidatorTest
 {
@@ -84,10 +86,8 @@ namespace TinvaValidatorTest
             //98, -3 45 CHD
 
             TinaValidator validator = new TinaValidator(VL);
-            //
-            //Run Start
-            //TestContext.WriteLine(VL.Save(""));
-            //return;
+            //--------------------------------------------------
+            //Run Start            
             bool result;
             string[] files = Directory.GetFiles(NumberFilePath);
             for (int i = 0; i < files.Length; i++)
@@ -276,21 +276,75 @@ namespace TinvaValidatorTest
 
             TinaValidator validator = new TinaValidator(VL);
             VL.Save(Path.Combine(SaveLoadPath, "JSONTest.json"));
-            for (int i = 0; i < 1000; i++)
+            string[] files = Directory.GetFiles(RandomJsonPath);
+            foreach (string file in files)
+                File.Delete(file);
+            for (int i = 0; i < 5000; i++)
             {
-                List<object> ol = validator.CreateRandom();
-                string s = ol.ForEachToString();
-                byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
-                s = System.Text.Encoding.UTF8.GetString(buffer);
-                if (i < 10)
-                {
-                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"RandomJson-{i.ToString("0000")}.json"), FileMode.Create))
+                //if (i % 50 == 0)
+                //{
+                //    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"Log.Json"), FileMode.Append))
+                //    {
+                //        StreamWriter sw = new StreamWriter(fs);
+                //        sw.Write($"{i} Start");
+                //        sw.Close();
+                //    }
+                //    //TestContext.WriteLine($"{i} ObjectCount: {ol.Count}");
+                //}
+                
+                int indexI = i;
+                Task t = new Task(() => {
+                    List<object> ol;
+                    ol = validator.CreateRandom();
+                    string s = ol.ForEachToString();
+                    byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
+                    s = System.Text.Encoding.UTF8.GetString(buffer);
+
+
+                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"CurrentJson-{i.ToString("0000")}.json"), FileMode.Create))
                     {
                         BinaryWriter bw = new BinaryWriter(fs);
                         bw.Write(buffer);
                         bw.Close();
                     }
+
+                    validator.Validate(ol);
+
+                });                
+
+                TaskAwaiter ta = t.GetAwaiter();
+                ta.OnCompleted(() =>
+                {
+                    
+                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"LOG-{i}.Json"), FileMode.Create))
+                    {
+
+                        StreamWriter sw = new StreamWriter(fs);
+                        sw.Write($"Completed");
+                        sw.Close();
+                    }
+
+                    
+                });
+
+                t.RunSynchronously();
+
+                continue;
+                List<object> ol;
+                string s = ol.ForEachToString();
+                byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
+                s = System.Text.Encoding.UTF8.GetString(buffer);
+                if (ol.Count > 1000)
+                {
+                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"BigJson-{i.ToString("0000")}.json"), FileMode.Create))
+                    {
+                        BinaryWriter bw = new BinaryWriter(fs);
+                        bw.Write(buffer);
+                        bw.Close();
+                    }
+                    TestContext.WriteLine($"{i} ObjectCount: {ol.Count}");
                 }
+
                 try
                 {                
                     JsonSerializer.Deserialize(s, typeof(object));
@@ -345,21 +399,26 @@ namespace TinvaValidatorTest
         public void RerunRecords()
         {
             ValidateLogic VL = JsonLogic();
-            string recordNeedRun = "02-25-00-13-30-0029";
+            string fullName = "CurrentJson-0004";
 
-            List<char> ol;
-            using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"TestRecord-{DateTime.Now.Year}-{recordNeedRun}.json"), FileMode.Open))
+            string recordNeedRun = "02-25-00-13-30-0029";
+            //fullName = $"TestRecord-{DateTime.Now.Year}-{recordNeedRun}";
+            List<char> ol = null;
+            List<object> oll = new List<object>();
+            using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"{fullName}.json"), FileMode.Open))
             {
                 StreamReader sr = new StreamReader(fs);
                 JsonSerializerOptions jso = new JsonSerializerOptions { WriteIndented = true };
                 jso.Converters.Add(new Aritiafel.Locations.StorageHouse.DefaultJsonConverterFactory());
-                ol = (List<char>)JsonSerializer.Deserialize(sr.ReadToEnd(), typeof(List<char>));
+                //ol = (List<char>)JsonSerializer.Deserialize(sr.ReadToEnd(), typeof(List<char>));
+                oll = sr.ReadToEnd().ToObjectList();
                 sr.Close();
             }
 
-            List<object> oll = new List<object>();
-            for (int i = 0; i < ol.Count; i++)
-                oll.Add(ol[i]);
+            
+            if(ol != null)
+                for (int i = 0; i < ol.Count; i++)
+                    oll.Add(ol[i]);
 
             TinaValidator validator = new TinaValidator(VL);
             TestContext.WriteLine(validator.Validate(oll).ToString());

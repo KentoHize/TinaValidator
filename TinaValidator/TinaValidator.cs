@@ -35,6 +35,90 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
+        //private int NodeValidate(List<object> things, TempInfo currentTi)
+        //{
+        //    Queue<TempInfo> nodeQueue = new Queue<TempInfo>();
+        //    nodeQueue.Enqueue(currentTi);
+        //    while (nodeQueue.Count != 0)
+        //    {
+
+        //        if (currentTi.Index > LongestLocation)
+        //        {
+        //            LongestLocation = currentTi.Index;
+        //            if (currentTi.Index == 79)
+        //                Console.WriteLine("79");
+        //        }
+
+        //        int nextIndex = -1;
+        //        TempInfo ti;
+        //        currentTi = nodeQueue.Dequeue();
+        //        switch (currentTi.Node)
+        //        {
+        //            case Part p:
+        //                nextIndex = p.Validate(things, currentTi.Index);
+        //                if (nextIndex == -1)
+        //                {
+        //                    currentTi.AreaNextNode.Clear();
+        //                    continue;
+        //                }
+        //                ti = new TempInfo(nextIndex, p.NextNode, currentTi.AreaNextNode);
+        //                nodeQueue.Enqueue(ti);
+        //                break;
+        //            case Status st:
+        //                if (st.ID == "st4")
+        //                {
+        //                    Console.WriteLine("");
+        //                }
+        //                for (int i = 0; i < st.Choices.Count; i++)
+        //                {
+        //                    if (true) //Condition ok
+        //                    {
+        //                        if (i == 0)
+        //                            ti = new TempInfo(currentTi.Index, st.Choices[i].Node, currentTi.AreaNextNode);
+        //                        else
+        //                            ti = new TempInfo(currentTi.Index, st.Choices[i].Node, new Stack<TNode>(currentTi.AreaNextNode));
+        //                        nodeQueue.Enqueue(ti);
+        //                    }
+        //                }
+        //                break;
+        //            case EndNode _:
+        //                if (currentTi.AreaNextNode.Count == 0)
+        //                    break;
+        //                TNode tn = currentTi.AreaNextNode.Pop();
+        //                ti = new TempInfo(currentTi.Index, tn, currentTi.AreaNextNode);
+        //                nodeQueue.Enqueue(ti);
+        //                break;
+        //            case AreaStart ars:
+        //                TNode cloneNode = null;
+        //                if (ars.Area.Name == "PropertiesArea")
+        //                {
+        //                    cloneNode = ars.Area.InitialStatus.Choices[0].Node.NextNode.NextNode;
+        //                }
+        //                else if (ars.Area.Name == "StringArea")
+        //                {
+        //                    Console.WriteLine("in2");
+        //                }
+        //                if (cloneNode != null && ars.NextNode == cloneNode)
+        //                {
+        //                    Console.WriteLine("in");
+        //                }
+        //                currentTi.AreaNextNode.Push(ars.NextNode);
+        //                ti = new TempInfo(currentTi.Index, ars.Area.InitialStatus, currentTi.AreaNextNode);
+        //                nodeQueue.Enqueue(ti);
+        //                break;
+        //            case Execute ex:
+        //                ti = new TempInfo(currentTi.Index, ex.NextNode, currentTi.AreaNextNode);
+        //                nodeQueue.Enqueue(ti);
+        //                break;
+        //            default:
+        //                throw new Exception("!?");
+        //        }
+        //    }
+        //    if (currentTi.Index == things.Count)
+        //        return currentTi.Index;
+        //    return -1;
+        //}
+
         private int NodeValidate(List<object> things, int index, TNode node, int depth)
         {
             int nextIndex = Invalid;
@@ -79,10 +163,6 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case Status st:
                     for (int i = 0; i < st.Choices.Count; i++)
                     {
-                        //if (st.Choices.Count == 6 && i == 2)
-                        //    Console.WriteLine("A");
-                        //if (st.Choices.Count == 6 && i == 3)
-                        //    Console.WriteLine("A");
                         if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
                         {   
                             nextIndex = NodeValidate(things, index, st.Choices[i].Node, depth);

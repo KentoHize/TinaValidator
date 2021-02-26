@@ -127,6 +127,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctdp.Validate("-6.3009818507634357E-35".ToObjectList()) == 23);
             Assert.IsTrue(ctdp.Validate("8.28037438864823E-50".ToObjectList()) == 20);
             Assert.IsTrue(ctdp.Validate("NaN".ToObjectList()) == -1);
+
+            for (int i = 0; i < 5000; i++)
+                if (ctdp.Random().ForEachToString().Contains("NaN"))
+                    TestContext.WriteLine($"{i}:NaN");
         }
     }
 }
