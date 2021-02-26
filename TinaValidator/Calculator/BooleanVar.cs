@@ -14,5 +14,7 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(IBoolean);
+        public override object Clone()
+            => new LongVar { Name = Name, Parent = Parent, Keys = Keys, Source = Source, Tag = Tag };
     }
 }

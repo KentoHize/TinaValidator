@@ -1,6 +1,6 @@
 ﻿namespace Aritiafel.Artifacts.Calculator
 {
-    public interface INumber
+    public interface INumber : IObject
     {
         NumberConst GetResult(IVariableLinker vl);
     }

@@ -7,11 +7,11 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class TVMemory : IMemory
     {
-        Dictionary<string, object> Variables { get; set; } = new Dictionary<string, object>();
+        Dictionary<string, ICloneable> Variables { get; set; } = new Dictionary<string, ICloneable>();
         Dictionary<string, Type> VariablesType { get; set; } = new Dictionary<string, Type>();
-        private object CreateArray(byte dimensions, int[] counts, byte dimensionIndex = 0)
-        {   
-            object[] result = new object[counts[dimensionIndex]];
+        private ICloneable[] CreateArray(byte dimensions, int[] counts, byte dimensionIndex = 0)
+        {
+            ICloneable[] result = new ICloneable[counts[dimensionIndex]];
             if (dimensions <= 0)
                 return result;
             for (int i = 0; i < counts[dimensionIndex]; i++)
@@ -26,9 +26,9 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return Variables[v.Name];
             else
             {
-                object[] o = Variables[v.Name] as object[];
+                ICloneable[] o = Variables[v.Name] as ICloneable[];
                 for (int i = 0; i < v.Keys.Count - 1; i++)
-                    o = o[(int)v.Keys[i]] as object[];
+                    o = o[(int)v.Keys[i]] as ICloneable[];
                 return o[(int)v.Keys[v.Keys.Count - 1]];
             }
         }
@@ -41,9 +41,9 @@ namespace Aritiafel.Artifacts.TinaValidator
                 Variables[v.Name] = value.GetObject(this);
             else
             {
-                object[] o = Variables[v.Name] as object[];
+                ICloneable[] o = Variables[v.Name] as ICloneable[];
                 for (int i = 0; i < v.Keys.Count - 1; i++)
-                    o = o[(int)v.Keys[i]] as object[];
+                    o = o[(int)v.Keys[i]] as ICloneable[];
                 o[(int)v.Keys[v.Keys.Count - 1]] = value;
             }
         }
@@ -62,7 +62,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
             else
             {
-                object array = CreateArray(dimensions, counts);
+                ICloneable[] array = CreateArray(dimensions, counts);
                 Variables.Add(name, array);
                 VariablesType.Add(name, type);
             }
@@ -89,9 +89,10 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public TVMemory(TVMemory memory)
         {
-            memory.Variables = new Dictionary<string, object>(Variables);
+            memory.Variables = new Dictionary<string, ICloneable>();
+            foreach(KeyValuePair<string, ICloneable> kv in Variables)
+                memory.Variables.Add(kv.Key, kv.Value.Clone() as ICloneable);
             memory.VariablesType = new Dictionary<string, Type>(VariablesType);
-            //To Do, Really Copy?
         }
     }
 }

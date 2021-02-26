@@ -40,5 +40,8 @@ namespace Aritiafel.Artifacts.Calculator
 
         public override Type GetObjectType()
             => typeof(IBoolean);
+
+        public override object Clone()
+            => new CompareExpression((IObject)A.Clone(), (IObject)B.Clone(), OP);
     }
 }

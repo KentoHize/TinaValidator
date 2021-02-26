@@ -2,7 +2,7 @@
 
 namespace Aritiafel.Artifacts.Calculator
 {
-    public interface IObject
+    public interface IObject : ICloneable
     {
         ObjectConst GetObject(IVariableLinker vl);
         Type GetObjectType();

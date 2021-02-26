@@ -20,6 +20,8 @@ namespace Aritiafel.Artifacts.Calculator
         public abstract BooleanConst LessThan(LongConst b);
         public abstract BooleanConst LessThan(DoubleConst b);
         public abstract BooleanConst LessThan(StringConst b);
+        public abstract object Clone();
+
         public static BooleanConst operator ==(ObjectConst a, ObjectConst b)
             => b.ReverseEqualTo(a);
         public static BooleanConst operator !=(ObjectConst a, ObjectConst b)

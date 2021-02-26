@@ -65,8 +65,9 @@ namespace Aritiafel.Artifacts.Calculator
                 return false;
             return s.EqualTo(this);
         }
-
         public override int GetHashCode()
             => _Value.GetHashCode();
+        public override object Clone()
+            => new StringConst(_Value);
     }
 }

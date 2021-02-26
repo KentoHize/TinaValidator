@@ -34,5 +34,7 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(IBoolean);
+        public override object Clone()
+            => new BooleanExpression((IBoolean)A.Clone(), (IBoolean)B.Clone(), OP);
     }
 }

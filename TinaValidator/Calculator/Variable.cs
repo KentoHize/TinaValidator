@@ -19,6 +19,8 @@ namespace Aritiafel.Artifacts.Calculator
         public object Tag { get; set; }
         public abstract ObjectConst GetObject(IVariableLinker vl);
         public abstract Type GetObjectType();
+        public abstract object Clone();
+
         protected Variable(string name = null, object parent = null, List<object> keys = null, VariableSource source = VariableSource.UserVariable)
         {
             Name = name ?? IdentifyShop.GetNewID("Var");

@@ -13,5 +13,7 @@ namespace Aritiafel.Artifacts.Calculator
             => typeof(IString);
         public StringConst GetResult(IVariableLinker vl)
             => A.GetObject(vl).ToStringConst();
+        public override object Clone()
+            => new CompareExpression((IObject)A.Clone());
     }
 }

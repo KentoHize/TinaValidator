@@ -145,5 +145,8 @@ namespace Aritiafel.Artifacts.Calculator
         }
         public override int GetHashCode()
             => _Value.GetHashCode();
+
+        public override object Clone()
+            => new LongConst(_Value);
     }
 }

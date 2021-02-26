@@ -13,6 +13,7 @@ namespace Aritiafel.Artifacts.Calculator
             B = b;
             OP = op;
         }
+
         public NumberConst GetResult(IVariableLinker vl)
         {
             switch (OP)
@@ -42,5 +43,8 @@ namespace Aritiafel.Artifacts.Calculator
 
         public override Type GetObjectType()
             => typeof(INumber);
+
+        public override object Clone()
+            => new ArithmeticExpression((INumber)A.Clone(), (INumber)B.Clone(), OP);
     }
 }

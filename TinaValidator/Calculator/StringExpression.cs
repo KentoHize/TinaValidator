@@ -27,5 +27,8 @@ namespace Aritiafel.Artifacts.Calculator
             => GetResult(vl);
         public override Type GetObjectType()
             => typeof(IString);
+
+        public override object Clone()
+            => new StringExpression((IString)A.Clone(), (IString)B.Clone(), OP);
     }
 }
