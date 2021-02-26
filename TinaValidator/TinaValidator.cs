@@ -14,7 +14,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public long LongerErrorLocation { get; set; }
         public TNode ErrorNode { get; set; }
 
-        public List<AreaStart> EntryPoints = new List<AreaStart>();
+        //public List<AreaStart> EntryPoints = new List<AreaStart>();
 
         public TinaValidator(ValidateLogic logic = null)
         {
@@ -28,154 +28,137 @@ namespace Aritiafel.Artifacts.TinaValidator
                 throw new ArgumentNullException(nameof(things));
             CalMain.ClearMemory();
             LongerErrorLocation = 0;
-            EntryPoints = new List<AreaStart>();
-            return NodeValidate(things, 0, Logic.InitialStatus, 0) != Invalid;
+            //EntryPoints = new List<AreaStart>();
+            TVData tv = new TVData(0, Logic.InitialStatus);
+            return BFS_Scan(things, tv) != Invalid;
         }
 
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        //private int NodeValidate(List<object> things, TempInfo currentTi)
-        //{
-        //    Queue<TempInfo> nodeQueue = new Queue<TempInfo>();
-        //    nodeQueue.Enqueue(currentTi);
-        //    while (nodeQueue.Count != 0)
-        //    {
-
-        //        if (currentTi.Index > LongestLocation)
-        //        {
-        //            LongestLocation = currentTi.Index;
-        //            if (currentTi.Index == 79)
-        //                Console.WriteLine("79");
-        //        }
-
-        //        int nextIndex = -1;
-        //        TempInfo ti;
-        //        currentTi = nodeQueue.Dequeue();
-        //        switch (currentTi.Node)
-        //        {
-        //            case Part p:
-        //                nextIndex = p.Validate(things, currentTi.Index);
-        //                if (nextIndex == -1)
-        //                {
-        //                    currentTi.AreaNextNode.Clear();
-        //                    continue;
-        //                }
-        //                ti = new TempInfo(nextIndex, p.NextNode, currentTi.AreaNextNode);
-        //                nodeQueue.Enqueue(ti);
-        //                break;
-        //            case Status st:
-        //                if (st.ID == "st4")
-        //                {
-        //                    Console.WriteLine("");
-        //                }
-        //                for (int i = 0; i < st.Choices.Count; i++)
-        //                {
-        //                    if (true) //Condition ok
-        //                    {
-        //                        if (i == 0)
-        //                            ti = new TempInfo(currentTi.Index, st.Choices[i].Node, currentTi.AreaNextNode);
-        //                        else
-        //                            ti = new TempInfo(currentTi.Index, st.Choices[i].Node, new Stack<TNode>(currentTi.AreaNextNode));
-        //                        nodeQueue.Enqueue(ti);
-        //                    }
-        //                }
-        //                break;
-        //            case EndNode _:
-        //                if (currentTi.AreaNextNode.Count == 0)
-        //                    break;
-        //                TNode tn = currentTi.AreaNextNode.Pop();
-        //                ti = new TempInfo(currentTi.Index, tn, currentTi.AreaNextNode);
-        //                nodeQueue.Enqueue(ti);
-        //                break;
-        //            case AreaStart ars:
-        //                TNode cloneNode = null;
-        //                if (ars.Area.Name == "PropertiesArea")
-        //                {
-        //                    cloneNode = ars.Area.InitialStatus.Choices[0].Node.NextNode.NextNode;
-        //                }
-        //                else if (ars.Area.Name == "StringArea")
-        //                {
-        //                    Console.WriteLine("in2");
-        //                }
-        //                if (cloneNode != null && ars.NextNode == cloneNode)
-        //                {
-        //                    Console.WriteLine("in");
-        //                }
-        //                currentTi.AreaNextNode.Push(ars.NextNode);
-        //                ti = new TempInfo(currentTi.Index, ars.Area.InitialStatus, currentTi.AreaNextNode);
-        //                nodeQueue.Enqueue(ti);
-        //                break;
-        //            case Execute ex:
-        //                ti = new TempInfo(currentTi.Index, ex.NextNode, currentTi.AreaNextNode);
-        //                nodeQueue.Enqueue(ti);
-        //                break;
-        //            default:
-        //                throw new Exception("!?");
-        //        }
-        //    }
-        //    if (currentTi.Index == things.Count)
-        //        return currentTi.Index;
-        //    return -1;
-        //}
-
-        private int NodeValidate(List<object> things, int index, TNode node, int depth)
+        private int BFS_Scan(List<object> things, TVData currentTi)
         {
-            int nextIndex = Invalid;
-            bool isLongTesting = false;
-            if(index > LongerErrorLocation)
-            { 
-                //if(index != things.Count)
-                //{ 
-                    LongerErrorLocation = index;
-                    ErrorNode = node;
-                    isLongTesting = true;
-                //}
-            }
-            switch (node)
+            Queue<TVData> nodeQueue = new Queue<TVData>();
+            HashSet<TVData> invisitedRecords = new HashSet<TVData>();
+            nodeQueue.Enqueue(currentTi);
+            while (nodeQueue.Count != 0)
             {
-                case EndNode _:
-                    if (depth == 0)
-                        return index;
-                    else
-                    {
-                        AreaStart ars = EntryPoints[depth - 1];
-                        EntryPoints.RemoveAt(EntryPoints.Count - 1);
-                        nextIndex = NodeValidate(things, index, ars.NextNode, depth - 1);
-                        EntryPoints.Add(ars);
-                        return nextIndex;
-                    }                        
-                case AreaStart ars:
-                    EntryPoints.Add(ars);
-                    nextIndex = NodeValidate(things, index, ars.Area.InitialStatus, depth + 1);
-                    EntryPoints.RemoveAt(EntryPoints.Count - 1);
-                    return nextIndex;
-                case Execute e:
-                    CalMain.RunStatements(e.Statements);
-                    nextIndex = index;
+                if (currentTi.Index >= things.Count)
                     break;
-                case Part p:
-                    if (index == things.Count)
+                if (currentTi.Index > LongerErrorLocation)
+                    LongerErrorLocation = currentTi.Index;
+                int nextIndex = Invalid;
+                TVData ti;
+                currentTi = nodeQueue.Dequeue();
+                switch (currentTi.Node)
+                {
+                    case Part p:
+                        nextIndex = p.Validate(things, currentTi.Index);
+                        if (nextIndex == Invalid)
+                            continue;
+                        ti = new TVData(nextIndex, p.NextNode, currentTi.AreaNextNode);
+                        nodeQueue.Enqueue(ti);
                         break;
-                    else
-                        nextIndex = p.Validate(things, index);
-                    break;
-                case Status st:
-                    for (int i = 0; i < st.Choices.Count; i++)
-                    {
-                        if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
-                        {   
-                            nextIndex = NodeValidate(things, index, st.Choices[i].Node, depth);
-                            if (nextIndex != Invalid)
-                                return nextIndex;
+                    case Status st:
+                        if (!invisitedRecords.Add(currentTi))
+                            continue;
+                        for (int i = 0; i < st.Choices.Count; i++)
+                        {
+                            if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
+                            {
+                                if (i == 0)
+                                    ti = new TVData(currentTi.Index, st.Choices[i].Node, currentTi.AreaNextNode);
+                                else
+                                {
+                                    Stack<TNode> newStack = new Stack<TNode>(currentTi.AreaNextNode.Reverse());
+                                    ti = new TVData(currentTi.Index, st.Choices[i].Node, newStack);
+                                }
+                                nodeQueue.Enqueue(ti);
+                            }
                         }
-                    }
-                    return Invalid;
+                        break;
+                    case EndNode _:
+                        if (currentTi.AreaNextNode.Count == 0)
+                            break;
+                        TNode tn = currentTi.AreaNextNode.Pop();
+                        ti = new TVData(currentTi.Index, tn, currentTi.AreaNextNode);
+                        nodeQueue.Enqueue(ti);
+                        break;
+                    case AreaStart ars:
+                        currentTi.AreaNextNode.Push(ars.NextNode);
+                        ti = new TVData(currentTi.Index, ars.Area.InitialStatus, currentTi.AreaNextNode);
+                        nodeQueue.Enqueue(ti);
+                        break;
+                    case Execute ex:
+                        ti = new TVData(currentTi.Index, ex.NextNode, currentTi.AreaNextNode);
+                        nodeQueue.Enqueue(ti);
+                        break;
+                    default:
+                        throw new Exception("!?");
+                }
             }
-            if (nextIndex != Invalid)
-                return NodeValidate(things, nextIndex, node.NextNode, depth);
+            if (currentTi.Index == things.Count)
+                return currentTi.Index;
             return Invalid;
         }
+
+        //private int NodeValidate(List<object> things, int index, TNode node, int depth)
+        //{
+        //    int nextIndex = Invalid;
+        //    bool isLongTesting = false;
+        //    if(index > LongerErrorLocation)
+        //    { 
+        //        //if(index != things.Count)
+        //        //{ 
+        //            LongerErrorLocation = index;
+        //            ErrorNode = node;
+        //            isLongTesting = true;
+        //        //}
+        //    }
+        //    switch (node)
+        //    {
+        //        case EndNode _:
+        //            if (depth == 0)
+        //                return index;
+        //            else
+        //            {
+        //                AreaStart ars = EntryPoints[depth - 1];
+        //                EntryPoints.RemoveAt(EntryPoints.Count - 1);
+        //                nextIndex = NodeValidate(things, index, ars.NextNode, depth - 1);
+        //                EntryPoints.Add(ars);
+        //                return nextIndex;
+        //            }                        
+        //        case AreaStart ars:
+        //            EntryPoints.Add(ars);
+        //            nextIndex = NodeValidate(things, index, ars.Area.InitialStatus, depth + 1);
+        //            EntryPoints.RemoveAt(EntryPoints.Count - 1);
+        //            return nextIndex;
+        //        case Execute e:
+        //            CalMain.RunStatements(e.Statements);
+        //            nextIndex = index;
+        //            break;
+        //        case Part p:
+        //            if (index == things.Count)
+        //                break;
+        //            else
+        //                nextIndex = p.Validate(things, index);
+        //            break;
+        //        case Status st:
+        //            for (int i = 0; i < st.Choices.Count; i++)
+        //            {
+        //                if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
+        //                {   
+        //                    nextIndex = NodeValidate(things, index, st.Choices[i].Node, depth);
+        //                    if (nextIndex != Invalid)
+        //                        return nextIndex;
+        //                }
+        //            }
+        //            return Invalid;
+        //    }
+        //    if (nextIndex != Invalid)
+        //        return NodeValidate(things, nextIndex, node.NextNode, depth);
+        //    return Invalid;
+        //}
 
         public string CreateRandomToString()
         {
