@@ -64,7 +64,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                             continue;
                         for (int i = 0; i < st.Choices.Count; i++)
                         {
-                            if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
+                            if (st.Choices[i].Conditon == null || CalMain.CalculateBooleanExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
                             {
                                 if (i == 0)
                                     newData = new TVData(data.Index, st.Choices[i].Node, data.AreaNextNode);

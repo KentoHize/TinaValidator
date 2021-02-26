@@ -279,7 +279,7 @@ namespace TinvaValidatorTest
             string[] files = Directory.GetFiles(RandomJsonPath);
             foreach (string file in files)
                 File.Delete(file);
-            for (int i = 0; i < 5000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 //if (i % 50 == 0)
                 //{
@@ -292,45 +292,46 @@ namespace TinvaValidatorTest
                 //    //TestContext.WriteLine($"{i} ObjectCount: {ol.Count}");
                 //}
                 
-                int indexI = i;
-                Task t = new Task(() => {
-                    List<object> ol;
-                    ol = validator.CreateRandom();
-                    string s = ol.ForEachToString();
-                    byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
-                    s = System.Text.Encoding.UTF8.GetString(buffer);
+                //int indexI = i;
+                //Task t = new Task(() => {
+                //    List<object> ol;
+                //    ol = validator.CreateRandom();
+                //    string s = ol.ForEachToString();
+                //    byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
+                //    s = System.Text.Encoding.UTF8.GetString(buffer);
 
 
-                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"CurrentJson-{i.ToString("0000")}.json"), FileMode.Create))
-                    {
-                        BinaryWriter bw = new BinaryWriter(fs);
-                        bw.Write(buffer);
-                        bw.Close();
-                    }
+                //    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"CurrentJson-{i.ToString("0000")}.json"), FileMode.Create))
+                //    {
+                //        BinaryWriter bw = new BinaryWriter(fs);
+                //        bw.Write(buffer);
+                //        bw.Close();
+                //    }
 
-                    validator.Validate(ol);
+                //    validator.Validate(ol);
 
-                });                
+                //});                
 
-                TaskAwaiter ta = t.GetAwaiter();
-                ta.OnCompleted(() =>
-                {
+                //TaskAwaiter ta = t.GetAwaiter();
+                //ta.OnCompleted(() =>
+                //{
                     
-                    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"LOG-{i}.Json"), FileMode.Create))
-                    {
+                //    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"LOG-{i}.Json"), FileMode.Create))
+                //    {
 
-                        StreamWriter sw = new StreamWriter(fs);
-                        sw.Write($"Completed");
-                        sw.Close();
-                    }
+                //        StreamWriter sw = new StreamWriter(fs);
+                //        sw.Write($"Completed");
+                //        sw.Close();
+                //    }
 
                     
-                });
+                //});
 
-                t.RunSynchronously();
+                //t.RunSynchronously();
 
-                continue;
+                //continue;
                 List<object> ol;
+                ol = validator.CreateRandom();
                 string s = ol.ForEachToString();
                 byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
                 s = System.Text.Encoding.UTF8.GetString(buffer);

@@ -5,7 +5,7 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class Calculator
     {
-        CalculatorMemory VariableLinker { get; set; }
+        IMemory VariableLinker { get; set; }
         public List<Statement> Statements { get; set; }
         public Calculator()
             : this(null)
@@ -39,9 +39,6 @@ namespace Aritiafel.Artifacts.Calculator
                     throw new NotImplementedException();
             }
         }
-
-        public bool CalculateCompareExpression(IBoolean ce)
-            => ce.GetResult(VariableLinker);
         public bool CalculateBooleanExpression(IBoolean be)
             => be.GetResult(VariableLinker);
         public object CalculateArithmeticExpression(INumber ae)
@@ -49,6 +46,6 @@ namespace Aritiafel.Artifacts.Calculator
         public string CalculateStringExpression(IString se)
             => se.GetResult(VariableLinker);
         public void ClearMemory()
-            => VariableLinker.CleaerAllVariables();
+            => VariableLinker.ClearVariables();
     }
 }
