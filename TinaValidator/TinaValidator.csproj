@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="TestArea\RandomJson\" />
     <Folder Include="TestArea\SaveLoad\" />
     <Folder Include="TestArea\WrongRecords\" />
   </ItemGroup>

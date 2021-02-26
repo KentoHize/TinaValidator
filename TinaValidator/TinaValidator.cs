@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+//using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -13,9 +14,6 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public long LongerErrorLocation { get; set; }
         public TNode ErrorNode { get; set; }
-
-        //public List<AreaStart> EntryPoints = new List<AreaStart>();
-
         public TinaValidator(ValidateLogic logic = null)
         {
             Logic = logic;
@@ -25,18 +23,17 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Validate(List<object> things)
         {
             if (things == null)
-                throw new ArgumentNullException(nameof(things));
+                throw new ArgumentNullException(nameof(things));            
             CalMain.ClearMemory();
-            LongerErrorLocation = 0;
-            //EntryPoints = new List<AreaStart>();
+            LongerErrorLocation = 0;  
             TVData tv = new TVData(0, Logic.InitialStatus);
-            return BFS_Scan(things, tv) != Invalid;
+            return BFS_NodeValidate(things, tv) != Invalid;
         }
 
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        private int BFS_Scan(List<object> things, TVData data)
+        private int BFS_NodeValidate(List<object> things, TVData data)
         {
             Queue<TVData> nodeQueue = new Queue<TVData>();
             HashSet<TVData> invisitedRecords = new HashSet<TVData>();
@@ -49,14 +46,14 @@ namespace Aritiafel.Artifacts.TinaValidator
                     LongerErrorLocation = data.Index;
                 int nextIndex = Invalid;
                 TVData newData;
-                data = nodeQueue.Dequeue();
+                data = nodeQueue.Dequeue();                
                 switch (data.Node)
                 {
                     case Part p:
                         nextIndex = p.Validate(things, data.Index);
                         if (nextIndex == Invalid)
                             continue;
-                        newData = new TVData(nextIndex, p.NextNode, data.AreaNextNode);
+                        newData = new TVData(nextIndex, p.NextNode, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
                         break;
                     case Status st:
@@ -64,14 +61,14 @@ namespace Aritiafel.Artifacts.TinaValidator
                             continue;
                         for (int i = 0; i < st.Choices.Count; i++)
                         {
-                            if (st.Choices[i].Conditon == null || CalMain.CalculateBooleanExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
+                            if (st.Choices[i].Conditon == null || Calculator.Calculator.CalculateBooleanExpression(st.Choices[i].Conditon, data.Memory))
                             {
                                 if (i == 0)
-                                    newData = new TVData(data.Index, st.Choices[i].Node, data.AreaNextNode);
+                                    newData = new TVData(data.Index, st.Choices[i].Node, data.AreaNextNode, data.Memory);
                                 else
                                 {
                                     Stack<TNode> newStack = new Stack<TNode>(data.AreaNextNode.Reverse());
-                                    newData = new TVData(data.Index, st.Choices[i].Node, newStack);
+                                    newData = new TVData(data.Index, st.Choices[i].Node, newStack, new TVMemory(data.Memory));
                                 }
                                 nodeQueue.Enqueue(newData);
                             }
@@ -81,16 +78,17 @@ namespace Aritiafel.Artifacts.TinaValidator
                         if (data.AreaNextNode.Count == 0)
                             break;
                         TNode tn = data.AreaNextNode.Pop();
-                        newData = new TVData(data.Index, tn, data.AreaNextNode);
+                        newData = new TVData(data.Index, tn, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
                         break;
                     case AreaStart ars:
                         data.AreaNextNode.Push(ars.NextNode);
-                        newData = new TVData(data.Index, ars.Area.InitialStatus, data.AreaNextNode);
+                        newData = new TVData(data.Index, ars.Area.InitialStatus, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
                         break;
                     case Execute ex:
-                        newData = new TVData(data.Index, ex.NextNode, data.AreaNextNode);
+                        Calculator.Calculator.RunStatements(ex.Statements, data.Memory);
+                        newData = new TVData(data.Index, ex.NextNode, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
                         break;
                     default:
