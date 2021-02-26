@@ -36,69 +36,69 @@ namespace Aritiafel.Artifacts.TinaValidator
         public bool Validate(object[] things)
            => Validate(things.ToList());
 
-        private int BFS_Scan(List<object> things, TVData currentTi)
+        private int BFS_Scan(List<object> things, TVData data)
         {
             Queue<TVData> nodeQueue = new Queue<TVData>();
             HashSet<TVData> invisitedRecords = new HashSet<TVData>();
-            nodeQueue.Enqueue(currentTi);
+            nodeQueue.Enqueue(data);
             while (nodeQueue.Count != 0)
             {
-                if (currentTi.Index >= things.Count)
+                if (data.Index >= things.Count)
                     break;
-                if (currentTi.Index > LongerErrorLocation)
-                    LongerErrorLocation = currentTi.Index;
+                if (data.Index > LongerErrorLocation)
+                    LongerErrorLocation = data.Index;
                 int nextIndex = Invalid;
-                TVData ti;
-                currentTi = nodeQueue.Dequeue();
-                switch (currentTi.Node)
+                TVData newData;
+                data = nodeQueue.Dequeue();
+                switch (data.Node)
                 {
                     case Part p:
-                        nextIndex = p.Validate(things, currentTi.Index);
+                        nextIndex = p.Validate(things, data.Index);
                         if (nextIndex == Invalid)
                             continue;
-                        ti = new TVData(nextIndex, p.NextNode, currentTi.AreaNextNode);
-                        nodeQueue.Enqueue(ti);
+                        newData = new TVData(nextIndex, p.NextNode, data.AreaNextNode);
+                        nodeQueue.Enqueue(newData);
                         break;
                     case Status st:
-                        if (!invisitedRecords.Add(currentTi))
+                        if (!invisitedRecords.Add(data))
                             continue;
                         for (int i = 0; i < st.Choices.Count; i++)
                         {
                             if (st.Choices[i].Conditon == null || CalMain.CalculateCompareExpression(st.Choices[i].Conditon)) // TO DO (置換記憶體模式)
                             {
                                 if (i == 0)
-                                    ti = new TVData(currentTi.Index, st.Choices[i].Node, currentTi.AreaNextNode);
+                                    newData = new TVData(data.Index, st.Choices[i].Node, data.AreaNextNode);
                                 else
                                 {
-                                    Stack<TNode> newStack = new Stack<TNode>(currentTi.AreaNextNode.Reverse());
-                                    ti = new TVData(currentTi.Index, st.Choices[i].Node, newStack);
+                                    Stack<TNode> newStack = new Stack<TNode>(data.AreaNextNode.Reverse());
+                                    newData = new TVData(data.Index, st.Choices[i].Node, newStack);
                                 }
-                                nodeQueue.Enqueue(ti);
+                                nodeQueue.Enqueue(newData);
                             }
                         }
                         break;
                     case EndNode _:
-                        if (currentTi.AreaNextNode.Count == 0)
+                        if (data.AreaNextNode.Count == 0)
                             break;
-                        TNode tn = currentTi.AreaNextNode.Pop();
-                        ti = new TVData(currentTi.Index, tn, currentTi.AreaNextNode);
-                        nodeQueue.Enqueue(ti);
+                        TNode tn = data.AreaNextNode.Pop();
+                        newData = new TVData(data.Index, tn, data.AreaNextNode);
+                        nodeQueue.Enqueue(newData);
                         break;
                     case AreaStart ars:
-                        currentTi.AreaNextNode.Push(ars.NextNode);
-                        ti = new TVData(currentTi.Index, ars.Area.InitialStatus, currentTi.AreaNextNode);
-                        nodeQueue.Enqueue(ti);
+                        data.AreaNextNode.Push(ars.NextNode);
+                        newData = new TVData(data.Index, ars.Area.InitialStatus, data.AreaNextNode);
+                        nodeQueue.Enqueue(newData);
                         break;
                     case Execute ex:
-                        ti = new TVData(currentTi.Index, ex.NextNode, currentTi.AreaNextNode);
-                        nodeQueue.Enqueue(ti);
+                        newData = new TVData(data.Index, ex.NextNode, data.AreaNextNode);
+                        nodeQueue.Enqueue(newData);
                         break;
                     default:
                         throw new Exception("!?");
                 }
             }
-            if (currentTi.Index == things.Count)
-                return currentTi.Index;
+            if (data.Index == things.Count)
+                return data.Index;
             return Invalid;
         }
 

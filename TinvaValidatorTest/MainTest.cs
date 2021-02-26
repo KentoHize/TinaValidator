@@ -118,9 +118,9 @@ namespace TinvaValidatorTest
             return;
         }
 
-        public ValidateLogic JsonLogic()
+        public static ValidateLogic JsonLogic()
         {
-            ValidateLogic VL = new ValidateLogic(new Status());
+            ValidateLogic VL = new ValidateLogic("Main", new Status("Main_Start"));
             Area skipChars = new Area("SkipArea", new Status("SkipArea_Start"), null);
             Area objectArea = new Area("ObjectArea", new Status("ObjectArea_Start"), null);
             Area arrayArea = new Area("ArrayArea", new Status("ArrayArea_Start"), null);
@@ -223,7 +223,7 @@ namespace TinvaValidatorTest
             valueArea.InitialStatus.Choices.Add(new Choice("null".ToUnitSet()));
             valueArea.InitialStatus.Choices.Add(new Choice(cbp));
             valueArea.InitialStatus.Choices.Add(new Choice(cip));
-            valueArea.InitialStatus.Choices.Add(new Choice(cdp));            
+            valueArea.InitialStatus.Choices.Add(new Choice(cdp));
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
             valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
             AreaStart arSt = new AreaStart(arrayArea, valueArea);
@@ -255,13 +255,13 @@ namespace TinvaValidatorTest
             skSt.NextNode = propertiesArea.InitialStatus;
 
             //Start Main
-            skSt = new AreaStart(skipChars, VL);
+            skSt = new AreaStart(skipChars, VL, null, "Main_SKIP1");
             VL.InitialStatus.Choices.Add(new Choice(skSt));
-            Status JsonStartStatus = new Status(null, VL);
+            Status JsonStartStatus = new Status("Main_ST_Object_Or_Array", VL);
             skSt.NextNode = JsonStartStatus;
-            AreaStart ap1 = new AreaStart(objectArea, null);
-            AreaStart ap2 = new AreaStart(arrayArea, null);
-            skSt = new AreaStart(skipChars, VL);
+            AreaStart ap1 = new AreaStart(objectArea, VL, null, "Main_AS_ObjectArea");
+            AreaStart ap2 = new AreaStart(arrayArea, VL, null, "Main_AR_ArrayArea");
+            skSt = new AreaStart(skipChars, VL, null, "Main_SKIP2");
             ap1.NextNode = ap2.NextNode = skSt;
             skSt.NextNode = EndNode.Instance;
             JsonStartStatus.Choices.Add(new Choice(ap1));
