@@ -89,10 +89,10 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public TVMemory(TVMemory memory)
         {
-            memory.Variables = new Dictionary<string, ICloneable>();
-            foreach(KeyValuePair<string, ICloneable> kv in Variables)
-                memory.Variables.Add(kv.Key, kv.Value.Clone() as ICloneable);
-            memory.VariablesType = new Dictionary<string, Type>(VariablesType);
+            Variables = new Dictionary<string, ICloneable>();
+            foreach(KeyValuePair<string, ICloneable> kv in memory.Variables)
+                Variables.Add(kv.Key, kv.Value.Clone() as ICloneable);
+            VariablesType = new Dictionary<string, Type>(memory.VariablesType);
         }
     }
 }

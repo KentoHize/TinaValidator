@@ -9,6 +9,10 @@ namespace Aritiafel.Artifacts.TinaValidator
         public TNode Node { get; set; }
         public Stack<TNode> AreaNextNode { get; set; }
         public TVMemory Memory { get; set; }
+
+        public TVData(TNode node, TVMemory memory = null)
+            : this(0, node, null, memory)
+        {}
         public TVData(int index, TNode node, Stack<TNode> areaNextNode = null, TVMemory memory = null)
         {
             Index = index;

@@ -40,8 +40,6 @@ namespace Aritiafel.Artifacts.TinaValidator
             nodeQueue.Enqueue(data);
             while (nodeQueue.Count != 0)
             {
-                if (data.Index >= things.Count)
-                    break;
                 if (data.Index > LongerErrorLocation)
                     LongerErrorLocation = data.Index;
                 int nextIndex = Invalid;
@@ -68,6 +66,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                                 else
                                 {
                                     Stack<TNode> newStack = new Stack<TNode>(data.AreaNextNode.Reverse());
+                                    //newData = new TVData(data.Index, st.Choices[i].Node, newStack, data.Memory);
                                     newData = new TVData(data.Index, st.Choices[i].Node, newStack, new TVMemory(data.Memory));
                                 }
                                 nodeQueue.Enqueue(newData);
@@ -76,7 +75,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                         break;
                     case EndNode _:
                         if (data.AreaNextNode.Count == 0)
-                            break;
+                            return data.Index == things.Count ? data.Index : Invalid;
                         TNode tn = data.AreaNextNode.Pop();
                         newData = new TVData(data.Index, tn, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
@@ -94,9 +93,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     default:
                         throw new Exception("!?");
                 }
-            }
-            if (data.Index == things.Count)
-                return data.Index;
+            }           
             return Invalid;
         }
 
@@ -170,28 +167,30 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<object> CreateRandom()
         {
             List<object> result = new List<object>();
-            CalMain.ClearMemory();
-            NodeCreateRandom(result, Logic.InitialStatus, null);
+            CalMain.ClearMemory();            
+            TVData tv = new TVData(Logic.InitialStatus);
+            NodeCreateRandom(result, tv);
             return result;
         }
 
-        private void NodeCreateRandom(List<object> result, TNode node, AreaStart ap)
+        private void NodeCreateRandom(List<object> result, TVData data)
         {
-            switch (node)
+            TVData newData;
+            switch (data.Node)
             {
                 case EndNode _:
                     return;
                 case AreaStart ars:
-                    NodeCreateRandom(result, ars.Area.InitialStatus, ars);
-                    NodeCreateRandom(result, ars.NextNode, ap);
+                    NodeCreateRandom(result, new TVData(ars.Area.InitialStatus, data.Memory));
+                    NodeCreateRandom(result, new TVData(ars.NextNode, data.Memory));
                     break;
                 case Execute e:
-                    CalMain.RunStatements(e.RunRandomStatement ? e.RandomStatements : e.Statements);
-                    NodeCreateRandom(result, e.NextNode, ap);
+                    Calculator.Calculator.RunStatements(e.RunRandomStatement ? e.RandomStatements : e.Statements, data.Memory);
+                    NodeCreateRandom(result, new TVData(data.Node.NextNode, data.Memory));
                     break;
                 case Part p:
                     result.AddRange(p.Random());
-                    NodeCreateRandom(result, p.NextNode, ap);
+                    NodeCreateRandom(result, new TVData(data.Node.NextNode, data.Memory));
                     break;
                 case Status st:
                     Random rnd = new Random((int)DateTime.Now.Ticks);
@@ -199,7 +198,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     int RationCount = 0;
                     for (int i = 0; i < st.Choices.Count; i++)
                     {
-                        if (st.Choices[i].Conditon == null || CalMain.CalculateBooleanExpression(st.Choices[i].Conditon))
+                        if (st.Choices[i].Conditon == null || Calculator.Calculator.CalculateBooleanExpression(st.Choices[i].Conditon, data.Memory))
                         {
                             RationCount += st.Choices[i].RadomRatio;
                             ratioThreshold.Add(RationCount, st.Choices[i].Node);
@@ -208,17 +207,14 @@ namespace Aritiafel.Artifacts.TinaValidator
                     if (ratioThreshold.Count == 0)
                         throw new Exception($"No Route in {st.ID}");
                     int index = rnd.Next(RationCount);
-                    if (ratioThreshold.ContainsKey(index))
-                    {
-                        NodeCreateRandom(result, ratioThreshold.Values[ratioThreshold.IndexOfKey(index) + 1], ap);
-                        break;
-                    }
+                    if (ratioThreshold.ContainsKey(index))                    
+                        NodeCreateRandom(result, new TVData(ratioThreshold.Values[ratioThreshold.IndexOfKey(index) + 1], data.Memory));                     
                     else
                     {
                         ratioThreshold.Add(index, null);
-                        NodeCreateRandom(result, ratioThreshold.Values[ratioThreshold.IndexOfValue(null) + 1], ap);
-                        break;
+                        NodeCreateRandom(result, new TVData(ratioThreshold.Values[ratioThreshold.IndexOfValue(null) + 1], data.Memory));                        
                     }
+                    break;
             }
         }
         //private int SearchInsert(IList<int> nums, int target)
