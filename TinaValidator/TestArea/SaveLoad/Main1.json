@@ -1,33 +1,33 @@
 {
   "Areas": [
     {
-      "Name": "ARm3lrL5a15Ei5",
-      "InitialStatus": "STR9xMgNLPgDr4",
-      "Parent": "ARtIaI8pNqLHI1"
+      "Name": "ARqGmh7WFKY425",
+      "InitialStatus": "STV8Y9zig45dM4",
+      "Parent": "ARmj9PomTBJLx1"
     }
   ],
   "TNodes": {
-    "STR9xMgNLPgDr4": {
+    "STV8Y9zig45dM4": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Status",
       "Parent": null,
       "Choices": [
         {
-          "Node": "PX5sUbycgI6f8",
+          "Node": "PdmCwqXiT7Tw8",
           "Conditon": null,
           "RadomRatio": 1
         }
       ],
       "NextNode": null
     },
-    "PX5sUbycgI6f8": {
+    "PdmCwqXiT7Tw8": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharsToIntegerPart",
       "CompareMethod": 0,
       "Value1": 0,
       "Value2": 0,
       "Parent": null,
-      "NextNode": "PHUiF9k8ZhEV9"
+      "NextNode": "PwWvwBnCsDvM9"
     },
-    "PHUiF9k8ZhEV9": {
+    "PwWvwBnCsDvM9": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
@@ -46,17 +46,17 @@
         }
       ],
       "Parent": null,
-      "NextNode": "PobVdwZhCAfA10"
+      "NextNode": "PF4ljNQVnwAM10"
     },
-    "PobVdwZhCAfA10": {
+    "PF4ljNQVnwAM10": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharsToIntegerPart",
       "CompareMethod": 0,
       "Value1": 0,
       "Value2": 0,
       "Parent": null,
-      "NextNode": "PjpMeaZV59Mc11"
+      "NextNode": "PbQY3aiel5nD11"
     },
-    "PjpMeaZV59Mc11": {
+    "PbQY3aiel5nD11": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
@@ -68,9 +68,9 @@
         }
       ],
       "Parent": null,
-      "NextNode": "Pmm3ePOsDPxd12"
+      "NextNode": "PcDgPjClAsAC12"
     },
-    "Pmm3ePOsDPxd12": {
+    "PcDgPjClAsAC12": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharsToIntegerPart",
       "CompareMethod": 0,
       "Value1": 0,
@@ -83,19 +83,19 @@
       "Parent": null,
       "NextNode": null
     },
-    "STezzzFAltkaH0": {
+    "STzC6bosqLGb80": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Status",
       "Parent": null,
       "Choices": [
         {
-          "Node": "EXu8GbgrC4XX2",
+          "Node": "EOIua3B7ttne2",
           "Conditon": null,
           "RadomRatio": 1
         }
       ],
       "NextNode": null
     },
-    "EXu8GbgrC4XX2": {
+    "EOIua3B7ttne2": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Execute",
       "RunRandomStatement": false,
       "Statements": [
@@ -111,8 +111,8 @@
           "__ReferenceType": "Aritiafel.Artifacts.Calculator.SetVariableStatement",
           "Variable": {
             "__ReferenceType": "Aritiafel.Artifacts.Calculator.LongVar",
+            "Source": 0,
             "Parent": null,
-            "Source": 1,
             "Name": "Times",
             "Keys": null,
             "Tag": null
@@ -125,27 +125,27 @@
       ],
       "RandomStatements": null,
       "Parent": null,
-      "NextNode": "AsPZ7mB2FpiI7"
+      "NextNode": "AxiP4LkcWKty7"
     },
-    "AsPZ7mB2FpiI7": {
+    "AxiP4LkcWKty7": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
-      "Area": "ARm3lrL5a15Ei5",
+      "Area": "ARqGmh7WFKY425",
       "Parent": null,
-      "NextNode": "STzr7x9rTNf4e6"
+      "NextNode": "STBJzT7x7GvkA6"
     },
-    "STzr7x9rTNf4e6": {
+    "STBJzT7x7GvkA6": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Status",
       "Parent": null,
       "Choices": [
         {
-          "Node": "PHPrPRiHpyE413",
+          "Node": "PKoiiv73OyAk13",
           "Conditon": null,
           "RadomRatio": 1
         }
       ],
       "NextNode": null
     },
-    "PHPrPRiHpyE413": {
+    "PKoiiv73OyAk13": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
@@ -178,14 +178,14 @@
         }
       ],
       "Parent": null,
-      "NextNode": "STGXVls4UNwDY14"
+      "NextNode": "STvj80AkyztEC14"
     },
-    "STGXVls4UNwDY14": {
+    "STvj80AkyztEC14": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Status",
       "Parent": null,
       "Choices": [
         {
-          "Node": "PByL52WnGAK615",
+          "Node": "Pexpt4Ob7itP15",
           "Conditon": null,
           "RadomRatio": 1
         },
@@ -195,8 +195,8 @@
             "__ReferenceType": "Aritiafel.Artifacts.Calculator.CompareExpression",
             "A": {
               "__ReferenceType": "Aritiafel.Artifacts.Calculator.LongVar",
+              "Source": 0,
               "Parent": null,
-              "Source": 1,
               "Name": "Times",
               "Keys": null,
               "Tag": null
@@ -212,7 +212,7 @@
       ],
       "NextNode": null
     },
-    "PByL52WnGAK615": {
+    "Pexpt4Ob7itP15": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
@@ -231,9 +231,9 @@
         }
       ],
       "Parent": null,
-      "NextNode": "EPj42WTmZsG13"
+      "NextNode": "EDw8uZiw8Yj23"
     },
-    "EPj42WTmZsG13": {
+    "EDw8uZiw8Yj23": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.Execute",
       "RunRandomStatement": false,
       "Statements": [
@@ -241,8 +241,8 @@
           "__ReferenceType": "Aritiafel.Artifacts.Calculator.SetVariableStatement",
           "Variable": {
             "__ReferenceType": "Aritiafel.Artifacts.Calculator.LongVar",
+            "Source": 0,
             "Parent": null,
-            "Source": 1,
             "Name": "Times",
             "Keys": null,
             "Tag": null
@@ -251,8 +251,8 @@
             "__ReferenceType": "Aritiafel.Artifacts.Calculator.ArithmeticExpression",
             "A": {
               "__ReferenceType": "Aritiafel.Artifacts.Calculator.LongVar",
+              "Source": 0,
               "Parent": null,
-              "Source": 1,
               "Name": "Times",
               "Keys": null,
               "Tag": null
@@ -264,11 +264,11 @@
       ],
       "RandomStatements": null,
       "Parent": null,
-      "NextNode": "AsPZ7mB2FpiI7"
+      "NextNode": "AxiP4LkcWKty7"
     }
   },
   "Variables": {},
-  "Name": "ARtIaI8pNqLHI1",
-  "InitialStatus": "STezzzFAltkaH0",
+  "Name": "ARmj9PomTBJLx1",
+  "InitialStatus": "STzC6bosqLGb80",
   "Parent": null
 }

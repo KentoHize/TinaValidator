@@ -108,8 +108,12 @@ namespace TinvaValidatorTest
             for (int i = 0; i < 100; i++)
             {
                 List<object> list = validator.CreateRandom();
-                TestContext.WriteLine(list.ForEachToString());
+                TestContext.WriteLine(list.ForEachToString());                
                 result = validator.Validate(list);
+                while (!result)
+                { 
+                    validator.Validate(list);
+                }
                 TestContext.WriteLine("");
                 Assert.IsTrue(result);
             }

@@ -65,8 +65,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                                     newData = new TVData(data.Index, st.Choices[i].Node, data.AreaNextNode, data.Memory);
                                 else
                                 {
-                                    Stack<TNode> newStack = new Stack<TNode>(data.AreaNextNode.Reverse());
-                                    //newData = new TVData(data.Index, st.Choices[i].Node, newStack, data.Memory);
+                                    Stack<TNode> newStack = new Stack<TNode>(data.AreaNextNode.Reverse());                                    
                                     newData = new TVData(data.Index, st.Choices[i].Node, newStack, new TVMemory(data.Memory));
                                 }
                                 nodeQueue.Enqueue(newData);
@@ -75,7 +74,10 @@ namespace Aritiafel.Artifacts.TinaValidator
                         break;
                     case EndNode _:
                         if (data.AreaNextNode.Count == 0)
-                            return data.Index == things.Count ? data.Index : Invalid;
+                            if (data.Index == things.Count)
+                                return data.Index;
+                            else
+                                continue;
                         TNode tn = data.AreaNextNode.Pop();
                         newData = new TVData(data.Index, tn, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
