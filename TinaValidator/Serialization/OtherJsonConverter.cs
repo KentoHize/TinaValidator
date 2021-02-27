@@ -13,7 +13,9 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
     public class OtherJsonConverter : DefaultJsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
-            => typeof(IObject).IsAssignableFrom(typeToConvert) || typeof(Unit).IsAssignableFrom(typeToConvert);
+            => typeof(IObject).IsAssignableFrom(typeToConvert) || 
+               typeof(Unit).IsAssignableFrom(typeToConvert) ||
+               typeToConvert == typeof(string) || typeToConvert == typeof(char);
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
         {
             Type[] type = new Type[] { null };

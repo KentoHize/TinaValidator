@@ -23,16 +23,17 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
 
             public override void SetPropertyValue(string propertyName, object instance, object value)
             {
-                if (instance.GetType().GetProperty(propertyName).PropertyType == typeof(char) && value == null)
-                    value = '\0';
+                //if (instance.GetType().GetProperty(propertyName).PropertyType == typeof(char) && value == null)
+                //    value = '\0';
                 base.SetPropertyValue(propertyName, instance, value);
             }
 
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
                 object value = base.GetPropertyValueAndWrite(propertyName, instance, skip);
-                if(value is char c && c == '\0')
-                    return null;
+                //if (value is char c)
+                //    if (c == '\0')
+                //        return null;
                 return value;
             }
 

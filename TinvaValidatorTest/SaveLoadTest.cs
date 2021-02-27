@@ -20,7 +20,7 @@ namespace TinvaValidatorTest
             ValidateLogic VL = MainTest.JsonLogic();
             VL.Save(Path.Combine(MainTest.SaveLoadPath, "JSONTest.json"));
 
-
+            return;
             ValidateLogic VL2 = new ValidateLogic();
             VL2.Load(Path.Combine(MainTest.SaveLoadPath, "JSONTest.json"));
 

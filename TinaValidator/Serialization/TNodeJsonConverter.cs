@@ -37,6 +37,8 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                 Type p_type = instance.GetType().GetProperty(propertyName).PropertyType;
                 //if (propertyName == "ID")
                 //    skip = true;
+                if(propertyName == "ExcludeChars")
+                    return base.GetPropertyValueAndWrite(propertyName, instance, skip);
                 if (CanConvert(p_type))
                     return ((TNode)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.ID;
                 else if (typeof(Area).IsAssignableFrom(p_type))

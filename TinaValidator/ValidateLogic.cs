@@ -7,6 +7,7 @@ using Aritiafel.Artifacts.TinaValidator.Serialization;
 using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Locations.StorageHouse;
 using System.IO;
+using System.Text.Encodings.Web;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -63,6 +64,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             jso.Converters.Add(new UnitConverter());
             jso.Converters.Add(new OtherJsonConverter());
             ValidateLogic vl = JsonSerializer.Deserialize<ValidateLogic>(jsonString, jso);
+
             this.Areas = vl.Areas;
             this.Name = vl.Name;
             this.Parent = vl.Parent;
