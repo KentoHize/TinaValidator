@@ -11,7 +11,11 @@ namespace Aritiafel.Artifacts.TinaValidator
             : this(null, parent, choices)
         { }
 
-        public Status(string id = null, Area parent = null, List < Choice> choices = null)
+        public Status()
+            : this(id : null)
+        { }
+
+        public Status(string id = null, Area parent = null, List<Choice> choices = null)
             : base(null, parent, id ?? IdentifyShop.GetNewID("ST"))
         {
             if (choices != null)

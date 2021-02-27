@@ -43,6 +43,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
         private decimal[] _Select;
+        public IntegerUnit()
+            : this(CompareMethod.Any)
+        { }
 
         public IntegerUnit(CompareMethod compareMethod = CompareMethod.Any)
         {

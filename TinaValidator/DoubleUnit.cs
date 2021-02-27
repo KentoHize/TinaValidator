@@ -26,6 +26,10 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
         private double[] _Select;
 
+        public DoubleUnit()
+            : this(CompareMethod.Any)
+        { }
+
         public DoubleUnit(CompareMethod compareMethod = CompareMethod.Any)
         {
             CompareMethod = compareMethod;

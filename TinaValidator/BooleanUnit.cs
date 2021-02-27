@@ -8,7 +8,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         public static BooleanUnit False => new BooleanUnit(false);
         public CompareMethod CompareMethod { get; set; }
         public bool Value { get; set; }
-
+        public BooleanUnit()
+            : this(CompareMethod.Any)
+        { }
         public BooleanUnit(CompareMethod compareMethod = CompareMethod.Any)
         {
             CompareMethod = CompareMethod.Any;
@@ -31,7 +33,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (!(o is bool b))
                 return false;
 
-            switch(CompareMethod)
+            switch (CompareMethod)
             {
                 case CompareMethod.Any:
                     return true;
@@ -58,7 +60,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     return !Value;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(CompareMethod));
-            }       
+            }
         }
     }
 }

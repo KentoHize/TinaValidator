@@ -14,7 +14,7 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public List<Area> Areas { get; set; } = new List<Area>();
         public Dictionary<string, TNode> TNodes { get; set; } = new Dictionary<string, TNode>();
-        public Dictionary<string, Variable> Variables { get; set; } = new Dictionary<string, Variable>();
+        //public Dictionary<string, Variable> Variables { get; set; } = new Dictionary<string, Variable>();
         private void Save(TNode node, Area a)
         {
             if (node == null)
@@ -43,6 +43,32 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
+        public void Load(string filePath)
+        {   
+            string jsonString;
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    jsonString = sr.ReadToEnd();
+                }
+            }
+
+            JsonSerializerOptions jso = new JsonSerializerOptions
+            { WriteIndented = true };
+            jso.Converters.Add(new TNodeJsonConverter());
+            jso.Converters.Add(new AreaJsonConverter());
+            jso.Converters.Add(new ChoiceJsonConverter());
+            jso.Converters.Add(new StatementJsonConverter());
+            jso.Converters.Add(new UnitConverter());
+            jso.Converters.Add(new OtherJsonConverter());
+            ValidateLogic vl = JsonSerializer.Deserialize<ValidateLogic>(jsonString, jso);
+            this.Areas = vl.Areas;
+            this.Name = vl.Name;
+            this.Parent = vl.Parent;
+            this.InitialStatus = vl.InitialStatus;
+        }
+
         public void Save(string filePath)
         {
             TNodes.Clear();
@@ -56,6 +82,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             jso.Converters.Add(new AreaJsonConverter());
             jso.Converters.Add(new ChoiceJsonConverter());
             jso.Converters.Add(new StatementJsonConverter());
+            jso.Converters.Add(new UnitConverter());
             jso.Converters.Add(new OtherJsonConverter());
             string s = JsonSerializer.Serialize(this, jso);
             using(FileStream fs = new FileStream(filePath, FileMode.Create))                
@@ -67,6 +94,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
+        public ValidateLogic()
+            : this(null)
+        { }
         public ValidateLogic(Status initialStatus = null)
             : this(null, initialStatus)
         { }

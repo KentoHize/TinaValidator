@@ -18,6 +18,9 @@ namespace Aritiafel.Artifacts.TinaValidator
         public char Value2 { get; set; } //max
         public char[] Select { get; set; }
 
+        public CharUnit()
+            : this(CompareMethod.Any)
+        { }
         public CharUnit(CompareMethod compareMethod = CompareMethod.Any)
         {
             CompareMethod = compareMethod;

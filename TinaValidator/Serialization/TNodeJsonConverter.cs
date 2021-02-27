@@ -22,12 +22,22 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             public TNodeJsonConverterInner()
             { }
 
+            public override void SetPropertyValue(string propertyName, object instance, object value)
+            {
+                Type p_type = instance.GetType().GetProperty(propertyName).PropertyType;                
+                if (CanConvert(p_type))
+                    value = new IDNode(value?.ToString());
+                else if (typeof(Area).IsAssignableFrom(p_type))
+                    value = new IDArea(value?.ToString());
+                base.SetPropertyValue(propertyName, instance, value);
+            }
+
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
                 Type p_type = instance.GetType().GetProperty(propertyName).PropertyType;
-                if (propertyName == "ID")
-                    skip = true;
-                else if (CanConvert(p_type))
+                //if (propertyName == "ID")
+                //    skip = true;
+                if (CanConvert(p_type))
                     return ((TNode)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.ID;
                 else if (typeof(Area).IsAssignableFrom(p_type))
                     return ((Area)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.Name;

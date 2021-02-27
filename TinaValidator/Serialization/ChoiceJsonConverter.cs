@@ -21,6 +21,13 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
         {        
             public ChoiceJsonConverterInner()
             { }
+            public override void SetPropertyValue(string propertyName, object instance, object value)
+            {
+                Type p_type = instance.GetType().GetProperty(propertyName).PropertyType;
+                if (typeof(TNode).IsAssignableFrom(p_type))
+                    value = new IDNode(value?.ToString());
+                base.SetPropertyValue(propertyName, instance, value);
+            }
 
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {

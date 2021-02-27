@@ -5,6 +5,11 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class UnitSet : Part
     {
         public List<Unit> Units { get; set; } = new List<Unit>();
+
+        public UnitSet()
+            : this(id: null)
+        { }
+
         public UnitSet(Unit unit, Area parent = null)
             : this(null, parent, unit)
         { }

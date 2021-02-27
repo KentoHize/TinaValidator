@@ -21,6 +21,15 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             public AreaJsonConverterInner()
             { }
 
+            public override void SetPropertyValue(string propertyName, object instance, object value)
+            {
+                if (propertyName == "InitialStatus")
+                    value = new IDNode(value?.ToString());
+                else if (CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
+                    value = new IDArea(value?.ToString());
+                base.SetPropertyValue(propertyName, instance, value);
+            }
+
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
                 if (propertyName == "InitialStatus")

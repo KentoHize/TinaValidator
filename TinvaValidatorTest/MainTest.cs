@@ -109,11 +109,7 @@ namespace TinvaValidatorTest
             {
                 List<object> list = validator.CreateRandom();
                 TestContext.WriteLine(list.ForEachToString());                
-                result = validator.Validate(list);
-                while (!result)
-                { 
-                    validator.Validate(list);
-                }
+                result = validator.Validate(list);                
                 TestContext.WriteLine("");
                 Assert.IsTrue(result);
             }
@@ -251,7 +247,7 @@ namespace TinvaValidatorTest
             vaSt.NextNode = st6;
             st6.Choices.Add(Choice.EndChoice);
             skSt = new AreaStart(skipChars, propertiesArea);
-            st6.Choices.Add(new Choice(skSt));
+            st6.Choices.Add(new Choice(skSt, null, 4));
             UnitSet us9 = new UnitSet(CharUnits.Comma, propertiesArea);
             skSt.NextNode = us9;
             skSt = new AreaStart(skipChars, propertiesArea);
@@ -339,7 +335,7 @@ namespace TinvaValidatorTest
                 string s = ol.ForEachToString();
                 byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
                 s = System.Text.Encoding.UTF8.GetString(buffer);
-                if (ol.Count > 1000)
+                if (ol.Count > 10000)
                 {
                     using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"BigJson-{i.ToString("0000")}.json"), FileMode.Create))
                     {
@@ -375,8 +371,8 @@ namespace TinvaValidatorTest
                     TestContext.WriteLine("Wrong happen: " + i);
                     TestContext.WriteLine(ol.ForEachToString());
                     TestContext.WriteLine("TotalObjectCount:" + ol.Count);
-                    TestContext.WriteLine("Error Node:" + validator.ErrorNode.ID);
-                    TestContext.WriteLine("Node Type:" + validator.ErrorNode.GetType().Name);
+                    //TestContext.WriteLine("Error Node:" + validator.ErrorNode.ID);
+                    //TestContext.WriteLine("Node Type:" + validator.ErrorNode.GetType().Name);
                     string ss = "";
                     for (int j = (int)validator.LongerErrorLocation - 5; j < validator.LongerErrorLocation + 5; j++)
                     {
@@ -436,12 +432,6 @@ namespace TinvaValidatorTest
             string[] files = Directory.GetFiles(WrongRecordsPath);
             foreach (string file in files)
                 File.Delete(file);
-        }
-
-        [TestMethod]
-        public void SaveTest()
-        {
-
         }
     }
 }

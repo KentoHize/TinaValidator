@@ -22,6 +22,13 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             public StatementJsonConverterInner()
             { }
 
+            public override void SetPropertyValue(string propertyName, object instance, object value)
+            {
+                if (instance.GetType().GetProperty(propertyName).PropertyType == typeof(Type))
+                    value = Type.GetType(value?.ToString());
+                base.SetPropertyValue(propertyName, instance, value);
+            }
+
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
                 if (instance.GetType().GetProperty(propertyName).PropertyType == typeof(Type))
