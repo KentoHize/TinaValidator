@@ -25,7 +25,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             public override void SetPropertyValue(string propertyName, object instance, object value)
             {
                 if (instance.GetType().GetProperty(propertyName).PropertyType == typeof(Type))
-                    value = Type.GetType(value?.ToString());
+                    value = value != null ? Type.GetType(value.ToString()) : null;
                 base.SetPropertyValue(propertyName, instance, value);
             }
 

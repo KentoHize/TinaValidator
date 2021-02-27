@@ -38,8 +38,7 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(tv.CreateRandomToString());
         }
 
-        [TestMethod]
-        public void FirstTest()
+        public static ValidateLogic FirstTestLogic()
         {
             ValidateLogic VL = new ValidateLogic(new Status());
             DeclareVariableStatement dvs = new DeclareVariableStatement("Times", typeof(INumber));
@@ -84,8 +83,13 @@ namespace TinvaValidatorTest
             //12, 56 70 CHA
             //08, 32 45 CHR
             //98, -3 45 CHD
+            return VL;
+        }
 
-            TinaValidator validator = new TinaValidator(VL);
+        [TestMethod]
+        public void FirstTest()
+        {
+            TinaValidator validator = new TinaValidator(FirstTestLogic());
             //--------------------------------------------------
             //Run Start            
             bool result;
@@ -114,7 +118,7 @@ namespace TinvaValidatorTest
                 Assert.IsTrue(result);
             }
 
-            VL.Save(Path.Combine(SaveLoadPath, "Main1.json"));
+            validator.Logic.Save(Path.Combine(SaveLoadPath, "Main1.json"));
             return;
         }
 

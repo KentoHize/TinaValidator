@@ -18,14 +18,16 @@ namespace TinvaValidatorTest
         public void LoadTest()
         {
             ValidateLogic VL = MainTest.JsonLogic();
-            VL.Save(Path.Combine(MainTest.SaveLoadPath, "JSONTest.json"));
-
-            return;
+            VL.Save(Path.Combine(MainTest.SaveLoadPath, "JSONTest.json"));            
             ValidateLogic VL2 = new ValidateLogic();
             VL2.Load(Path.Combine(MainTest.SaveLoadPath, "JSONTest.json"));
+            VL2.Save(Path.Combine(MainTest.SaveLoadPath, "SecondJSONTest.json"));
+        }
 
-            TestContext.WriteLine("aa");
-            //VL.Save(Path.Combine(MainTest.SaveLoadPath, "SecondJSONTest.json"));
+        [TestMethod]
+        public void LoadTest2()
+        {
+
         }
     }
 }

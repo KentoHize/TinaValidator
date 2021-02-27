@@ -26,9 +26,9 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             {
                 Type p_type = instance.GetType().GetProperty(propertyName).PropertyType;                
                 if (CanConvert(p_type))
-                    value = new IDNode(value?.ToString());
+                    value = value != null ? new IDNode(value.ToString()) : null;
                 else if (typeof(Area).IsAssignableFrom(p_type))
-                    value = new IDArea(value?.ToString());
+                    value = value != null ? new IDArea(value?.ToString()) : null;
                 base.SetPropertyValue(propertyName, instance, value);
             }
 

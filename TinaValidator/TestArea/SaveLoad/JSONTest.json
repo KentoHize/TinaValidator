@@ -37,22 +37,22 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "Pl0uqmdCp59112",
+          "Node": "PHw2Uat1JZcj12",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PMAsHOvjussP13",
+          "Node": "PuYMk6Y73Sbv13",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PxXhkKqDG1fr14",
+          "Node": "PYpLQwH1NHMm14",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PRk47N1CMKJW15",
+          "Node": "PiF4CDazRpdP15",
           "Conditon": null,
           "RadomRatio": 1
         },
@@ -65,63 +65,63 @@
       "ID": "SkipArea_Start",
       "NextNode": null
     },
-    "Pl0uqmdCp59112": {
+    "PHw2Uat1JZcj12": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": " ",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "Pl0uqmdCp59112",
+      "ID": "PHw2Uat1JZcj12",
       "Parent": "SkipArea",
       "NextNode": "SkipArea_Start"
     },
-    "PMAsHOvjussP13": {
+    "PuYMk6Y73Sbv13": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:000D]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:000D]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PMAsHOvjussP13",
+      "ID": "PuYMk6Y73Sbv13",
       "Parent": "SkipArea",
       "NextNode": "SkipArea_Start"
     },
-    "PxXhkKqDG1fr14": {
+    "PYpLQwH1NHMm14": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:000A]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:000A]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PxXhkKqDG1fr14",
+      "ID": "PYpLQwH1NHMm14",
       "Parent": "SkipArea",
       "NextNode": "SkipArea_Start"
     },
-    "PRk47N1CMKJW15": {
+    "PiF4CDazRpdP15": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:0009]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:0009]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PRk47N1CMKJW15",
+      "ID": "PiF4CDazRpdP15",
       "Parent": "SkipArea",
       "NextNode": "SkipArea_Start"
     },
@@ -136,7 +136,7 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "PX7SjvqS5vmT16",
+          "Node": "PvVLi9i4GoPU16",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -144,54 +144,54 @@
       "ID": "ObjectArea_Start",
       "NextNode": null
     },
-    "PX7SjvqS5vmT16": {
+    "PvVLi9i4GoPU16": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "{",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PX7SjvqS5vmT16",
+      "ID": "PvVLi9i4GoPU16",
       "Parent": null,
-      "NextNode": "ArX7XwHI6MZE18"
+      "NextNode": "AkqSmgChziwH18"
     },
-    "ArX7XwHI6MZE18": {
+    "AkqSmgChziwH18": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "ArX7XwHI6MZE18",
+      "ID": "AkqSmgChziwH18",
       "Parent": "ObjectArea",
-      "NextNode": "AyIQ4QxrxjvJ19"
+      "NextNode": "AizxLNc581Lj19"
     },
-    "AyIQ4QxrxjvJ19": {
+    "AizxLNc581Lj19": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "PropertiesArea",
-      "ID": "AyIQ4QxrxjvJ19",
+      "ID": "AizxLNc581Lj19",
       "Parent": "ObjectArea",
-      "NextNode": "AZVuqtpnry3720"
+      "NextNode": "AcjJREh3U6WG20"
     },
-    "AZVuqtpnry3720": {
+    "AcjJREh3U6WG20": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AZVuqtpnry3720",
+      "ID": "AcjJREh3U6WG20",
       "Parent": "ObjectArea",
-      "NextNode": "PrdKvqjELB1U17"
+      "NextNode": "PFFk5v74Zx6q17"
     },
-    "PrdKvqjELB1U17": {
+    "PFFk5v74Zx6q17": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "}",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PrdKvqjELB1U17",
+      "ID": "PFFk5v74Zx6q17",
       "Parent": null,
       "NextNode": "__ENDNODE62ADB0E6"
     },
@@ -200,7 +200,7 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "Px7PfnMCjTug21",
+          "Node": "PFv2WvsetNUX21",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -208,39 +208,39 @@
       "ID": "ArrayArea_Start",
       "NextNode": null
     },
-    "Px7PfnMCjTug21": {
+    "PFv2WvsetNUX21": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "[",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "Px7PfnMCjTug21",
+      "ID": "PFv2WvsetNUX21",
       "Parent": null,
-      "NextNode": "AF8OpWYGBtEz23"
+      "NextNode": "AMCBjzY2Z6Xz23"
     },
-    "AF8OpWYGBtEz23": {
+    "AMCBjzY2Z6Xz23": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AF8OpWYGBtEz23",
+      "ID": "AMCBjzY2Z6Xz23",
       "Parent": "ArrayArea",
-      "NextNode": "AuRvEqaRKfcb24"
+      "NextNode": "Adn0wWDRSURf24"
     },
-    "AuRvEqaRKfcb24": {
+    "Adn0wWDRSURf24": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "ValueArea",
-      "ID": "AuRvEqaRKfcb24",
+      "ID": "Adn0wWDRSURf24",
       "Parent": "ArrayArea",
-      "NextNode": "AuGHajRDmLLv25"
+      "NextNode": "ADhMIqTRWHdE25"
     },
-    "AuGHajRDmLLv25": {
+    "ADhMIqTRWHdE25": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AuGHajRDmLLv25",
+      "ID": "ADhMIqTRWHdE25",
       "Parent": "ArrayArea",
       "NextNode": "array_st1"
     },
@@ -249,12 +249,12 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "PYi4VkqlBTbQ26",
+          "Node": "PHFIskaJt5cz26",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PPY2EUA6j8bQ22",
+          "Node": "PxUuOVr3PM8u22",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -262,40 +262,40 @@
       "ID": "array_st1",
       "NextNode": null
     },
-    "PYi4VkqlBTbQ26": {
+    "PHFIskaJt5cz26": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": ",",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PYi4VkqlBTbQ26",
+      "ID": "PHFIskaJt5cz26",
       "Parent": "ArrayArea",
-      "NextNode": "AuYV8aVpUmfr27"
+      "NextNode": "Ac5wRHDQ8a4d27"
     },
-    "AuYV8aVpUmfr27": {
+    "Ac5wRHDQ8a4d27": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AuYV8aVpUmfr27",
+      "ID": "Ac5wRHDQ8a4d27",
       "Parent": "ArrayArea",
-      "NextNode": "AuRvEqaRKfcb24"
+      "NextNode": "Adn0wWDRSURf24"
     },
-    "PPY2EUA6j8bQ22": {
+    "PxUuOVr3PM8u22": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "]",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PPY2EUA6j8bQ22",
+      "ID": "PxUuOVr3PM8u22",
       "Parent": null,
       "NextNode": "__ENDNODE62ADB0E6"
     },
@@ -304,37 +304,37 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "PIYgbhsZOPjE32",
+          "Node": "PK1MT7GRDe6G32",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PqaJxKENWIdZ28",
+          "Node": "PjABuNDl06tW28",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PLEqp6fpgLik30",
+          "Node": "PRZ7gMnDiM5030",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PKop40nbfD5b29",
+          "Node": "PjpPoVROGaod29",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "AGFYwoKeJEfE33",
+          "Node": "AXUyb6F9oLcI33",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "Azpy0LU4yOkJ34",
+          "Node": "AO5G9WLmb6Si34",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "Ac5Ekbeg5PF531",
+          "Node": "AsbhqKJN1zoy31",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -342,86 +342,86 @@
       "ID": "ValueArea_Start",
       "NextNode": null
     },
-    "PIYgbhsZOPjE32": {
+    "PK1MT7GRDe6G32": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "n",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "u",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "l",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "l",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PIYgbhsZOPjE32",
+      "ID": "PK1MT7GRDe6G32",
       "Parent": null,
       "NextNode": "__ENDNODE62ADB0E6"
     },
-    "PqaJxKENWIdZ28": {
+    "PjABuNDl06tW28": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharsToBooleanPart",
       "CompareMethod": 0,
       "Value": false,
-      "ID": "PqaJxKENWIdZ28",
+      "ID": "PjABuNDl06tW28",
       "Parent": "ValueArea",
       "NextNode": "__ENDNODE62ADB0E6"
     },
-    "PLEqp6fpgLik30": {
+    "PRZ7gMnDiM5030": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharsToIntegerPart",
       "CompareMethod": 0,
       "Value1": 0,
       "Value2": 0,
-      "ID": "PLEqp6fpgLik30",
+      "ID": "PRZ7gMnDiM5030",
       "Parent": "ValueArea",
       "NextNode": "__ENDNODE62ADB0E6"
     },
-    "PKop40nbfD5b29": {
+    "PjpPoVROGaod29": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharsToDoublePart",
       "CompareMethod": 0,
       "Value1": 0,
       "Value2": 0,
-      "ID": "PKop40nbfD5b29",
+      "ID": "PjpPoVROGaod29",
       "Parent": "ValueArea",
       "NextNode": "__ENDNODE62ADB0E6"
     },
-    "AGFYwoKeJEfE33": {
+    "AXUyb6F9oLcI33": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "ObjectArea",
-      "ID": "AGFYwoKeJEfE33",
+      "ID": "AXUyb6F9oLcI33",
       "Parent": "ValueArea",
       "NextNode": "__ENDNODE62ADB0E6"
     },
-    "Azpy0LU4yOkJ34": {
+    "AO5G9WLmb6Si34": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "ArrayArea",
-      "ID": "Azpy0LU4yOkJ34",
+      "ID": "AO5G9WLmb6Si34",
       "Parent": "ValueArea",
       "NextNode": "__ENDNODE62ADB0E6"
     },
-    "Ac5Ekbeg5PF531": {
+    "AsbhqKJN1zoy31": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "StringArea",
-      "ID": "Ac5Ekbeg5PF531",
+      "ID": "AsbhqKJN1zoy31",
       "Parent": "ValueArea",
       "NextNode": "__ENDNODE62ADB0E6"
     },
@@ -430,7 +430,7 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "AIbrOH5sEej235",
+          "Node": "Aq4rA5hcvVCX35",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -438,46 +438,46 @@
       "ID": "PropertiesArea_Start",
       "NextNode": null
     },
-    "AIbrOH5sEej235": {
+    "Aq4rA5hcvVCX35": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "StringArea",
-      "ID": "AIbrOH5sEej235",
+      "ID": "Aq4rA5hcvVCX35",
       "Parent": "PropertiesArea",
-      "NextNode": "AWF6CXhNDoGE36"
+      "NextNode": "AkCcKDWOwYun36"
     },
-    "AWF6CXhNDoGE36": {
+    "AkCcKDWOwYun36": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AWF6CXhNDoGE36",
+      "ID": "AkCcKDWOwYun36",
       "Parent": "PropertiesArea",
-      "NextNode": "PHzaTUQl6oEF37"
+      "NextNode": "PZ4Ge6cyUETK37"
     },
-    "PHzaTUQl6oEF37": {
+    "PZ4Ge6cyUETK37": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": ":",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PHzaTUQl6oEF37",
+      "ID": "PZ4Ge6cyUETK37",
       "Parent": "PropertiesArea",
-      "NextNode": "AIP65EPUckDn38"
+      "NextNode": "AqVBD7J1u3AI38"
     },
-    "AIP65EPUckDn38": {
+    "AqVBD7J1u3AI38": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AIP65EPUckDn38",
+      "ID": "AqVBD7J1u3AI38",
       "Parent": "PropertiesArea",
-      "NextNode": "AiVq9JNCRJg639"
+      "NextNode": "APT2rCcpRFzb39"
     },
-    "AiVq9JNCRJg639": {
+    "APT2rCcpRFzb39": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "ValueArea",
-      "ID": "AiVq9JNCRJg639",
+      "ID": "APT2rCcpRFzb39",
       "Parent": "PropertiesArea",
       "NextNode": "pa_st6"
     },
@@ -491,7 +491,7 @@
           "RadomRatio": 1
         },
         {
-          "Node": "AEqL9PRcctGs40",
+          "Node": "Af43firfNWAR40",
           "Conditon": null,
           "RadomRatio": 4
         }
@@ -499,32 +499,32 @@
       "ID": "pa_st6",
       "NextNode": null
     },
-    "AEqL9PRcctGs40": {
+    "Af43firfNWAR40": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AEqL9PRcctGs40",
+      "ID": "Af43firfNWAR40",
       "Parent": "PropertiesArea",
-      "NextNode": "PuthUnJXjJy541"
+      "NextNode": "PKWRCW0019ZH41"
     },
-    "PuthUnJXjJy541": {
+    "PKWRCW0019ZH41": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": ",",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PuthUnJXjJy541",
+      "ID": "PKWRCW0019ZH41",
       "Parent": "PropertiesArea",
-      "NextNode": "AYHktwVjN2Kv42"
+      "NextNode": "AF82fAHtzedg42"
     },
-    "AYHktwVjN2Kv42": {
+    "AF82fAHtzedg42": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AreaStart",
       "Area": "SkipArea",
-      "ID": "AYHktwVjN2Kv42",
+      "ID": "AF82fAHtzedg42",
       "Parent": "PropertiesArea",
       "NextNode": "PropertiesArea_Start"
     },
@@ -533,7 +533,7 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "PzBM4N80WHDf0",
+          "Node": "PF07RX0pzCCL0",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -541,62 +541,62 @@
       "ID": "StringArea_Start",
       "NextNode": null
     },
-    "PzBM4N80WHDf0": {
+    "PF07RX0pzCCL0": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:0022]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:0022]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PzBM4N80WHDf0",
+      "ID": "PF07RX0pzCCL0",
       "Parent": null,
       "NextNode": "asp1"
     },
     "asp1": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.AnyStringPart",
       "ExcludeChars": [
-        "\\",
-        "\u0022",
-        "\u0000",
-        "\u0001",
-        "\u0002",
-        "\u0003",
-        "\u0004",
-        "\u0005",
-        "\u0006",
-        "\u0007",
-        "\b",
-        "\t",
-        "\n",
-        "\u000B",
-        "\f",
-        "\r",
-        "\u000E",
-        "\u000F",
-        "\u0010",
-        "\u0011",
-        "\u0012",
-        "\u0013",
-        "\u0014",
-        "\u0015",
-        "\u0016",
-        "\u0017",
-        "\u0018",
-        "\u0019",
-        "\u001A",
-        "\u001B",
-        "\u001C",
-        "\u001D",
-        "\u001E",
-        "\u001F"
+        "[AR:005C]",
+        "[AR:0022]",
+        "[AR:0000]",
+        "[AR:0001]",
+        "[AR:0002]",
+        "[AR:0003]",
+        "[AR:0004]",
+        "[AR:0005]",
+        "[AR:0006]",
+        "[AR:0007]",
+        "[AR:0008]",
+        "[AR:0009]",
+        "[AR:000A]",
+        "[AR:000B]",
+        "[AR:000C]",
+        "[AR:000D]",
+        "[AR:000E]",
+        "[AR:000F]",
+        "[AR:0010]",
+        "[AR:0011]",
+        "[AR:0012]",
+        "[AR:0013]",
+        "[AR:0014]",
+        "[AR:0015]",
+        "[AR:0016]",
+        "[AR:0017]",
+        "[AR:0018]",
+        "[AR:0019]",
+        "[AR:001A]",
+        "[AR:001B]",
+        "[AR:001C]",
+        "[AR:001D]",
+        "[AR:001E]",
+        "[AR:001F]"
       ],
       "EscapeChars": [
-        "\\",
-        "\u0022"
+        "[AR:005C]",
+        "[AR:0022]"
       ],
       "EscapeStrings": [],
       "RandomEndChance": 0.1,
@@ -611,12 +611,12 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "PnEkF8D6cyOf1",
+          "Node": "PtO0sJuzSm5b1",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PD3OuLE3uvZp2",
+          "Node": "PRK2ph0D1Wts2",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -624,18 +624,18 @@
       "ID": "st4",
       "NextNode": null
     },
-    "PnEkF8D6cyOf1": {
+    "PtO0sJuzSm5b1": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:005C]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:005C]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PnEkF8D6cyOf1",
+      "ID": "PtO0sJuzSm5b1",
       "Parent": null,
       "NextNode": "st5"
     },
@@ -644,47 +644,47 @@
       "Parent": null,
       "Choices": [
         {
-          "Node": "Pxx3525Aq9bQ3",
+          "Node": "PB6dlZGly56S3",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PbbL89U8PJsk4",
+          "Node": "PxQJu0OUo77H4",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PufJww2hCBAc5",
+          "Node": "PCgaDCivKjmB5",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PF1aT4bNRKad6",
+          "Node": "PmKc5lDGaYN66",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PdhkOS6QDuez7",
+          "Node": "PRDKU27Af5AJ7",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PLE5Y9STgzbr8",
+          "Node": "PGyOuGFKXkeO8",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PdEODMUpFjuF9",
+          "Node": "PxOb3XzMnJSj9",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PbbRCMScrMc810",
+          "Node": "PLWiBE6yFpOF10",
           "Conditon": null,
           "RadomRatio": 1
         },
         {
-          "Node": "PyKcJFeXxCSK11",
+          "Node": "Pb1Zn22E8uSN11",
           "Conditon": null,
           "RadomRatio": 1
         }
@@ -692,181 +692,181 @@
       "ID": "st5",
       "NextNode": null
     },
-    "Pxx3525Aq9bQ3": {
+    "PB6dlZGly56S3": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "b",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "Pxx3525Aq9bQ3",
+      "ID": "PB6dlZGly56S3",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PbbL89U8PJsk4": {
+    "PxQJu0OUo77H4": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "f",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PbbL89U8PJsk4",
+      "ID": "PxQJu0OUo77H4",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PufJww2hCBAc5": {
+    "PCgaDCivKjmB5": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "n",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PufJww2hCBAc5",
+      "ID": "PCgaDCivKjmB5",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PF1aT4bNRKad6": {
+    "PmKc5lDGaYN66": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "r",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PF1aT4bNRKad6",
+      "ID": "PmKc5lDGaYN66",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PdhkOS6QDuez7": {
+    "PRDKU27Af5AJ7": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "t",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PdhkOS6QDuez7",
+      "ID": "PRDKU27Af5AJ7",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PLE5Y9STgzbr8": {
+    "PGyOuGFKXkeO8": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "/",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PLE5Y9STgzbr8",
+      "ID": "PGyOuGFKXkeO8",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PdEODMUpFjuF9": {
+    "PxOb3XzMnJSj9": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:005C]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:005C]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PdEODMUpFjuF9",
+      "ID": "PxOb3XzMnJSj9",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PbbRCMScrMc810": {
+    "PLWiBE6yFpOF10": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:0022]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:0022]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PbbRCMScrMc810",
+      "ID": "PLWiBE6yFpOF10",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PyKcJFeXxCSK11": {
+    "Pb1Zn22E8uSN11": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
           "Value1": "u",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 7,
           "Value1": "h",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 7,
           "Value1": "h",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 7,
           "Value1": "h",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         },
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 7,
           "Value1": "h",
-          "Value2": "[SC:0000]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PyKcJFeXxCSK11",
+      "ID": "Pb1Zn22E8uSN11",
       "Parent": null,
       "NextNode": "asp1"
     },
-    "PD3OuLE3uvZp2": {
+    "PRK2ph0D1Wts2": {
       "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.UnitSet",
       "Units": [
         {
           "__ReferenceType": "Aritiafel.Artifacts.TinaValidator.CharUnit",
           "CompareMethod": 1,
-          "Value1": "[SC:0022]",
-          "Value2": "[SC:0000]",
+          "Value1": "[AR:0022]",
+          "Value2": "[AR:0000]",
           "Select": null
         }
       ],
-      "ID": "PD3OuLE3uvZp2",
+      "ID": "PRK2ph0D1Wts2",
       "Parent": null,
       "NextNode": "__ENDNODE62ADB0E6"
     },

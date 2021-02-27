@@ -24,9 +24,9 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
             public override void SetPropertyValue(string propertyName, object instance, object value)
             {
                 if (propertyName == "InitialStatus")
-                    value = new IDNode(value?.ToString());
+                    value = value != null ? new IDNode(value.ToString()) : null;
                 else if (CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
-                    value = new IDArea(value?.ToString());
+                    value = value != null ? new IDArea(value?.ToString()) : null;
                 base.SetPropertyValue(propertyName, instance, value);
             }
 

@@ -64,11 +64,35 @@ namespace Aritiafel.Artifacts.TinaValidator
             jso.Converters.Add(new UnitConverter());
             jso.Converters.Add(new OtherJsonConverter());
             ValidateLogic vl = JsonSerializer.Deserialize<ValidateLogic>(jsonString, jso);
-
-            this.Areas = vl.Areas;
-            this.Name = vl.Name;
-            this.Parent = vl.Parent;
-            this.InitialStatus = vl.InitialStatus;
+            TNodes = vl.TNodes;
+            Areas = vl.Areas;
+            Name = vl.Name;            
+            InitialStatus = TNodes[vl.InitialStatus.ID] as Status;
+            for(int i = 0; i < Areas.Count; i++)
+            {
+                if (Areas[i].InitialStatus != null)
+                    Areas[i].InitialStatus = TNodes[(Areas[i].InitialStatus as IDNode).ID] as Status;
+                if (Areas[i].Parent != null)
+                    if (Name == (Areas[i].Parent as IDArea).Name)
+                        Areas[i].Parent = this;
+                    else
+                        Areas[i].Parent = Areas.Find(m => m.Name == (Areas[i].Parent as IDArea).Name);
+            }
+                
+            foreach(KeyValuePair<string, TNode> kv in TNodes)
+            {   
+                if (kv.Value.NextNode != null)
+                    kv.Value.NextNode = TNodes[(kv.Value.NextNode as IDNode).ID];
+                if (kv.Value.Parent != null)
+                    if(Name == (kv.Value.Parent as IDArea).Name)
+                        kv.Value.Parent = this;
+                    else
+                        kv.Value.Parent = Areas.Find(m => m.Name == (kv.Value.Parent as IDArea).Name);
+                if (kv.Value is Status st)
+                    for (int i = 0; i < st.Choices.Count; i++)                        
+                        st.Choices[i].Node = st.Choices[i].Node != null ?
+                            TNodes[(st.Choices[i].Node as IDNode).ID] : null;
+            }
         }
 
         public void Save(string filePath)
