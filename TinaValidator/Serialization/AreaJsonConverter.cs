@@ -23,7 +23,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
 
             public override void SetPropertyValue(string propertyName, object instance, object value)
             {
-                if (propertyName == "InitialStatus")
+                if (propertyName == "StartNode")
                     value = value != null ? new IDNode(value.ToString()) : null;
                 else if (CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
                     value = value != null ? new IDArea(value?.ToString()) : null;
@@ -32,7 +32,7 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
 
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
-                if (propertyName == "InitialStatus")
+                if (propertyName == "StartNode")
                     return ((TNode)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.ID;
                 if(CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
                     return ((Area)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.Name;

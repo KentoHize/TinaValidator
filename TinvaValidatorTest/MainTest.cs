@@ -342,7 +342,8 @@ namespace TinvaValidatorTest
                     }
                     TestContext.WriteLine("NearbyString:" + ss);
                     TestContext.WriteLine("Error Location:" + validator.LongerErrorLocation);
-                    JsonSerializerOptions jso = new JsonSerializerOptions { WriteIndented = true };
+                    JsonSerializerOptions jso = new JsonSerializerOptions 
+                    { WriteIndented = true, MaxDepth = 128 };
                     jso.Converters.Add(new Aritiafel.Locations.StorageHouse.DefaultJsonConverterFactory());
                     using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"TestRecord-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}-{i.ToString("0000")}.json"), FileMode.Create))
                     {
@@ -359,19 +360,21 @@ namespace TinvaValidatorTest
         public void RerunRecords()
         {
             ValidateLogic VL = JsonLogic();
-            string fullName = "CurrentJson-0004";
+            string fullName = "BigJson-0255";
 
             string recordNeedRun = "02-25-00-13-30-0029";
             //fullName = $"TestRecord-{DateTime.Now.Year}-{recordNeedRun}";
             List<char> ol = null;
             List<object> oll = new List<object>();
-            using (FileStream fs = new FileStream(Path.Combine(WrongRecordsPath, $"{fullName}.json"), FileMode.Open))
+            using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"{fullName}.json"), FileMode.Open))
             {
                 StreamReader sr = new StreamReader(fs);
-                JsonSerializerOptions jso = new JsonSerializerOptions { WriteIndented = true };
-                jso.Converters.Add(new Aritiafel.Locations.StorageHouse.DefaultJsonConverterFactory());
+                JsonSerializerOptions jso = new JsonSerializerOptions { WriteIndented = true, MaxDepth = 128 };
+                jso.Converters.Add(new Aritiafel.Locations.StorageHouse.DefaultJsonConverterFactory());                
                 //ol = (List<char>)JsonSerializer.Deserialize(sr.ReadToEnd(), typeof(List<char>));
-                oll = sr.ReadToEnd().ToObjectList();
+                string s = sr.ReadToEnd();
+                JsonSerializer.Deserialize(s, typeof(object), jso);
+                oll = s.ToObjectList();
                 sr.Close();
             }
 
