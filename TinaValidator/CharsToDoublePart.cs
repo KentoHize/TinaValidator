@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
@@ -8,27 +9,51 @@ namespace Aritiafel.Artifacts.TinaValidator
         public CompareMethod CompareMethod { get; set; }
         public double Value1 { get; set; }
         public double Value2 { get; set; }
-        public CharsToDoublePart()
-            => CompareMethod = CompareMethod.Any;
+        public double[] Select
+        {
+            get => _Select;
+            set
+            {
+                if (value != null)
+                {
+                    for (long i = 0; i < value.Length; i++)
+                        if (value[i] == double.NaN)
+                            throw new ArgumentException(nameof(Select));
+                }
+                _Select = value;
+            }
+        }
+        private double[] _Select;
 
+        public CharsToDoublePart()
+            : this(CompareMethod.Any)
+        { }
         public CharsToDoublePart(DoubleUnit du)
         {
             CompareMethod = du.CompareMethod;
             Value1 = du.Value1;
             Value2 = du.Value2;
         }
+        public CharsToDoublePart(CompareMethod compareMethod = CompareMethod.Any)
+            => CompareMethod = compareMethod;
 
-        public CharsToDoublePart(double exactValue)
+        public CharsToDoublePart(double exactValue, CompareMethod compareMethod = CompareMethod.Exact)
         {
-            CompareMethod = CompareMethod.Exact;
+            CompareMethod = compareMethod;
             Value1 = exactValue;
         }
 
-        public CharsToDoublePart(double minValue, double maxValue)
+        public CharsToDoublePart(double minValue, double maxValue, CompareMethod compareMethod = CompareMethod.MinMax)
         {
-            CompareMethod = CompareMethod.MinMax;
+            CompareMethod = compareMethod;
             Value1 = minValue;
             Value2 = maxValue;
+        }
+
+        public CharsToDoublePart(double[] select, CompareMethod compareMethod = CompareMethod.Select)
+        {
+            CompareMethod = compareMethod;
+            Select = select;
         }
 
         public override int Validate(List<object> thing, int startIndex = 0)
@@ -48,7 +73,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     else
                         hasPoint = true;
                 }
-                else if(hasE == 1)
+                else if (hasE == 1)
                 {
                     if (c != '+' && c != '-')
                     {

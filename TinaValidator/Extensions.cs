@@ -23,6 +23,6 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
 
         public static List<object> ToObjectList(this string s)
-            => s.ToList().Select(m => (object)m).ToList();
+            => s.Select(m => (object)m).ToList();
     }
 }

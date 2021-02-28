@@ -28,7 +28,6 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                     value = value != null ? new IDNode(value?.ToString()) : null;
                 base.SetPropertyValue(propertyName, instance, value);
             }
-
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
                 Type p_type = instance.GetType().GetProperty(propertyName).PropertyType;

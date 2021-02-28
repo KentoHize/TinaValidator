@@ -5,18 +5,20 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class CharsToBooleanPart : Part
     {
         public CompareMethod CompareMethod { get; set; }
-        public bool Value { get; set; }
+        public bool Value { get; set; }        
         public CharsToBooleanPart()
-            => CompareMethod = CompareMethod.Any;
+            : this(CompareMethod.Any)
+        { }
+        public CharsToBooleanPart(CompareMethod compareMethod = CompareMethod.Any)
+            => CompareMethod = compareMethod;
         public CharsToBooleanPart(BooleanUnit bu)
         {
             CompareMethod = bu.CompareMethod;
             Value = bu.Value;
         }
-
-        public CharsToBooleanPart(bool value)
+        public CharsToBooleanPart(bool value, CompareMethod compareMethod = CompareMethod.Exact)
         {
-            CompareMethod = CompareMethod.Exact;
+            CompareMethod = compareMethod;
             Value = value;
         }
 
