@@ -24,10 +24,10 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void TestParse()
         {
-            ValidateLogic VL = new ValidateLogic(new Status());
+            ValidateLogic VL = new ValidateLogic(new TNode());
             UnitSet us = new UnitSet(CharUnits.AtoZ);
             us.Units.Add(CharUnits.atoz);
-            VL.InitialStatus.Choices.Add(new Choice(us));
+            VL.StartNode = us;
             us.NextNode = EndNode.Instance;
 
             string testString = "DJ";
@@ -40,7 +40,7 @@ namespace TinvaValidatorTest
 
         public static ValidateLogic FirstTestLogic()
         {
-            ValidateLogic VL = new ValidateLogic(new Status());
+            ValidateLogic VL = new ValidateLogic(new TNode());
             DeclareVariableStatement dvs = new DeclareVariableStatement("Times", typeof(INumber));
             SetVariableStatement svs = new SetVariableStatement(new LongVar("Times"), new LongConst(0));
             Execute initialEx = new Execute();
@@ -50,15 +50,15 @@ namespace TinvaValidatorTest
                 new ArithmeticExpression(new LongVar("Times"), null, Operator.PlusOne));
             Execute ex2 = new Execute(svs2);
             CompareExpression AtLeast2 = new CompareExpression(new LongVar("Times"), new LongConst(2), Operator.GreaterThanOrEqualTo);
-            Area ar1 = new Area(null, new Status(), VL);
+            Area ar1 = new Area(null, new TNode(), VL);
             VL.Areas.Add(ar1);
-            AreaStart ap1 = new AreaStart(ar1, null, new Status());
+            AreaStart ap1 = new AreaStart(ar1, null, new TNode());
 
-            VL.InitialStatus.Choices.Add(new Choice(initialEx));
+            VL.StartNode.Choices.Add(new Choice(initialEx));
             initialEx.NextNode = ap1;
 
             CharsToIntegerPart stip = new CharsToIntegerPart();
-            ar1.InitialStatus.Choices.Add(new Choice(stip));
+            ar1.StartNode.Choices.Add(new Choice(stip));
             UnitSet us1 = new UnitSet(CharUnits.Comma);
             us1.Units.Add(CharUnits.WhiteSpace);
             stip.NextNode = us1;
@@ -72,12 +72,12 @@ namespace TinvaValidatorTest
 
             UnitSet us3 = " CH".ToUnitSet();
             us3.Units.Add(CharUnits.AtoZ);
-            (ap1.NextNode as Status).Choices.Add(new Choice(us3));
+            (ap1.NextNode as TNode).Choices.Add(new Choice(us3));
 
-            us3.NextNode = new Status();
+            us3.NextNode = new TNode();
             UnitSet CRLF = "\r\n".ToUnitSet();
-            (us3.NextNode as Status).Choices.Add(new Choice(CRLF));
-            (us3.NextNode as Status).Choices.Add(new Choice(EndNode.Instance, AtLeast2));
+            (us3.NextNode as TNode).Choices.Add(new Choice(CRLF));
+            (us3.NextNode as TNode).Choices.Add(new Choice(EndNode.Instance, AtLeast2));
             CRLF.NextNode = ex2;
             ex2.NextNode = ap1;
             //12, 56 70 CHA
@@ -124,13 +124,13 @@ namespace TinvaValidatorTest
 
         public static ValidateLogic JsonLogic()
         {
-            ValidateLogic VL = new ValidateLogic("Main", new Status("Main_Start"));
-            Area skipChars = new Area("SkipArea", new Status("SkipArea_Start"), null);
-            Area objectArea = new Area("ObjectArea", new Status("ObjectArea_Start"), null);
-            Area arrayArea = new Area("ArrayArea", new Status("ArrayArea_Start"), null);
-            Area valueArea = new Area("ValueArea", new Status("ValueArea_Start"), null);
-            Area propertiesArea = new Area("PropertiesArea", new Status("PropertiesArea_Start"), null);
-            Area stringArea = new Area("StringArea", new Status("StringArea_Start"), null);
+            ValidateLogic VL = new ValidateLogic("Main", new TNode("Main_Start"));
+            Area skipChars = new Area("SkipArea", new TNode("SkipArea_Start"), null);
+            Area objectArea = new Area("ObjectArea", new TNode("ObjectArea_Start"), null);
+            Area arrayArea = new Area("ArrayArea", new TNode("ArrayArea_Start"), null);
+            Area valueArea = new Area("ValueArea", new TNode("ValueArea_Start"), null);
+            Area propertiesArea = new Area("PropertiesArea", new TNode("PropertiesArea_Start"), null);
+            Area stringArea = new Area("StringArea", new TNode("StringArea_Start"), null);
             VL.Areas.Add(skipChars);
             VL.Areas.Add(objectArea);
             VL.Areas.Add(arrayArea);
@@ -140,19 +140,19 @@ namespace TinvaValidatorTest
 
             //StringArea
             UnitSet us12 = new UnitSet(CharUnits.QuotationMark);
-            stringArea.InitialStatus.Choices.Add(new Choice(us12));
+            stringArea.StartNode.Choices.Add(new Choice(us12));
             List<char> excludeChars = new List<char>
             { '\\', '\"' };
             for (int i = 0; i < 32; i++)
                 excludeChars.Add((char)i);
             AnyStringPart asp1 = new AnyStringPart(null, stringArea, "asp1", new List<char> { '\\', '\"' }, excludeChars, 0, 0);
             us12.NextNode = asp1;
-            Status st4 = new Status("st4");
+            TNode st4 = new TNode("st4");
             asp1.NextNode = st4;
             st4.Choices.Add(new Choice(new UnitSet(CharUnits.BackSlash)));
             st4.Choices.Add(new Choice(new UnitSet(CharUnits.QuotationMark)));
             st4.Choices[1].Node.NextNode = EndNode.Instance;
-            Status st5 = new Status("st5");
+            TNode st5 = new TNode("st5");
             st4.Choices[0].Node.NextNode = st5;
             st5.Choices.Add(new Choice(new UnitSet(new CharUnit('b'))));
             st5.Choices.Add(new Choice(new UnitSet(new CharUnit('f'))));
@@ -176,18 +176,18 @@ namespace TinvaValidatorTest
             UnitSet us2 = new UnitSet(CharUnits.CarriageReturn, skipChars);
             UnitSet us3 = new UnitSet(CharUnits.LineFeed, skipChars);
             UnitSet us4 = new UnitSet(CharUnits.HorizontalTab, skipChars);
-            skipChars.InitialStatus.Choices.Add(new Choice(us));
-            skipChars.InitialStatus.Choices.Add(new Choice(us2));
-            skipChars.InitialStatus.Choices.Add(new Choice(us3));
-            skipChars.InitialStatus.Choices.Add(new Choice(us4));
-            skipChars.InitialStatus.Choices.Add(Choice.EndChoice);
-            us.NextNode = us2.NextNode = us3.NextNode = us4.NextNode = skipChars.InitialStatus;
+            skipChars.StartNode.Choices.Add(new Choice(us));
+            skipChars.StartNode.Choices.Add(new Choice(us2));
+            skipChars.StartNode.Choices.Add(new Choice(us3));
+            skipChars.StartNode.Choices.Add(new Choice(us4));
+            skipChars.StartNode.Choices.Add(Choice.EndChoice);
+            us.NextNode = us2.NextNode = us3.NextNode = us4.NextNode = skipChars.StartNode;
 
             //Object Area
             UnitSet leftCurlBracket = new UnitSet(CharUnits.LeftCurlyBracket);
             UnitSet rightCurlBracket = new UnitSet(CharUnits.RightCurlyBracket);
             AreaStart skSt = new AreaStart(skipChars, objectArea);
-            objectArea.InitialStatus.Choices.Add(new Choice(leftCurlBracket));
+            objectArea.StartNode.Choices.Add(new Choice(leftCurlBracket));
             AreaStart paSt = new AreaStart(propertiesArea, objectArea);
             leftCurlBracket.NextNode = skSt;
             skSt.NextNode = paSt;
@@ -199,14 +199,14 @@ namespace TinvaValidatorTest
             //ArrayArea
             UnitSet leftSquareBracket = new UnitSet(CharUnits.LeftSquareBracket);
             UnitSet rightSquareBracket = new UnitSet(CharUnits.RightSquareBracket);
-            arrayArea.InitialStatus.Choices.Add(new Choice(leftSquareBracket));
+            arrayArea.StartNode.Choices.Add(new Choice(leftSquareBracket));
             skSt = new AreaStart(skipChars, arrayArea);
             leftSquareBracket.NextNode = skSt;
             AreaStart vaSt = new AreaStart(valueArea, arrayArea);
             skSt.NextNode = vaSt;
             skSt = new AreaStart(skipChars, arrayArea);
             vaSt.NextNode = skSt;
-            Status st1 = new Status("array_st1", arrayArea);
+            TNode st1 = new TNode("array_st1", arrayArea);
             skSt.NextNode = st1;
             UnitSet us5 = new UnitSet(CharUnits.Comma, arrayArea);
             st1.Choices.Add(new Choice(us5));
@@ -224,21 +224,21 @@ namespace TinvaValidatorTest
             CharsToIntegerPart cip = new CharsToIntegerPart();
             cip.Parent = valueArea;
             AreaStart stSt = new AreaStart(stringArea, valueArea);
-            valueArea.InitialStatus.Choices.Add(new Choice("null".ToUnitSet()));
-            valueArea.InitialStatus.Choices.Add(new Choice(cbp));
-            valueArea.InitialStatus.Choices.Add(new Choice(cip));
-            valueArea.InitialStatus.Choices.Add(new Choice(cdp));
+            valueArea.StartNode.Choices.Add(new Choice("null".ToUnitSet()));
+            valueArea.StartNode.Choices.Add(new Choice(cbp));
+            valueArea.StartNode.Choices.Add(new Choice(cip));
+            valueArea.StartNode.Choices.Add(new Choice(cdp));
             AreaStart oaSt = new AreaStart(objectArea, valueArea);
-            valueArea.InitialStatus.Choices.Add(new Choice(oaSt));
+            valueArea.StartNode.Choices.Add(new Choice(oaSt));
             AreaStart arSt = new AreaStart(arrayArea, valueArea);
-            valueArea.InitialStatus.Choices.Add(new Choice(arSt));
-            valueArea.InitialStatus.Choices.Add(new Choice(stSt));
-            for (int i = 0; i < valueArea.InitialStatus.Choices.Count; i++)
-                valueArea.InitialStatus.Choices[i].Node.NextNode = EndNode.Instance;
+            valueArea.StartNode.Choices.Add(new Choice(arSt));
+            valueArea.StartNode.Choices.Add(new Choice(stSt));
+            for (int i = 0; i < valueArea.StartNode.Choices.Count; i++)
+                valueArea.StartNode.Choices[i].Node.NextNode = EndNode.Instance;
 
             //Properties Area            
             stSt = new AreaStart(stringArea, propertiesArea);
-            propertiesArea.InitialStatus.Choices.Add(new Choice(stSt));
+            propertiesArea.StartNode.Choices.Add(new Choice(stSt));
             skSt = new AreaStart(skipChars, propertiesArea);
             stSt.NextNode = skSt;
             UnitSet us8 = new UnitSet(CharUnits.Colon, propertiesArea);
@@ -247,7 +247,7 @@ namespace TinvaValidatorTest
             us8.NextNode = skSt;
             vaSt = new AreaStart(valueArea, propertiesArea);
             skSt.NextNode = vaSt;
-            Status st6 = new Status("pa_st6");
+            TNode st6 = new TNode("pa_st6");
             vaSt.NextNode = st6;
             st6.Choices.Add(Choice.EndChoice);
             skSt = new AreaStart(skipChars, propertiesArea);
@@ -256,12 +256,12 @@ namespace TinvaValidatorTest
             skSt.NextNode = us9;
             skSt = new AreaStart(skipChars, propertiesArea);
             us9.NextNode = skSt;
-            skSt.NextNode = propertiesArea.InitialStatus;
+            skSt.NextNode = propertiesArea.StartNode;
 
             //Start Main
             skSt = new AreaStart(skipChars, VL, null, "Main_SKIP1");
-            VL.InitialStatus.Choices.Add(new Choice(skSt));
-            Status JsonStartStatus = new Status("Main_ST_Object_Or_Array", VL);
+            VL.StartNode.Choices.Add(new Choice(skSt));
+            TNode JsonStartStatus = new TNode("Main_ST_Object_Or_Array", VL);
             skSt.NextNode = JsonStartStatus;
             AreaStart ap1 = new AreaStart(objectArea, VL, null, "Main_AS_ObjectArea");
             AreaStart ap2 = new AreaStart(arrayArea, VL, null, "Main_AR_ArrayArea");
@@ -285,55 +285,6 @@ namespace TinvaValidatorTest
                 File.Delete(file);
             for (int i = 0; i < 1000; i++)
             {
-                //if (i % 50 == 0)
-                //{
-                //    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"Log.Json"), FileMode.Append))
-                //    {
-                //        StreamWriter sw = new StreamWriter(fs);
-                //        sw.Write($"{i} Start");
-                //        sw.Close();
-                //    }
-                //    //TestContext.WriteLine($"{i} ObjectCount: {ol.Count}");
-                //}
-                
-                //int indexI = i;
-                //Task t = new Task(() => {
-                //    List<object> ol;
-                //    ol = validator.CreateRandom();
-                //    string s = ol.ForEachToString();
-                //    byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
-                //    s = System.Text.Encoding.UTF8.GetString(buffer);
-
-
-                //    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"CurrentJson-{i.ToString("0000")}.json"), FileMode.Create))
-                //    {
-                //        BinaryWriter bw = new BinaryWriter(fs);
-                //        bw.Write(buffer);
-                //        bw.Close();
-                //    }
-
-                //    validator.Validate(ol);
-
-                //});                
-
-                //TaskAwaiter ta = t.GetAwaiter();
-                //ta.OnCompleted(() =>
-                //{
-                    
-                //    using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"LOG-{i}.Json"), FileMode.Create))
-                //    {
-
-                //        StreamWriter sw = new StreamWriter(fs);
-                //        sw.Write($"Completed");
-                //        sw.Close();
-                //    }
-
-                    
-                //});
-
-                //t.RunSynchronously();
-
-                //continue;
                 List<object> ol;
                 ol = validator.CreateRandom();
                 string s = ol.ForEachToString();

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class IDNode : Status
+    public class IDNode : TNode
     {
         public IDNode(string id = "")
-            : base(id)
+            : base(null, null, id)
         { }
     }
 

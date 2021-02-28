@@ -21,7 +21,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             if (things == null)
                 throw new ArgumentNullException(nameof(things));
             LongerErrorLocation = 0;  
-            TVData tv = new TVData(0, Logic.InitialStatus);
+            TVData tv = new TVData(0, Logic.StartNode);
             return BFS_NodeValidate(things, tv) != Invalid;
         }
 
@@ -79,7 +79,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                         break;
                     case AreaStart ars:
                         data.AreaNextNode.Push(ars.NextNode);
-                        newData = new TVData(data.Index, ars.Area.InitialStatus, data.AreaNextNode, data.Memory);
+                        newData = new TVData(data.Index, ars.Area.StartNode, data.AreaNextNode, data.Memory);
                         nodeQueue.Enqueue(newData);
                         break;
                     case Execute ex:
@@ -105,7 +105,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public List<object> CreateRandom()
         {
             List<object> result = new List<object>();
-            TVData tv = new TVData(Logic.InitialStatus);
+            TVData tv = new TVData(Logic.StartNode);
             NodeCreateRandom(result, tv);
             return result;
         }
@@ -117,7 +117,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case EndNode _:
                     return;
                 case AreaStart ars:
-                    NodeCreateRandom(result, new TVData(ars.Area.InitialStatus, data.Memory));
+                    NodeCreateRandom(result, new TVData(ars.Area.StartNode, data.Memory));
                     NodeCreateRandom(result, new TVData(ars.NextNode, data.Memory));
                     break;
                 case Execute e:

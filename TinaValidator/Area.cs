@@ -7,16 +7,16 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class Area
     {
         public string Name { get; set; }
-        public Status InitialStatus { get; set; }        
+        public TNode StartNode { get; set; }        
         public Area Parent { get; set; }
         public Area()
             : this(null)
         { }
 
-        public Area(string name = null, Status initialStatus = null, Area parent = null)
+        public Area(string name = null, TNode startNode = null, Area parent = null)
         {
             Name = name ?? IdentifyShop.GetNewID("AR");
-            InitialStatus = initialStatus;
+            StartNode = startNode;
             Parent = parent;
         }
     }

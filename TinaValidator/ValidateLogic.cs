@@ -7,7 +7,6 @@ using Aritiafel.Artifacts.TinaValidator.Serialization;
 using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Locations.StorageHouse;
 using System.IO;
-using System.Text.Encodings.Web;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -67,11 +66,11 @@ namespace Aritiafel.Artifacts.TinaValidator
             TNodes = vl.TNodes;
             Areas = vl.Areas;
             Name = vl.Name;            
-            InitialStatus = TNodes[vl.InitialStatus.ID] as Status;
+            StartNode = TNodes[vl.StartNode.ID];
             for(int i = 0; i < Areas.Count; i++)
             {
-                if (Areas[i].InitialStatus != null)
-                    Areas[i].InitialStatus = TNodes[(Areas[i].InitialStatus as IDNode).ID] as Status;
+                if (Areas[i].StartNode != null)
+                    Areas[i].StartNode = TNodes[(Areas[i].StartNode as IDNode).ID];
                 if (Areas[i].Parent != null)
                     if (Name == (Areas[i].Parent as IDArea).Name)
                         Areas[i].Parent = this;
@@ -99,8 +98,8 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             TNodes.Clear();
             for (int i = 0; i < Areas.Count; i++)            
-                Save(Areas[i].InitialStatus, Areas[i]);
-            Save(InitialStatus, this);
+                Save(Areas[i].StartNode, Areas[i]);
+            Save(StartNode, this);
             JsonSerializerOptions jso = new JsonSerializerOptions
             { WriteIndented = true };
 
@@ -123,12 +122,12 @@ namespace Aritiafel.Artifacts.TinaValidator
         public ValidateLogic()
             : this(null)
         { }
-        public ValidateLogic(Status initialStatus = null)
-            : this(null, initialStatus)
+        public ValidateLogic(TNode startNode = null)
+            : this(null, startNode)
         { }
 
-        public ValidateLogic(string name, Status initialStatus = null)
-            : base(name, initialStatus, null)
+        public ValidateLogic(string name, TNode startNode = null)
+            : base(name, startNode, null)
         { }
     }
 }
