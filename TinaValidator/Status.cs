@@ -5,7 +5,6 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class Status : TNode
     {
-        public Area Parent { get; set; }
         public List<Choice> Choices { get; set; } = new List<Choice>();
         public Status(Area parent, List<Choice> choices)
             : this(null, parent, choices)
