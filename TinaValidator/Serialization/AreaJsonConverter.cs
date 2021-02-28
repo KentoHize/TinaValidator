@@ -17,13 +17,13 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
                 typeof(AreaJsonConverterInner<>).MakeGenericType(new Type[] { typeToConvert }),
                 BindingFlags.Instance | BindingFlags.Public, null, Array.Empty<object>(), null);
         private class AreaJsonConverterInner<T> : DefaultJsonConverter<T> where T : Area
-        {        
+        {
             public AreaJsonConverterInner()
             { }
 
             public override void SetPropertyValue(string propertyName, object instance, object value)
             {
-                if (propertyName == "StartNode")
+                if (typeof(TNode).IsAssignableFrom(instance.GetType().GetProperty(propertyName).PropertyType))
                     value = value != null ? new IDNode(value.ToString()) : null;
                 else if (CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
                     value = value != null ? new IDArea(value?.ToString()) : null;
@@ -32,13 +32,13 @@ namespace Aritiafel.Artifacts.TinaValidator.Serialization
 
             public override object GetPropertyValueAndWrite(string propertyName, object instance, bool skip = false)
             {
-                if (propertyName == "StartNode")
+                if (typeof(TNode).IsAssignableFrom(instance.GetType().GetProperty(propertyName).PropertyType))
                     return ((TNode)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.ID;
-                if(CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
+                if (CanConvert(instance.GetType().GetProperty(propertyName).PropertyType))
                     return ((Area)base.GetPropertyValueAndWrite(propertyName, instance, skip))?.Name;
                 return base.GetPropertyValueAndWrite(propertyName, instance, skip);
             }
-          
+
         }
     }
 }

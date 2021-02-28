@@ -143,12 +143,10 @@ namespace Aritiafel.Artifacts.TinaValidator
                 }
                 
                 if (EscapeChars != null && EscapeChars.Contains(c))
-                {
                     if (sb.Length >= MinLength)
                         break;
                     else
                         continue;
-                }
                 else if (ExcludeChars != null && ExcludeChars.Contains(c))
                     continue;
 
