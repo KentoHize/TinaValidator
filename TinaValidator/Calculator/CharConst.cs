@@ -9,7 +9,6 @@ namespace Aritiafel.Artifacts.Calculator
     {
         private char _Value;
         public override object Value => _Value;
-
         public CharConst(char value)
             => _Value = value;        
         public override StringConst ToStringConst()

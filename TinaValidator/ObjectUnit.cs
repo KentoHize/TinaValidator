@@ -1,18 +1,17 @@
-﻿namespace Aritiafel.Artifacts.TinaValidator
+﻿using Aritiafel.Artifacts.Calculator;
+
+namespace Aritiafel.Artifacts.TinaValidator
 {
     public class ObjectUnit : Unit, IUnit
     {
-        public object Value { get; set; }
-
-        public ObjectUnit(object value)
+        public IObject Value { get; set; }
+        public ObjectUnit(IObject value)
             => Value = value;
 
-        public override bool Compare(object b)
-            => this == b;
+        public override bool Compare(object b, IVariableLinker vl)
+            => Value == b;
 
-        public override object Random()
-        {
-            return new object();
-        }
+        public override IObject Random(IVariableLinker vl)
+            => Value;
     }
 }

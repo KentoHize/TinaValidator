@@ -1,23 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class CharUnit : Unit
     {
-        public static CharUnit HexadecimalDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'h' };
-        public static CharUnit NotHexadecimalDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'H' };
-        public static CharUnit Letter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'w' };
-        public static CharUnit NotLetter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'W' };
-        public static CharUnit Space => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 's' };
-        public static CharUnit NotSpace => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'S' };
-        public static CharUnit Digit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'd' };
-        public static CharUnit NotDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = 'D' };
+        public static CharUnit HexadecimalDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('h') };
+        public static CharUnit NotHexadecimalDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('H') };
+        public static CharUnit Letter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('w') };
+        public static CharUnit NotLetter => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('W') };
+        public static CharUnit Space => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('s') };
+        public static CharUnit NotSpace => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('S') };
+        public static CharUnit Digit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('d') };
+        public static CharUnit NotDigit => new CharUnit { CompareMethod = CompareMethod.Special, Value1 = new CharConst('D') };
         public CompareMethod CompareMethod { get; set; }
-        public char Value1 { get; set; } //min exact
-        public char Value2 { get; set; } //max
-        public char[] Select { get; set; }
-
+        public INumber Value1 { get; set; } //min exact
+        public INumber Value2 { get; set; } //max
+        public INumber[] Select
+        {
+            get => _Select;
+            set
+            {
+                if (value != null)
+                {
+                    for (long i = 0; i < value.Length; i++)
+                        if (!(value[i] is CharConst || value[i] is CharVar))
+                            throw new ArgumentException(nameof(Select));
+                }
+                _Select = value;
+            }
+        }
+        private INumber[] _Select;
         public CharUnit()
             : this(CompareMethod.Any)
         { }
@@ -29,13 +43,13 @@ namespace Aritiafel.Artifacts.TinaValidator
         public CharUnit(char exactValue, CompareMethod compareMethod = CompareMethod.Exact)
         {
             CompareMethod = compareMethod;
-            Value1 = exactValue;
+            Value1 = new CharConst(exactValue);
         }
         public CharUnit(char minValue, char maxValue, CompareMethod compareMethod = CompareMethod.MinMax)
         {
             CompareMethod = compareMethod;
-            Value1 = minValue;
-            Value2 = maxValue;
+            Value1 = new CharConst(minValue);
+            Value2 = new CharConst(maxValue);
         }
 
         public CharUnit(string selectChars, CompareMethod compareMethod = CompareMethod.Select)
@@ -44,43 +58,44 @@ namespace Aritiafel.Artifacts.TinaValidator
         public CharUnit(char[] select, CompareMethod compareMethod = CompareMethod.Select)
         {
             CompareMethod = compareMethod;
-            Select = select;
+            INumber[] array = new INumber[select.Length];
+            for (int i = 0; i < select.Length; i++)
+                array[i] = new CharConst(select[i]);
+            Select = array;
         }
 
-        public override bool Compare(object o)
+        public override bool Compare(object o, IVariableLinker vl)
         {
-            if (!(o is char c))
+            if (!(o is CharConst c))
                 return false;
             switch (CompareMethod)
             {
                 case CompareMethod.Any:
                     return true;
                 case CompareMethod.Exact:
-                    //Aritiafel.Artifacts.Calculator.StringConst s;
-                    s.GetResult.Value == c;
-                    return Value1 == c;
+                    return Value1.GetResult(vl) == c;
                 case CompareMethod.Not:
-                    return Value1 != c;
+                    return Value1.GetResult(vl) != c;
                 case CompareMethod.MinMax:
-                    return c >= Value1 && c <= Value2;
+                    return c >= Value1.GetResult(vl) && c <= Value2.GetResult(vl);
                 case CompareMethod.NotMinMax:
-                    return c < Value1 || c > Value2;
+                    return c < Value1.GetResult(vl) || c > Value2.GetResult(vl);
                 case CompareMethod.Select:
                     if (Select == null)
                         return false;
                     for (int i = 0; i < Select.Length; i++)
-                        if (Select[i] == c)
+                        if (Select[i].GetResult(vl) == c)
                             return true;
                     return false;
                 case CompareMethod.NotSelect:
                     if (Select == null)
                         return true;
                     for (int i = 0; i < Select.Length; i++)
-                        if (Select[i] == c)
+                        if (Select[i].GetResult(vl) == c)
                             return false;
                     return true;
                 case CompareMethod.Special:
-                    switch (Value1)
+                    switch (Value1.GetResult(vl).Value)
                     {
                         case 'w':
                             return (c >= 'A' && c <= 'Z') ||
@@ -118,7 +133,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override object Random()
+        public override object Random(IVariableLinker vl)
         {
             if(CompareMethod == CompareMethod.Exact)
                 return Value1;
@@ -127,24 +142,26 @@ namespace Aritiafel.Artifacts.TinaValidator
             switch (CompareMethod)
             {       
                 case CompareMethod.Any:
-                    return (char)rnd.Next(char.MaxValue + 1);
+                    return new CharConst((char)rnd.Next(char.MaxValue + 1));
                 case CompareMethod.Not:
                     do { c = (char)rnd.Next(char.MaxValue + 1); }
-                    while (c == Value1);
-                    return c;
+                    while (c == (char)Value1.GetResult(vl).Value);
+                    return new CharConst(c);
                 case CompareMethod.MinMax:
-                    if (Value1 > Value2)
+                    if (Value1.GetResult(vl) > Value2.GetResult(vl))
                         throw new ArgumentException();
-                    return (char)rnd.Next(Value1, Value2 + 1);
+                    return new CharConst((char)rnd.Next((char)Value1.GetResult(vl).Value,
+                        (char)Value2.GetResult(vl).Value + 1));
                 case CompareMethod.NotMinMax:
-                    int ri = rnd.Next(Value1 - char.MinValue + char.MaxValue - Value2);
-                    if (ri < Value1)
-                        return (char)ri;
+                    int ri = rnd.Next((char)Value1.GetResult(vl).Value - char.MinValue + char.MaxValue - (char)Value2.GetResult(vl).Value);
+                    if (ri < (char)Value1.GetResult(vl).Value)
+                        return new CharConst((char)ri);
                     else
-                        return (char)(Value2 + ri - Value1 + char.MinValue);
+                        return new CharConst((char)((char)Value2.GetResult(vl).Value + ri - 
+                            (char)Value1.GetResult(vl).Value + char.MinValue));
                 case CompareMethod.Select:
                     if (Select == null || Select.Length == 0)
-                        return false;
+                        throw new ArgumentNullException(nameof(Select));
                     return Select[rnd.Next(Select.Length)];
                 case CompareMethod.NotSelect:
                     if (Select == null || Select.Length == 0)
@@ -153,25 +170,25 @@ namespace Aritiafel.Artifacts.TinaValidator
                     {   
                         c = (char)rnd.Next(char.MaxValue + 1);
                         for (int i = 0; i < Select.Length; i++)
-                            if (Select[i] == c)
+                            if ((char)Select[i].GetResult(vl).Value == c)
                                 continue;
-                        return c;
+                        return new CharConst(c);
                     }
                 case CompareMethod.Special:
                     int samplesTotal, r;
-                    switch (Value1)
+                    switch (Value1.GetResult(vl).Value)
                     {
                         case 'w':
                             samplesTotal = 63;
                             r = rnd.Next(samplesTotal);
                             if (r < 10)
-                                return (char)('0' + r);
+                                return new CharConst((char)('0' + r));
                             else if (r < 36)
-                                return (char)('A' + r - 10);
+                                return new CharConst((char)('A' + r - 10));
                             else if (r < 62)
-                                return (char)('a' + r - 36);
+                                return new CharConst((char)('a' + r - 36));
                             else
-                                return '_';
+                                return new CharConst('_');
                         case 'W':
                             while (true)
                             {
@@ -180,7 +197,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                                     (c < 'a' || c > 'z') &&
                                     (c < '0' || c > '9') &&
                                     c != '_')
-                                    return c;
+                                    return new CharConst(c);
                             }
                         case 's':
                             samplesTotal = 5;
@@ -188,15 +205,15 @@ namespace Aritiafel.Artifacts.TinaValidator
                             switch (r)
                             {
                                 case 0:
-                                    return ' ';
+                                    return new CharConst(' ');
                                 case 1:
-                                    return '\t';
+                                    return new CharConst('\t');
                                 case 2:
-                                    return '\n';
+                                    return new CharConst('\n');
                                 case 3:
-                                    return '\f';
+                                    return new CharConst('\f');
                                 case 4:
-                                    return '\r';
+                                    return new CharConst('\r');
                                 default:
                                     throw new Exception();
                             }
@@ -207,32 +224,32 @@ namespace Aritiafel.Artifacts.TinaValidator
                                 if (c != ' ' && c != '\t' &&
                                     c != '\n' && c != '\f' &&
                                     c != '\r')
-                                    return c;
+                                    return new CharConst(c);
                             }
                         case 'd':
                             samplesTotal = 10;
                             r = rnd.Next(samplesTotal);
-                            return r + '0';
+                            return new CharConst((char)(r + '0'));
                         case 'D':
                             while (true)
                             {
                                 c = (char)rnd.Next(char.MaxValue + 1);
                                 if (c < '0' || c > '9')
-                                    return c;
+                                    return new CharConst(c);
                             }
                         case 'h':
                             samplesTotal = 16;
                             r = rnd.Next(samplesTotal);
                             if (r < 10)
-                                return (char)(r + '0');
-                            return (char)(r + 'a' - 10);
+                                return new CharConst((char)(r + '0'));
+                            return new CharConst((char)(r + 'a' - 10));
                         case 'H':
                             while (true)
                             {
                                 c = (char)rnd.Next(char.MaxValue + 1);
                                 if ((c < '0' || c > '9') && (c < 'a' || c > 'f') &&
                                     (c < 'A' || c > 'F'))
-                                    return c;
+                                    return new CharConst(c);
                             }
                         default:
                             throw new ArgumentOutOfRangeException(nameof(Value1));

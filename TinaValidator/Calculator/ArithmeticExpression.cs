@@ -13,7 +13,6 @@ namespace Aritiafel.Artifacts.Calculator
             B = b;
             OP = op;
         }
-
         public NumberConst GetResult(IVariableLinker vl)
         {
             switch (OP)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -77,7 +78,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = select;
         }
 
-        public override bool Compare(object o)
+        public override bool Compare(object o, IVariableLinker variableLinker)
         {
             if (!decimal.TryParse(o.ToString(), out decimal d))
                 return false;
@@ -116,7 +117,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override object Random()
+        public override object Random(IVariableLinker variableLinker)
         {
             if (CompareMethod == CompareMethod.Exact)
                 return _Value1;
