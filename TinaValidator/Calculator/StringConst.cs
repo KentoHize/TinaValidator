@@ -54,6 +54,12 @@ namespace Aritiafel.Artifacts.Calculator
             => b.GreaterThan(this);
         protected override BooleanConst ReverseLessThan(ObjectConst b)
             => b.LessThan(this);
+        public override BooleanConst EqualTo(CharConst b)
+            => new BooleanConst(_Value.Length == 1 && _Value[0] == b.Value);
+        public override BooleanConst GreaterThan(CharConst b)
+            => new BooleanConst(_Value.Length > 1 || _Value.Length == 1 && new CharConst(_Value[0]) > b);
+        public override BooleanConst LessThan(CharConst b)
+            => new BooleanConst(_Value.Length < 1 || _Value.Length == 1 && new CharConst(_Value[0]) < b);
 
         public override bool Equals(object obj)
         {

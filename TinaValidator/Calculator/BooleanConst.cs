@@ -48,17 +48,23 @@ namespace Aritiafel.Artifacts.Calculator
             => throw new ArithmeticException();
         public override BooleanConst EqualTo(DoubleConst b)
             => throw new ArithmeticException();
+        public override BooleanConst EqualTo(CharConst c)
+            => throw new ArithmeticException();
         protected override BooleanConst ReverseGreaterThan(ObjectConst b)
             => throw new ArithmeticException();
         public override BooleanConst GreaterThan(LongConst b)
             => throw new ArithmeticException();
         public override BooleanConst GreaterThan(DoubleConst b)
             => throw new ArithmeticException();
+        public override BooleanConst GreaterThan(CharConst b)
+            => throw new ArithmeticException();        
         protected override BooleanConst ReverseLessThan(ObjectConst b)
             => throw new ArithmeticException();
         public override BooleanConst LessThan(LongConst b)
             => throw new ArithmeticException();
         public override BooleanConst LessThan(DoubleConst b)
+            => throw new ArithmeticException();
+        public override BooleanConst LessThan(CharConst b)
             => throw new ArithmeticException();
         public override BooleanConst EqualTo(StringConst b)
             => throw new ArithmeticException();

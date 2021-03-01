@@ -10,15 +10,18 @@ namespace Aritiafel.Artifacts.Calculator
         public abstract StringConst ToStringConst();
         protected abstract BooleanConst ReverseEqualTo(ObjectConst b);
         public abstract BooleanConst EqualTo(LongConst b);
+        public abstract BooleanConst EqualTo(CharConst b);
         public abstract BooleanConst EqualTo(DoubleConst b);
-        public abstract BooleanConst EqualTo(StringConst b);
+        public abstract BooleanConst EqualTo(StringConst b);            
         protected abstract BooleanConst ReverseGreaterThan(ObjectConst b);
-        public abstract BooleanConst GreaterThan(LongConst b);
+        public abstract BooleanConst GreaterThan(LongConst b);            
+        public abstract BooleanConst GreaterThan(CharConst b);
         public abstract BooleanConst GreaterThan(DoubleConst b);
         public abstract BooleanConst GreaterThan(StringConst b);
         protected abstract BooleanConst ReverseLessThan(ObjectConst b);
         public abstract BooleanConst LessThan(LongConst b);
-        public abstract BooleanConst LessThan(DoubleConst b);
+        public abstract BooleanConst LessThan(CharConst b);            
+        public abstract BooleanConst LessThan(DoubleConst b);            
         public abstract BooleanConst LessThan(StringConst b);
         public abstract object Clone();
 

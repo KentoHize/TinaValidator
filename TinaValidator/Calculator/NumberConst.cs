@@ -12,26 +12,32 @@ namespace Aritiafel.Artifacts.Calculator
         protected abstract NumberConst ReverseAdd(NumberConst b);
         public abstract NumberConst Add(LongConst b);
         public abstract NumberConst Add(DoubleConst b);
+        public abstract NumberConst Add(CharConst b);
 
         protected abstract NumberConst ReverseMinus(NumberConst b);
         public abstract NumberConst Minus(LongConst b);
         public abstract NumberConst Minus(DoubleConst b);
+        public abstract NumberConst Minus(CharConst b);
 
         protected abstract NumberConst ReverseMultiply(NumberConst b);
         public abstract NumberConst Multiply(LongConst b);
         public abstract NumberConst Multiply(DoubleConst b);
+        public abstract NumberConst Multiply(CharConst b);
 
         protected abstract NumberConst ReverseDivide(NumberConst b);
         public abstract NumberConst Divide(LongConst b);
         public abstract NumberConst Divide(DoubleConst b);
+        public abstract NumberConst Divide(CharConst b);
 
         public abstract NumberConst ReverseExactlyDivide(NumberConst b);
         public abstract NumberConst ExactlyDivide(LongConst b);
         public abstract NumberConst ExactlyDivide(DoubleConst b);
+        public abstract NumberConst ExactlyDivide(CharConst b);
 
         protected abstract NumberConst ReverseRemainder(NumberConst b);
         public abstract NumberConst Remainder(LongConst b);
         public abstract NumberConst Remainder(DoubleConst b);
+        public abstract NumberConst Remainder(CharConst b);
 
         public static NumberConst operator +(NumberConst a, NumberConst b)
             => b.ReverseAdd(a);

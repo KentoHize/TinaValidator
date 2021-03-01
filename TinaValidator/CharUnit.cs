@@ -56,6 +56,8 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case CompareMethod.Any:
                     return true;
                 case CompareMethod.Exact:
+                    //Aritiafel.Artifacts.Calculator.StringConst s;
+                    s.GetResult.Value == c;
                     return Value1 == c;
                 case CompareMethod.Not:
                     return Value1 != c;
