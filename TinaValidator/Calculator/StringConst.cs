@@ -60,7 +60,6 @@ namespace Aritiafel.Artifacts.Calculator
             => new BooleanConst(_Value.Length > 1 || _Value.Length == 1 && new CharConst(_Value[0]) > b);
         public override BooleanConst LessThan(CharConst b)
             => new BooleanConst(_Value.Length < 1 || _Value.Length == 1 && new CharConst(_Value[0]) < b);
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))

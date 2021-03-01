@@ -22,6 +22,8 @@ namespace Aritiafel.Artifacts.Calculator
           => a.And(b);
         public static BooleanConst operator |(BooleanConst a, BooleanConst b)
           => a.Or(b);
+        public static BooleanConst operator ^(BooleanConst a, BooleanConst b)
+          => a.XOr(b);
         public static BooleanConst operator !(BooleanConst a)
           => a.Not();
         public static BooleanConst operator ==(BooleanConst a, BooleanConst b)
@@ -34,6 +36,8 @@ namespace Aritiafel.Artifacts.Calculator
             => new BooleanConst(_Value && b._Value);
         public BooleanConst Or(BooleanConst b)
             => new BooleanConst(_Value || b._Value);
+        public BooleanConst XOr(BooleanConst b)
+            => new BooleanConst(_Value ^ b.Value);
         public BooleanConst Not()
             => new BooleanConst(!_Value);
         public override ObjectConst GetObject(IVariableLinker vl)
