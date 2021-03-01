@@ -52,10 +52,10 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctip.Validate("-1755535dd".ToObjectList()) == 8);
             Assert.IsTrue(ctip.Validate("56.2365".ToObjectList()) == 2);
             Assert.IsTrue(ctip.Validate(new List<ObjectConst> { new LongConst(7) }) == -1);
-            Assert.IsTrue(ctip.Validate("68789321897315678649889876587".ToObjectList()) == 29);
-            Assert.IsTrue(ctip.Validate("98789321897315678649889879324".ToObjectList()) == -1);
-            Assert.IsTrue(ctip.Validate("-68788671897315678649889876587".ToObjectList()) == 30);
-            Assert.IsTrue(ctip.Validate("-98788671897315678649889876587".ToObjectList()) == -1);
+            Assert.IsTrue(ctip.Validate("7315678649889876587".ToObjectList()) == 19);
+            Assert.IsTrue(ctip.Validate("1897315678649889879324".ToObjectList()) == -1);
+            Assert.IsTrue(ctip.Validate("-7315678649889876587".ToObjectList()) == 20);
+            Assert.IsTrue(ctip.Validate("-9988671899889876587".ToObjectList()) == -1);
             Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
             Assert.IsTrue(ctip.Validate(ctip.Random()) != -1);
             TestContext.WriteLine(ctip.Random().ForEachToString());

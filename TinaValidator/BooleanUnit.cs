@@ -8,7 +8,13 @@ namespace Aritiafel.Artifacts.TinaValidator
         public static BooleanUnit True => new BooleanUnit(true);
         public static BooleanUnit False => new BooleanUnit(false);
         public CompareMethod CompareMethod { get; set; }
-        public IBoolean Value { get; set; }
+        public IBoolean Value
+        {
+            get => _Value;
+            set => _Value = value is BooleanConst || value is BooleanVar || value == null ?
+                value : throw new ArgumentException(nameof(Value));
+        }
+        private IBoolean _Value;
         public BooleanUnit()
             : this(CompareMethod.Any)
         { }
@@ -41,9 +47,9 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case CompareMethod.Any:
                     return true;
                 case CompareMethod.Exact:
-                    return b == Value.GetResult(vl);
+                    return b == _Value.GetResult(vl);
                 case CompareMethod.Not:
-                    return b != Value.GetResult(vl);
+                    return b != _Value.GetResult(vl);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(CompareMethod));
             }
@@ -52,7 +58,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         public override ObjectConst Random(IVariableLinker vl = null)
         {
             if (CompareMethod == CompareMethod.Exact)
-                return Value.GetResult(vl);
+                return _Value.GetResult(vl);
 
             Random rnd = new Random((int)DateTime.Now.Ticks);
             switch (CompareMethod)
@@ -60,7 +66,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case CompareMethod.Any:
                     return new BooleanConst(rnd.Next(2) == 1);
                 case CompareMethod.Not:
-                    return !Value.GetResult(vl);
+                    return !_Value.GetResult(vl);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(CompareMethod));
             }

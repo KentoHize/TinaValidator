@@ -7,11 +7,11 @@ namespace Aritiafel.Artifacts.TinaValidator
     {
         public static DoubleUnit Float = new DoubleUnit(float.MinValue, float.MaxValue);        
         public INumber Value1 { get => _Value1;
-            set => _Value1 = value is DoubleConst || value is DoubleVar ?
+            set => _Value1 = value is DoubleConst || value is DoubleVar || value == null ?
                 value : throw new ArgumentException(nameof(Value1)); }
         private INumber _Value1; //min exact
         public INumber Value2 { get => _Value2;
-            set => _Value2 = value is DoubleConst || value is DoubleVar ?
+            set => _Value2 = value is DoubleConst || value is DoubleVar || value == null ?
                 value : throw new ArgumentException(nameof(Value2)); }
         private INumber _Value2; //max
         public CompareMethod CompareMethod { get; set; }
@@ -80,8 +80,13 @@ namespace Aritiafel.Artifacts.TinaValidator
 
         public override bool Compare(ObjectConst o, IVariableLinker vl = null)
         {
-            if (!(o is DoubleConst d))
+            DoubleConst d;
+            if (o is LongConst l)
+                d = new DoubleConst((long)l.Value);
+            else if (!(o is DoubleConst))
                 return false;
+            else
+                d = o as DoubleConst;
 
             switch (CompareMethod)
             {

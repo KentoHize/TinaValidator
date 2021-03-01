@@ -22,20 +22,19 @@ namespace Aritiafel.Artifacts.TinaValidator
         public static IntegerUnit UnsignedShort => new IntegerUnit(ushort.MinValue, ushort.MaxValue);
         public static IntegerUnit Int => new IntegerUnit(int.MinValue, int.MaxValue);
         public static IntegerUnit UnsignedInt => new IntegerUnit(uint.MinValue, uint.MaxValue);
-        public static IntegerUnit Long => new IntegerUnit(long.MinValue, long.MaxValue);
-        //public static IntegerUnit UnsignedLong => new IntegerUnit(ulong.MinValue, ulong.MaxValue);
+        public static IntegerUnit Long => new IntegerUnit(long.MinValue, long.MaxValue);        
         public CompareMethod CompareMethod { get; set; }
         public INumber Value1
         {
             get => _Value1;
-            set => _Value1 = value is LongConst || value is LongVar ?
+            set => _Value1 = value is LongConst || value is LongVar || value == null ?
                 value : throw new ArgumentException(nameof(Value1));
         }
         private INumber _Value1; //min exact
         public INumber Value2
         {
             get => _Value2;
-            set => _Value2 = value is LongConst || value is LongVar ?
+            set => _Value2 = value is LongConst || value is LongVar || value == null ?
                 value : throw new ArgumentException(nameof(Value2));
         }
         private INumber _Value2; //max
@@ -101,8 +100,13 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
         public override bool Compare(ObjectConst o, IVariableLinker vl = null)
         {
-            if (!(o is LongConst l))
-                return false;          
+            LongConst l;
+            if (o is DoubleConst d && Math.Round(d) == (double)d.Value)
+                l = new LongConst((long)d.Value);
+            else if (!(o is LongConst))
+                return false;
+            else
+                l = o as LongConst;
 
             switch (CompareMethod)
             {

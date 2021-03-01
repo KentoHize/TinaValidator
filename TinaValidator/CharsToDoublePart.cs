@@ -33,7 +33,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             => CompareMethod = compareMethod;
         public CharsToDoublePart(DoubleUnit du)
         {
-            CompareMethod = du.CompareMethod;
+            CompareMethod = du.CompareMethod;            
             Value1 = du.Value1;
             Value2 = du.Value2;
         }
