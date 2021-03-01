@@ -4,9 +4,11 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class DoubleConst : NumberConst
     {
-        public static readonly DoubleConst MaxValue = new DoubleConst(double.MaxValue);
-
-        public static readonly DoubleConst MinValue = new DoubleConst(double.MinValue);
+        public static DoubleConst MaxValue => new DoubleConst(double.MaxValue);
+        public static DoubleConst MinValue => new DoubleConst(double.MinValue);
+        public static DoubleConst NaN => new DoubleConst(double.NaN);
+        public static DoubleConst PositiveInfinity => new DoubleConst(double.PositiveInfinity);
+        public static DoubleConst NegativeInfinity => new DoubleConst(double.NegativeInfinity);
 
         private double _Value;
         public override object Value => _Value;

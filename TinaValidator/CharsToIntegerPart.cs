@@ -8,9 +8,9 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class CharsToIntegerPart : Part
     {
         public CompareMethod CompareMethod { get; set; }
-        public decimal Value1 { get; set; }
-        public decimal Value2 { get; set; }
-        public decimal[] Select
+        public INumber Value1 { get; set; }
+        public INumber Value2 { get; set; }
+        public INumber[] Select
         {
             get => _Select;
             set
@@ -24,7 +24,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 _Select = value;
             }
         }
-        private decimal[] _Select;
+        private INumber[] _Select;
 
         public CharsToIntegerPart()
             : this(CompareMethod.Any)

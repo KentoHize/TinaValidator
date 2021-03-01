@@ -4,9 +4,8 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class LongConst : NumberConst
     {
-        public static readonly LongConst MaxValue = new LongConst(long.MaxValue);
-
-        public static readonly LongConst MinValue = new LongConst(long.MinValue);
+        public static LongConst MaxValue => new LongConst(long.MaxValue);
+        public static LongConst MinValue => new LongConst(long.MinValue);
 
         private long _Value;
         public override object Value => _Value;

@@ -5,7 +5,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public class DoubleUnit : Unit
     {
-        public static DoubleUnit Float = new DoubleUnit(float.MinValue, float.MaxValue);
+        public static DoubleUnit Float = new DoubleUnit(float.MinValue, float.MaxValue);        
         public INumber Value1 { get => _Value1;
             set => _Value1 = value is DoubleConst || value is DoubleVar ?
                 value : throw new ArgumentException(nameof(Value1)); }
@@ -47,10 +47,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
         public DoubleUnit(double exactValue, CompareMethod compareMethod = CompareMethod.Exact)
             : this(new DoubleConst(exactValue) as INumber, compareMethod)
-        { }
-        public DoubleUnit(DoubleConst exactValue, CompareMethod compareMethod = CompareMethod.Exact)
-            : this(exactValue as INumber, compareMethod)
-        { }
+        { }        
         public DoubleUnit(INumber exactValue, CompareMethod compareMethod = CompareMethod.Exact)
         {
             CompareMethod = compareMethod;
@@ -144,7 +141,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                     if (rd < _Value1.GetResult(vl))
                         return rd;
                     else
-                        return (_Value2.GetResult(vl) + rd - _Value1.GetResult(vl) + DoubleConst.MinValue);
+                        return _Value2.GetResult(vl) + rd - _Value1.GetResult(vl) + DoubleConst.MinValue;
                 case CompareMethod.Select:
                     if (_Select == null || _Select.Length == 0)
                         return null;

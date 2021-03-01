@@ -7,6 +7,9 @@ namespace Aritiafel.Artifacts.Calculator
 {
     public class CharConst : NumberConst
     {
+        public static CharConst MaxValue => new CharConst(char.MaxValue);
+        public static CharConst MinValue => new CharConst(char.MinValue);
+
         private char _Value;
         public override object Value => _Value;
         public CharConst(char value)
