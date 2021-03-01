@@ -133,23 +133,23 @@ namespace Aritiafel.Artifacts.Calculator
         public override BooleanConst LessThan(StringConst b)
             => throw new ArithmeticException();
         public override NumberConst Add(CharConst b)
-            => new LongConst(_Value + b.Value);
+            => new LongConst(_Value + (char)b.Value);
         public override NumberConst Minus(CharConst b)
-            => new LongConst(_Value - b.Value);
+            => new LongConst(_Value - (char)b.Value);
         public override NumberConst Multiply(CharConst b)
-            => new LongConst(_Value * b.Value);
+            => new LongConst(_Value * (char)b.Value);
         public override NumberConst Divide(CharConst b)
-            => LongDivideLong(_Value, b.Value);
+            => LongDivideLong(_Value, (char)b.Value);
         public override NumberConst ExactlyDivide(CharConst b)
-            => new LongConst(_Value / b.Value);
+            => new LongConst(_Value / (char)b.Value);
         public override NumberConst Remainder(CharConst b)
-            => new LongConst(_Value % b.Value);
+            => new LongConst(_Value % (char)b.Value);
         public override BooleanConst GreaterThan(CharConst b)
-            => new BooleanConst(_Value > b.Value);
+            => new BooleanConst(_Value > (char)b.Value);
         public override BooleanConst LessThan(CharConst b)
-            => new BooleanConst(_Value < b.Value);
+            => new BooleanConst(_Value < (char)b.Value);
         public override BooleanConst EqualTo(CharConst b)
-            => new BooleanConst(_Value == b.Value);
+            => new BooleanConst(_Value == (char)b.Value);
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))

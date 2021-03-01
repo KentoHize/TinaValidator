@@ -117,7 +117,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override object Random(IVariableLinker variableLinker)
+        public override IObject Random(IVariableLinker vl)
         {
             if (CompareMethod == CompareMethod.Exact)
                 return _Value1;

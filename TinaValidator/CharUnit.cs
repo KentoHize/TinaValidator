@@ -133,7 +133,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override object Random(IVariableLinker vl)
+        public override IObject Random(IVariableLinker vl)
         {
             if(CompareMethod == CompareMethod.Exact)
                 return Value1;

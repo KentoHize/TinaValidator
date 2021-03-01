@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public class CharsToBooleanPart : Part
     {
         public CompareMethod CompareMethod { get; set; }
-        public bool Value { get; set; }        
+        public IBoolean Value { get; set; }        
         public CharsToBooleanPart()
             : this(CompareMethod.Any)
         { }

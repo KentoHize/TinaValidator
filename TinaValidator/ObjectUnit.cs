@@ -2,7 +2,7 @@
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
-    public class ObjectUnit : Unit, IUnit
+    public class ObjectUnit : Unit
     {
         public IObject Value { get; set; }
         public ObjectUnit(IObject value)
