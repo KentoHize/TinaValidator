@@ -33,7 +33,7 @@ namespace TinvaValidatorTest
             string testString = "DJ";
 
             TinaValidator tv = new TinaValidator(VL);
-            bool result = tv.Validate(testString.Select(m => (object)m).ToArray());
+            bool result = tv.Validate(testString.ToObjectList());
             TestContext.WriteLine(result.ToString());
             TestContext.WriteLine(tv.CreateRandomToString());
         }

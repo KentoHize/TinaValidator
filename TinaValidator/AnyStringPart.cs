@@ -90,11 +90,11 @@ namespace Aritiafel.Artifacts.TinaValidator
             int i;
             if (startIndex == thing.Count)
                 return -1;
-            else if (thing[startIndex] is string s)
+            else if (thing[startIndex] is StringConst s)
             {
                 if (ExcludeChars != null && ExcludeChars.Count != 0)
                     for (i = 0; i < ExcludeChars.Count; i++)
-                        if (s.Contains(ExcludeChars[i].ToString()))
+                        if (s.Value.Contains(ExcludeChars[i].ToString()))
                             return -1;
                 return MinMaxLengthCheck(s) ? startIndex + 1 : -1;
             }
@@ -102,7 +102,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             StringBuilder sb = new StringBuilder();
             for (i = 0; startIndex + i < thing.Count; i++)
             {
-                if (!(thing[startIndex + i] is char c))
+                if (!(thing[startIndex + i] is CharConst c))
                     break;
                 else if (EscapeChars != null && EscapeChars.Contains(c))
                     break;
@@ -120,12 +120,12 @@ namespace Aritiafel.Artifacts.TinaValidator
         public override List<ObjectConst> Random(IVariableLinker vl = null)
         {
             CharUnit cu = new CharUnit();
-            char c;
+            CharConst c;
             StringBuilder sb = new StringBuilder();
             Random rnd = new Random((int)DateTime.Now.Ticks);
             do
             {                
-                c = (char)cu.Random();
+                c = cu.Random() as CharConst;
                 if(EscapeStrings != null && EscapeStrings.Count != 0)
                 {
                     for (int i = 0; i < EscapeStrings.Count; i++)

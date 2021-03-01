@@ -45,13 +45,13 @@ namespace TinvaValidatorTest
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
             IntegerUnit iu = new IntegerUnit();
-            Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
-            Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
-            Assert.IsTrue(iu.Compare(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1));
-            Assert.IsTrue(iu.Compare(int.MinValue));
-            Assert.IsTrue(iu.Compare(int.MaxValue));
-            Assert.IsFalse(iu.Compare("dd"));
-            Assert.IsFalse(iu.Compare('\n'));
+            Assert.IsTrue(iu.Compare(new LongConst(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1)));
+            Assert.IsTrue(iu.Compare(new LongConst(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1)));
+            Assert.IsTrue(iu.Compare(new LongConst(rnd.Next() * rnd.Next(2) == 1 ? -1 : 1)));
+            Assert.IsTrue(iu.Compare(LongConst.MinValue));
+            Assert.IsTrue(iu.Compare(LongConst.MaxValue));
+            Assert.IsFalse(iu.Compare(new StringConst("dd")));
+            Assert.IsFalse(iu.Compare(new CharConst('\n')));
             Assert.IsTrue(iu.Compare(iu.Random()));
             Assert.IsTrue(iu.Compare(iu.Random()));
             Assert.IsTrue(iu.Compare(iu.Random()));
@@ -60,9 +60,9 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(3000);
-            Assert.IsTrue(iu.Compare(3000));
-            Assert.IsFalse(iu.Compare(3001));
-            Assert.IsFalse(iu.Compare(2999)); 
+            Assert.IsTrue(iu.Compare(new LongConst(3000)));
+            Assert.IsFalse(iu.Compare(new LongConst(3001)));
+            Assert.IsFalse(iu.Compare(new LongConst(2999))); 
             Assert.IsTrue(iu.Compare(iu.Random()));
             Assert.IsTrue(iu.Compare(iu.Random()));
             Assert.IsTrue(iu.Compare(iu.Random()));
@@ -70,12 +70,12 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             iu = new IntegerUnit(-200, 200);
-            Assert.IsFalse(iu.Compare(-300));
-            Assert.IsTrue(iu.Compare(-200));
-            Assert.IsTrue(iu.Compare(0));
-            Assert.IsTrue(iu.Compare(200));
-            Assert.IsFalse(iu.Compare(-100.3));
-            Assert.IsFalse(iu.Compare(500));
+            Assert.IsFalse(iu.Compare(new LongConst(-300)));
+            Assert.IsTrue(iu.Compare(new LongConst(-200)));
+            Assert.IsTrue(iu.Compare(new LongConst(0)));
+            Assert.IsTrue(iu.Compare(new LongConst(200)));
+            Assert.IsFalse(iu.Compare(new DoubleConst(-100.3)));
+            Assert.IsFalse(iu.Compare(new LongConst(500)));
             Assert.IsTrue(iu.Compare(iu.Random()));
             Assert.IsTrue(iu.Compare(iu.Random()));
             Assert.IsTrue(iu.Compare(iu.Random()));
@@ -88,7 +88,7 @@ namespace TinvaValidatorTest
             iu = new IntegerUnit(30, -68);
             Assert.ThrowsException<ArgumentException>(() => iu.Random());
 
-            iu = new IntegerUnit(new decimal[] { 36, 57, 589435, 12368, 54867, 25728 });
+            iu = new IntegerUnit(new long[] { 36, 57, 589435, 12368, 54867, 25728 });
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
             TestContext.WriteLine(iu.Random().ToString());
@@ -113,8 +113,7 @@ namespace TinvaValidatorTest
             iu = new IntegerUnit(-9869, 87689986, CompareMethod.NotMinMax);
             decimal m;
             for(int i = 0; i < 5000; i++)
-            {
-                //m = (decimal)iu.Random();
+            {   
                 Assert.IsTrue(iu.Compare(iu.Random()));
             }   
         }
@@ -124,15 +123,15 @@ namespace TinvaValidatorTest
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
             DoubleUnit du = new DoubleUnit();
-            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
-            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
-            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
-            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
-            Assert.IsTrue(du.Compare(rnd.NextRandomDouble()));
-            Assert.IsTrue(du.Compare(double.MinValue));
-            Assert.IsTrue(du.Compare(double.MaxValue));
-            Assert.IsTrue(!du.Compare("dd"));
-            Assert.IsTrue(!du.Compare('\n'));
+            Assert.IsTrue(du.Compare(new DoubleConst(rnd.NextRandomDouble())));
+            Assert.IsTrue(du.Compare(new DoubleConst(rnd.NextRandomDouble())));
+            Assert.IsTrue(du.Compare(new DoubleConst(rnd.NextRandomDouble())));
+            Assert.IsTrue(du.Compare(new DoubleConst(rnd.NextRandomDouble())));
+            Assert.IsTrue(du.Compare(new DoubleConst(rnd.NextRandomDouble())));
+            Assert.IsTrue(du.Compare(DoubleConst.MinValue));
+            Assert.IsTrue(du.Compare(DoubleConst.MaxValue));
+            Assert.IsTrue(!du.Compare(new StringConst("dd")));
+            Assert.IsTrue(!du.Compare(new CharConst('\n')));
             Assert.IsTrue(du.Compare(du.Random()));
             Assert.IsTrue(du.Compare(du.Random()));
             Assert.IsTrue(du.Compare(du.Random()));
@@ -141,9 +140,9 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             du = new DoubleUnit(56.6875);
-            Assert.IsTrue(du.Compare(56.6875));
-            Assert.IsTrue(!du.Compare(56.6876));
-            Assert.IsTrue(!du.Compare(56.6874));
+            Assert.IsTrue(du.Compare(new DoubleConst(56.6875)));
+            Assert.IsTrue(!du.Compare(new DoubleConst(56.6876)));
+            Assert.IsTrue(!du.Compare(new DoubleConst(56.6874)));
             Assert.IsTrue(du.Compare(du.Random()));
             Assert.IsTrue(du.Compare(du.Random()));
             Assert.IsTrue(du.Compare(du.Random()));
@@ -151,14 +150,14 @@ namespace TinvaValidatorTest
             TestContext.WriteLine(du.Random().ToString());
             TestContext.WriteLine(du.Random().ToString());
             du = new DoubleUnit(-15.988, 360.62559);
-            Assert.IsTrue(!du.Compare(-30));
-            Assert.IsTrue(!du.Compare(-20.70368));
-            Assert.IsTrue(du.Compare(-15.98800));
-            Assert.IsTrue(du.Compare(0));
-            Assert.IsTrue(du.Compare(205.288));
-            Assert.IsTrue(du.Compare(360.62559));
-            Assert.IsTrue(!du.Compare(360.62560));
-            Assert.IsTrue(!du.Compare(578.698));
+            Assert.IsTrue(!du.Compare(new LongConst(-30)));
+            Assert.IsTrue(!du.Compare(new DoubleConst(-20.70368)));
+            Assert.IsTrue(du.Compare(new DoubleConst(-15.98800)));
+            Assert.IsTrue(du.Compare(new LongConst(0)));
+            Assert.IsTrue(du.Compare(new DoubleConst(205.288)));
+            Assert.IsTrue(du.Compare(new DoubleConst(360.62559)));
+            Assert.IsTrue(!du.Compare(new DoubleConst(360.62560)));
+            Assert.IsTrue(!du.Compare(new DoubleConst(578.698)));
             Assert.IsTrue(du.Compare(du.Random()));
             Assert.IsTrue(du.Compare(du.Random()));
             Assert.IsTrue(du.Compare(du.Random()));
@@ -177,12 +176,9 @@ namespace TinvaValidatorTest
             du = new DoubleUnit();
             for (int i = 0; i < 5000; i++)
             {
-                double d = (double)du.Random();
-                //if (d.ToString().Contains("NaN"))
-                //    TestContext.Write($"{i}=\"{d.ToString()}\"");
-                if (double.IsNaN(d))
+                DoubleConst d = du.Random() as DoubleConst;
+                if (double.IsNaN((double)d.Value))
                     TestContext.Write($"{i}=NaN");
-                //Assert.IsTrue(du.Compare(du.Random()));
             }
                 
         }
@@ -192,38 +188,38 @@ namespace TinvaValidatorTest
         {
             Random rnd = new Random((int)DateTime.Now.Ticks);
             CharUnit cu = new CharUnit();
-            Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
-            Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
-            Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
-            Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
-            Assert.IsTrue(cu.Compare((char)rnd.Next(char.MaxValue + 1)));
-            Assert.IsTrue(cu.Compare(char.MinValue));
-            Assert.IsTrue(cu.Compare(char.MaxValue));
-            Assert.IsFalse(cu.Compare("dd"));
-            Assert.IsFalse(cu.Compare(7));
-            Assert.IsTrue(cu.Compare('\a'));
+            Assert.IsTrue(cu.Compare(new CharConst((char)rnd.Next(char.MaxValue + 1))));
+            Assert.IsTrue(cu.Compare(new CharConst((char)rnd.Next(char.MaxValue + 1))));
+            Assert.IsTrue(cu.Compare(new CharConst((char)rnd.Next(char.MaxValue + 1))));
+            Assert.IsTrue(cu.Compare(new CharConst((char)rnd.Next(char.MaxValue + 1))));
+            Assert.IsTrue(cu.Compare(new CharConst((char)rnd.Next(char.MaxValue + 1))));
+            Assert.IsTrue(cu.Compare(new CharConst(char.MinValue)));
+            Assert.IsTrue(cu.Compare(new CharConst(char.MaxValue)));
+            Assert.IsFalse(cu.Compare(new StringConst("dd")));
+            Assert.IsFalse(cu.Compare(new LongConst(7)));
+            Assert.IsTrue(cu.Compare(new CharConst('\a')));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));            
             TestContext.WriteLine(cu.Random().ToString());
             cu = new CharUnit('y');
-            Assert.IsTrue(cu.Compare('y'));
-            Assert.IsFalse(cu.Compare('z'));
-            Assert.IsFalse(cu.Compare('x'));
+            Assert.IsTrue(cu.Compare(new CharConst('y')));
+            Assert.IsFalse(cu.Compare(new CharConst('z')));
+            Assert.IsFalse(cu.Compare(new CharConst('x')));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             TestContext.WriteLine(cu.Random().ToString());
             cu = new CharUnit('d', 'n');
-            Assert.IsFalse(cu.Compare('a'));
-            Assert.IsTrue(cu.Compare('d'));
-            Assert.IsTrue(cu.Compare('f'));
-            Assert.IsTrue(cu.Compare('k'));
-            Assert.IsTrue(cu.Compare('n'));
-            Assert.IsFalse(cu.Compare('o'));
-            Assert.IsFalse(cu.Compare('z'));
+            Assert.IsFalse(cu.Compare(new CharConst('a')));
+            Assert.IsTrue(cu.Compare(new CharConst('d')));
+            Assert.IsTrue(cu.Compare(new CharConst('f')));
+            Assert.IsTrue(cu.Compare(new CharConst('k')));
+            Assert.IsTrue(cu.Compare(new CharConst('n')));
+            Assert.IsFalse(cu.Compare(new CharConst('o')));
+            Assert.IsFalse(cu.Compare(new CharConst('z')));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
@@ -234,20 +230,20 @@ namespace TinvaValidatorTest
             Assert.ThrowsException<ArgumentException>(() => cu.Random());
 
             cu = new CharUnit('a', CompareMethod.Not);
-            Assert.IsTrue(cu.Compare('d'));
-            Assert.IsTrue(cu.Compare('f'));
-            Assert.IsFalse(cu.Compare('a'));
+            Assert.IsTrue(cu.Compare(new CharConst('d')));
+            Assert.IsTrue(cu.Compare(new CharConst('f')));
+            Assert.IsFalse(cu.Compare(new CharConst('a')));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
             Assert.IsTrue(cu.Compare(cu.Random()));
 
             cu = new CharUnit('a', 'z', CompareMethod.NotMinMax);
-            Assert.IsFalse(cu.Compare('d'));
-            Assert.IsTrue(cu.Compare('A'));
-            Assert.IsFalse(cu.Compare('a'));
-            Assert.IsFalse(cu.Compare('z'));
-            Assert.IsTrue(cu.Compare('-'));
+            Assert.IsFalse(cu.Compare(new CharConst('d')));
+            Assert.IsTrue(cu.Compare(new CharConst('A')));
+            Assert.IsFalse(cu.Compare(new CharConst('a')));
+            Assert.IsFalse(cu.Compare(new CharConst('z')));
+            Assert.IsTrue(cu.Compare(new CharConst('-')));
 
             char c;
             for (int i = 0; i < 500; i++)

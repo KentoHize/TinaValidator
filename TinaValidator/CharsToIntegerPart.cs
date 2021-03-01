@@ -18,7 +18,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 if (value != null)
                 {
                     for (long i = 0; i < value.Length; i++)
-                        if (Math.Ceiling(value[i]) != value[i])
+                        if (!(value[i] is LongConst || value[i] is LongVar))
                             throw new ArgumentException(nameof(Select));
                 }
                 _Select = value;
@@ -40,51 +40,62 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value2 = iu.Value2;
         }
 
-        public CharsToIntegerPart(decimal exactValue, CompareMethod compareMethod = CompareMethod.Exact)
+        public CharsToIntegerPart(long exactValue, CompareMethod compareMethod = CompareMethod.Exact)
+            : this(new IntegerUnit(exactValue) as INumber, compareMethod)
+        { }
+        public CharsToIntegerPart(INumber exactValue, CompareMethod compareMethod = CompareMethod.Exact)
         {
             CompareMethod = compareMethod;
             Value1 = exactValue;
         }
-
-        public CharsToIntegerPart(decimal minValue, decimal maxValue, CompareMethod compareMethod = CompareMethod.MinMax)
+        public CharsToIntegerPart(long minValue, long maxValue, CompareMethod compareMethod = CompareMethod.MinMax)
+            : this(new IntegerUnit(minValue) as INumber, new IntegerUnit(maxValue) as INumber, compareMethod)
+        { }
+        public CharsToIntegerPart(INumber minValue, INumber maxValue, CompareMethod compareMethod = CompareMethod.MinMax)
         {
             CompareMethod = compareMethod;
             Value1 = minValue;
             Value2 = maxValue;
         }
-
-        public CharsToIntegerPart(decimal[] select, CompareMethod compareMethod = CompareMethod.Select)
+        public CharsToIntegerPart(long[] select, CompareMethod compareMethod = CompareMethod.Select)
+        {
+            CompareMethod = compareMethod;
+            INumber[] array = new INumber[select.Length];
+            for (long i = 0; i < select.Length; i++)
+                array[i] = new LongConst(select[i]);
+            Select = array;
+        }
+        public CharsToIntegerPart(INumber[] select, CompareMethod compareMethod = CompareMethod.Select)
         {
             CompareMethod = compareMethod;
             Select = select;
         }
-
-        public override int Validate(List<ObjectConst> thing, int startIndex = 0)
+        public override int Validate(List<ObjectConst> thing, int startIndex = 0, IVariableLinker vl = null)
         {
             StringBuilder sb = new StringBuilder();
             int i;
             for (i = 0; startIndex + i < thing.Count; i++)
             {
-                if (!(thing[startIndex + i] is char c))
+                if (!(thing[startIndex + i] is CharConst c))
                     break;
                 else if (!char.IsDigit(c) && (c != '-' || i != 0))
-                    break;
-                else if (i > 29) // decimal max length + '-'
+                    break;                
+                else if (i > 20) // long max length + '-'
                     break;
                 sb.Append(c);
             }
 
-            if (!decimal.TryParse(sb.ToString(), out decimal d))
+            if (!long.TryParse(sb.ToString(), out long l))
                 return -1;
 
             IntegerUnit iu = new IntegerUnit(this);
-            return iu.Compare(d) ? startIndex + i : -1;
+            return iu.Compare(new LongConst(l), vl) ? startIndex + i : -1;
         }
 
-        public override List<ObjectConst> Random()
+        public override List<ObjectConst> Random(IVariableLinker vl = null)
         {
             IntegerUnit iu = new IntegerUnit(this);
-            return iu.Random().ToString().ToObjectList();
+            return iu.Random(vl).ToString().ToObjectList();
         }
     }
 }

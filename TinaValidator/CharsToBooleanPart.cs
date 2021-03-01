@@ -20,9 +20,6 @@ namespace Aritiafel.Artifacts.TinaValidator
         public CharsToBooleanPart(bool value, CompareMethod compareMethod = CompareMethod.Exact)
             : this(new BooleanConst(value) as IBoolean, compareMethod)
         { }
-        public CharsToBooleanPart(BooleanConst value, CompareMethod compareMethod = CompareMethod.Exact)
-            : this(value as IBoolean, compareMethod)
-        { }
         public CharsToBooleanPart(IBoolean value, CompareMethod compareMethod = CompareMethod.Exact)
         {
             CompareMethod = compareMethod;
@@ -33,14 +30,14 @@ namespace Aritiafel.Artifacts.TinaValidator
         {
             bool? result = null;
 
-            if (startIndex + 3 < thing.Count && thing[startIndex] is char c1 &&
-               thing[startIndex + 1] is char c2 && thing[startIndex + 2] is char c3 &&
-               thing[startIndex + 3] is char c4)
+            if (startIndex + 3 < thing.Count && thing[startIndex] is CharConst c1 &&
+               thing[startIndex + 1] is CharConst c2 && thing[startIndex + 2] is CharConst c3 &&
+               thing[startIndex + 3] is CharConst c4)
             {
                 if (char.ToUpper(c1) == 'T' && char.ToUpper(c2) == 'R' &&
                     char.ToUpper(c3) == 'U' && char.ToUpper(c4) == 'E')
                     result = true;
-                else if (startIndex + 4 < thing.Count && thing[startIndex + 4] is char c5 &&
+                else if (startIndex + 4 < thing.Count && thing[startIndex + 4] is CharConst c5 &&
                 char.ToUpper(c1) == 'F' && char.ToUpper(c2) == 'A' && char.ToUpper(c3) == 'L' &&
                 char.ToUpper(c4) == 'S' && char.ToUpper(c5) == 'E')
                     result = false;
@@ -50,7 +47,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return -1;
 
             BooleanUnit bu = new BooleanUnit(this);
-            if (!bu.Compare(result, vl))
+            if (!bu.Compare(new BooleanConst((bool)result), vl))
                 return -1;
             return (bool)result ? startIndex + 4 : startIndex + 5;
         }

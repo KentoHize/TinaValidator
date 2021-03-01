@@ -16,10 +16,10 @@ namespace TinvaValidatorTest
             AnyStringPart asp = new AnyStringPart();
             Assert.IsTrue(asp.Validate("1`6dsa8/05".ToObjectList()) == 10);
             Assert.IsTrue(asp.Validate("A-5.5".ToObjectList()) == 5);
-            Assert.IsTrue(asp.Validate(new List<object> { "A-rdddv J" }) == 1);
+            Assert.IsTrue(asp.Validate(new List<ObjectConst> { new StringConst("A-rdddv J") }) == 1);
             Assert.IsTrue(asp.Validate("136\"d56\"3".ToObjectList()) == 3);
             Assert.IsTrue(asp.Validate("-1\n75\n5535dd".ToObjectList()) == 12);
-            Assert.IsTrue(asp.Validate(new List<object> { 7 }) == 0);
+            Assert.IsTrue(asp.Validate(new List<ObjectConst> { new LongConst(7) }) == 0);
             Assert.IsTrue(asp.Validate(asp.Random()) != -1);
             Assert.IsTrue(asp.Validate(asp.Random()) != -1);
             TestContext.WriteLine(asp.Random().ForEachToString());
