@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Aritiafel.Artifacts.Calculator;
+using System.Collections.Generic;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -31,20 +32,20 @@ namespace Aritiafel.Artifacts.TinaValidator
                 Units = units;
         }
 
-        public override List<object> Random()
+        public override List<ObjectConst> Random(IVariableLinker vl)
         {
-            List<object> result = new List<object>();
+            List<ObjectConst> result = new List<ObjectConst>();
             for (int i = 0; i < Units.Count; i++)
-                result.Add(Units[i].Random());
+                result.Add(Units[i].Random(vl));
             return result;
         }
 
-        public override int Validate(List<object> thing, int startIndex)
+        public override int Validate(List<ObjectConst> thing, int startIndex, IVariableLinker vl)
         {
             if (startIndex + Units.Count > thing.Count)
                 return -1;
             for (int i = 0; i < Units.Count; i++)
-                if (!Units[i].Compare(thing[startIndex + i]))
+                if (!Units[i].Compare(thing[startIndex + i], vl))
                     return -1;
             return startIndex + Units.Count;
         }        

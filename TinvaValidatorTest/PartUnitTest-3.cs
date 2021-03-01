@@ -1,3 +1,4 @@
+using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Artifacts.TinaValidator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -11,7 +12,7 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void AnyStringTest()
         {
-            List<object> result;
+            List<ObjectConst> result;
             AnyStringPart asp = new AnyStringPart();
             Assert.IsTrue(asp.Validate("1`6dsa8/05".ToObjectList()) == 10);
             Assert.IsTrue(asp.Validate("A-5.5".ToObjectList()) == 5);

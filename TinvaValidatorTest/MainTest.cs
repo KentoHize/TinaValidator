@@ -100,7 +100,7 @@ namespace TinvaValidatorTest
                 {
                     using StreamReader sr = new StreamReader(fs);
                     string s = sr.ReadToEnd();
-                    List<object> thing = s.ToObjectList();
+                    List<ObjectConst> thing = s.ToObjectList();
                     result = validator.Validate(thing);
                 }
                 if (i == 0)
@@ -111,7 +111,7 @@ namespace TinvaValidatorTest
 
             for (int i = 0; i < 100; i++)
             {
-                List<object> list = validator.CreateRandom();
+                List<ObjectConst> list = validator.CreateRandom();
                 TestContext.WriteLine(list.ForEachToString());                
                 result = validator.Validate(list);                
                 TestContext.WriteLine("");
@@ -289,7 +289,7 @@ namespace TinvaValidatorTest
                 File.Delete(file);
             for (int i = 0; i < 1000; i++)
             {
-                List<object> ol;
+                List<ObjectConst> ol;
                 ol = validator.CreateRandom();
                 string s = ol.ForEachToString();
                 byte[] buffer = System.Text.Encoding.Convert(System.Text.Encoding.Unicode, System.Text.Encoding.UTF8, System.Text.Encoding.Unicode.GetBytes(s));
@@ -365,7 +365,7 @@ namespace TinvaValidatorTest
             string recordNeedRun = "02-25-00-13-30-0029";
             //fullName = $"TestRecord-{DateTime.Now.Year}-{recordNeedRun}";
             List<char> ol = null;
-            List<object> oll = new List<object>();
+            List<ObjectConst> oll = new List<ObjectConst>();
             using (FileStream fs = new FileStream(Path.Combine(RandomJsonPath, $"{fullName}.json"), FileMode.Open))
             {
                 StreamReader sr = new StreamReader(fs);
@@ -381,7 +381,7 @@ namespace TinvaValidatorTest
             
             if(ol != null)
                 for (int i = 0; i < ol.Count; i++)
-                    oll.Add(ol[i]);
+                    oll.Add(new CharConst(ol[i]));
 
             TinaValidator validator = new TinaValidator(VL);
             TestContext.WriteLine(validator.Validate(oll).ToString());

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aritiafel.Artifacts.Calculator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Logic = logic;
         }
 
-        public bool Validate(List<object> things)
+        public bool Validate(List<ObjectConst> things)
         {
             if (things == null)
                 throw new ArgumentNullException(nameof(things));
@@ -25,10 +26,10 @@ namespace Aritiafel.Artifacts.TinaValidator
             return BFS_NodeValidate(things, tv) != Invalid;
         }
 
-        public bool Validate(object[] things)
+        public bool Validate(ObjectConst[] things)
            => Validate(things.ToList());
 
-        private int BFS_NodeValidate(List<object> things, TVData data)
+        private int BFS_NodeValidate(List<ObjectConst> things, TVData data)
         {
             Queue<TVData> nodeQueue = new Queue<TVData>();
             HashSet<TVData> invisitedRecords = new HashSet<TVData>();
@@ -96,21 +97,21 @@ namespace Aritiafel.Artifacts.TinaValidator
         public string CreateRandomToString()
         {
             StringBuilder sb = new StringBuilder();
-            List<object> randomList = CreateRandom();
+            List<ObjectConst> randomList = CreateRandom();
             for (int i = 0; i < randomList.Count; i++)
                 sb.Append(randomList[i]);
             return sb.ToString();
         }
 
-        public List<object> CreateRandom()
+        public List<ObjectConst> CreateRandom()
         {
-            List<object> result = new List<object>();
+            List<ObjectConst> result = new List<ObjectConst>();
             TVData tv = new TVData(Logic.StartNode);
             NodeCreateRandom(result, tv);
             return result;
         }
 
-        private void NodeCreateRandom(List<object> result, TVData data)
+        private void NodeCreateRandom(List<ObjectConst> result, TVData data)
         {   
             switch (data.Node)
             {

@@ -9,9 +9,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             => Value = value;
 
         public override bool Compare(ObjectConst b, IVariableLinker vl)
-            => Value == b;
+            => Value.GetObject(vl) == b;
 
         public override ObjectConst Random(IVariableLinker vl)
-            => Value;
+            => Value.GetObject(vl);
     }
 }

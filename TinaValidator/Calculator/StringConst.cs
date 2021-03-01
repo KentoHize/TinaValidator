@@ -6,6 +6,7 @@ namespace Aritiafel.Artifacts.Calculator
     {
         private string _Value;
         public string Value => _Value;
+        public CharConst this[int index] => new CharConst(_Value[index]);
         public StringConst(string value)
             => _Value = value;
         public StringConst(char value)
@@ -55,11 +56,11 @@ namespace Aritiafel.Artifacts.Calculator
         protected override BooleanConst ReverseLessThan(ObjectConst b)
             => b.LessThan(this);
         public override BooleanConst EqualTo(CharConst b)
-            => new BooleanConst(_Value.Length == 1 && _Value[0] == b.Value);
+            => new BooleanConst(_Value.Length == 1 && _Value[0] == (char)b.Value);
         public override BooleanConst GreaterThan(CharConst b)
-            => new BooleanConst(_Value.Length > 1 || _Value.Length == 1 && new CharConst(_Value[0]) > b);
+            => new BooleanConst(_Value.Length > 1 || _Value.Length == 1 && _Value[0] > (char)b.Value);
         public override BooleanConst LessThan(CharConst b)
-            => new BooleanConst(_Value.Length < 1 || _Value.Length == 1 && new CharConst(_Value[0]) < b);
+            => new BooleanConst(_Value.Length < 1 || _Value.Length == 1 && _Value[0] < (char)b.Value);
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))

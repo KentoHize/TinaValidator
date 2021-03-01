@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aritiafel.Artifacts.Calculator;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -84,7 +85,7 @@ namespace Aritiafel.Artifacts.TinaValidator
         }
         private bool MinMaxLengthCheck(string s)
             => s.Length >= MinLength && (MaxLength == 0 || s.Length <= MaxLength);
-        public override int Validate(List<object> thing, int startIndex = 0)
+        public override int Validate(List<ObjectConst> thing, int startIndex = 0, IVariableLinker vl = null)
         {
             int i;
             if (startIndex == thing.Count)
@@ -116,7 +117,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             return MinMaxLengthCheck(sb.ToString()) ? startIndex + i : -1;
         }
 
-        public override List<object> Random()
+        public override List<ObjectConst> Random(IVariableLinker vl = null)
         {
             CharUnit cu = new CharUnit();
             char c;

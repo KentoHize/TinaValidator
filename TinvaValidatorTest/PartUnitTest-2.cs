@@ -1,3 +1,4 @@
+using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Artifacts.TinaValidator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -10,12 +11,14 @@ namespace TinvaValidatorTest
         [TestMethod]
         public void CharsToBooleanUnitTest()
         {
+            FakeVariableLinker fvl = new FakeVariableLinker();
+
             CharsToBooleanPart ctbp = new CharsToBooleanPart();
-            Assert.IsTrue(ctbp.Validate("trUe".ToObjectList()) == 4);
+            Assert.IsTrue(ctbp.Validate("trUe".ToObjectList(), 0, fvl) == 4);
             Assert.IsTrue(ctbp.Validate("faLSe".ToObjectList()) == 5);
             Assert.IsTrue(ctbp.Validate("faLse458".ToObjectList()) == 5);
             Assert.IsTrue(ctbp.Validate("faLde".ToObjectList()) == -1);
-            Assert.IsTrue(ctbp.Validate(new List<object> { 3 }) == -1);
+            Assert.IsTrue(ctbp.Validate(new List<ObjectConst> { new LongConst(3) }) == -1);
             Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
             Assert.IsTrue(ctbp.Validate(ctbp.Random()) != -1);
             TestContext.WriteLine(ctbp.Random().ForEachToString());
@@ -48,7 +51,7 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctip.Validate("136d563".ToObjectList()) == 3);
             Assert.IsTrue(ctip.Validate("-1755535dd".ToObjectList()) == 8);
             Assert.IsTrue(ctip.Validate("56.2365".ToObjectList()) == 2);
-            Assert.IsTrue(ctip.Validate(new List<object> { 7 }) == -1);
+            Assert.IsTrue(ctip.Validate(new List<ObjectConst> { new LongConst(7) }) == -1);
             Assert.IsTrue(ctip.Validate("68789321897315678649889876587".ToObjectList()) == 29);
             Assert.IsTrue(ctip.Validate("98789321897315678649889879324".ToObjectList()) == -1);
             Assert.IsTrue(ctip.Validate("-68788671897315678649889876587".ToObjectList()) == 30);
@@ -88,7 +91,7 @@ namespace TinvaValidatorTest
             Assert.IsTrue(ctdp.Validate("136d5.63".ToObjectList()) == 3);
             Assert.IsTrue(ctdp.Validate("-17.88535dd".ToObjectList()) == 9);
             Assert.IsTrue(ctdp.Validate("ssr1.2365".ToObjectList()) == -1);
-            Assert.IsTrue(ctdp.Validate(new List<object> { 15 }) == -1);
+            Assert.IsTrue(ctdp.Validate(new List<ObjectConst> { new DoubleConst(15) }) == -1);
             Assert.IsTrue(ctdp.Validate(".2365".ToObjectList()) == 5);
             string s = string.Concat("0.", new string('5', 400));
             Assert.IsTrue(ctdp.Validate(s.ToObjectList()) == 330);

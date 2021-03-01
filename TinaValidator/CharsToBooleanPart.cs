@@ -29,7 +29,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value = value;
         }
 
-        public override int Validate(List<ObjectConst> thing, int startIndex = 0)
+        public override int Validate(List<ObjectConst> thing, int startIndex = 0, IVariableLinker vl = null)
         {
             bool? result = null;
 
@@ -50,15 +50,15 @@ namespace Aritiafel.Artifacts.TinaValidator
                 return -1;
 
             BooleanUnit bu = new BooleanUnit(this);
-            if (!bu.Compare(result))
+            if (!bu.Compare(result, vl))
                 return -1;
             return (bool)result ? startIndex + 4 : startIndex + 5;
         }
 
-        public override List<ObjectConst> Random()
+        public override List<ObjectConst> Random(IVariableLinker vl = null)
         {
             BooleanUnit bu = new BooleanUnit(this);
-            return bu.Random().ToString().ToLower().ToObjectList();
+            return bu.Random(vl).ToString().ToLower().ToObjectList();
         }
     }
 }

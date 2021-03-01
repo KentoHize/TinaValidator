@@ -64,7 +64,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = array;
         }
 
-        public override bool Compare(ObjectConst o, IVariableLinker vl)
+        public override bool Compare(ObjectConst o, IVariableLinker vl = null)
         {
             if (!(o is CharConst c))
                 return false;
@@ -133,7 +133,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override ObjectConst Random(IVariableLinker vl)
+        public override ObjectConst Random(IVariableLinker vl = null)
         {
             if(CompareMethod == CompareMethod.Exact)
                 return Value1.GetResult(vl);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Aritiafel.Artifacts.Calculator;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -6,10 +7,10 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public static class Extensions
     {
-        public static string ForEachToString(this List<object> l)
+        public static string ForEachToString(this List<ObjectConst> l)
         {
             StringBuilder result = new StringBuilder();
-            foreach (object o in l)
+            foreach (ObjectConst o in l)
                 result.Append(o);
             return result.ToString();
         }
@@ -22,7 +23,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             return us;
         }
 
-        public static List<object> ToObjectList(this string s)
-            => s.Select(m => (object)m).ToList();
+        public static List<ObjectConst> ToObjectList(this string s)
+            => s.Select(m => new CharConst(m) as ObjectConst).ToList();
     }
 }

@@ -1,4 +1,5 @@
 using Aritiafel;
+using Aritiafel.Artifacts.Calculator;
 using Aritiafel.Artifacts.TinaValidator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -14,27 +15,27 @@ namespace TinvaValidatorTest
         public void BooleanUnitTest()
         {
             BooleanUnit bu = new BooleanUnit();
-            Assert.IsTrue(bu.Compare(true));
-            Assert.IsTrue(bu.Compare(false));
-            Assert.IsFalse(bu.Compare("aa"));
-            Assert.IsFalse(bu.Compare(0));
+            Assert.IsTrue(bu.Compare(BooleanConst.True));
+            Assert.IsTrue(bu.Compare(BooleanConst.False));
+            Assert.IsFalse(bu.Compare(new StringConst("aa")));
+            Assert.IsFalse(bu.Compare(new LongConst(0)));
             Assert.IsTrue(bu.Compare(bu.Random()));
             Assert.IsTrue(bu.Compare(bu.Random()));
             TestContext.WriteLine(bu.Random().ToString());
             bu = BooleanUnit.True;
-            Assert.IsTrue(bu.Compare(true));
-            Assert.IsFalse(bu.Compare(false));
+            Assert.IsTrue(bu.Compare(BooleanConst.True));
+            Assert.IsFalse(bu.Compare(BooleanConst.False));
             Assert.IsTrue(bu.Compare(bu.Random()));            
             TestContext.WriteLine(bu.Random().ToString());
             bu = BooleanUnit.False;
-            Assert.IsFalse(bu.Compare(true));
-            Assert.IsTrue(bu.Compare(false));
+            Assert.IsFalse(bu.Compare(BooleanConst.True));
+            Assert.IsTrue(bu.Compare(BooleanConst.False));
             Assert.IsTrue(bu.Compare(bu.Random()));            
             TestContext.WriteLine(bu.Random().ToString());
 
             bu.CompareMethod = CompareMethod.Not;
-            Assert.IsTrue(bu.Compare(true));
-            Assert.IsFalse(bu.Compare(false));
+            Assert.IsTrue(bu.Compare(BooleanConst.True));
+            Assert.IsFalse(bu.Compare(BooleanConst.False));
             Assert.IsTrue(bu.Compare(bu.Random()));            
             TestContext.WriteLine(bu.Random().ToString());
         }

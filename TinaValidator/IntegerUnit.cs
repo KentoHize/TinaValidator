@@ -99,7 +99,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             CompareMethod = compareMethod;
             Select = select;
         }
-        public override bool Compare(ObjectConst o, IVariableLinker vl)
+        public override bool Compare(ObjectConst o, IVariableLinker vl = null)
         {
             if (!(o is LongConst l))
                 return false;          
@@ -136,7 +136,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override ObjectConst Random(IVariableLinker vl)
+        public override ObjectConst Random(IVariableLinker vl = null)
         {
             if (CompareMethod == CompareMethod.Exact)
                 return _Value1.GetResult(vl);
