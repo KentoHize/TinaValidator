@@ -18,12 +18,18 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value = bu.Value;
         }
         public CharsToBooleanPart(bool value, CompareMethod compareMethod = CompareMethod.Exact)
+            : this(new BooleanConst(value) as IBoolean, compareMethod)
+        { }
+        public CharsToBooleanPart(BooleanConst value, CompareMethod compareMethod = CompareMethod.Exact)
+            : this(value as IBoolean, compareMethod)
+        { }
+        public CharsToBooleanPart(IBoolean value, CompareMethod compareMethod = CompareMethod.Exact)
         {
             CompareMethod = compareMethod;
             Value = value;
         }
 
-        public override int Validate(List<object> thing, int startIndex = 0)
+        public override int Validate(List<ObjectConst> thing, int startIndex = 0)
         {
             bool? result = null;
 
@@ -49,7 +55,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             return (bool)result ? startIndex + 4 : startIndex + 5;
         }
 
-        public override List<object> Random()
+        public override List<ObjectConst> Random()
         {
             BooleanUnit bu = new BooleanUnit(this);
             return bu.Random().ToString().ToLower().ToObjectList();

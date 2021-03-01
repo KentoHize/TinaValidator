@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
     public interface IPart
     {
-        List<object> Random();
-        int Validate(List<object> thing, int startIndex = 0);
+        List<ObjectConst> Random();
+        int Validate(List<ObjectConst> thing, int startIndex = 0);
     }
 }

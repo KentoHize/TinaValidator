@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Aritiafel.Artifacts.Calculator;
 
 namespace Aritiafel.Artifacts.TinaValidator
 {
@@ -58,7 +59,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = select;
         }
 
-        public override int Validate(List<object> thing, int startIndex = 0)
+        public override int Validate(List<ObjectConst> thing, int startIndex = 0)
         {
             StringBuilder sb = new StringBuilder();
             int i;
@@ -80,7 +81,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             return iu.Compare(d) ? startIndex + i : -1;
         }
 
-        public override List<object> Random()
+        public override List<ObjectConst> Random()
         {
             IntegerUnit iu = new IntegerUnit(this);
             return iu.Random().ToString().ToObjectList();

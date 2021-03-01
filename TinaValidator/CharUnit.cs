@@ -64,7 +64,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = array;
         }
 
-        public override bool Compare(object o, IVariableLinker vl)
+        public override bool Compare(ObjectConst o, IVariableLinker vl)
         {
             if (!(o is CharConst c))
                 return false;
@@ -133,10 +133,10 @@ namespace Aritiafel.Artifacts.TinaValidator
             }
         }
 
-        public override IObject Random(IVariableLinker vl)
+        public override ObjectConst Random(IVariableLinker vl)
         {
             if(CompareMethod == CompareMethod.Exact)
-                return Value1;
+                return Value1.GetResult(vl);
             Random rnd = new Random((int)DateTime.Now.Ticks);
             char c;
             switch (CompareMethod)
@@ -162,7 +162,7 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case CompareMethod.Select:
                     if (Select == null || Select.Length == 0)
                         throw new ArgumentNullException(nameof(Select));
-                    return Select[rnd.Next(Select.Length)];
+                    return Select[rnd.Next(Select.Length)].GetResult(vl);
                 case CompareMethod.NotSelect:
                     if (Select == null || Select.Length == 0)
                         goto case CompareMethod.Any;

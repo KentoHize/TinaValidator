@@ -4,7 +4,7 @@ namespace Aritiafel.Artifacts.TinaValidator
 {
     public abstract class Unit : IUnit
     {
-        public abstract bool Compare(object b, IVariableLinker vl);
-        public abstract IObject Random(IVariableLinker vl);
+        public abstract bool Compare(ObjectConst b, IVariableLinker vl);
+        public abstract ObjectConst Random(IVariableLinker vl);
     }
 }

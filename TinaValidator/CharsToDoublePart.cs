@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aritiafel.Artifacts.Calculator;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,9 +8,9 @@ namespace Aritiafel.Artifacts.TinaValidator
     public class CharsToDoublePart : Part
     {
         public CompareMethod CompareMethod { get; set; }
-        public double Value1 { get; set; }
-        public double Value2 { get; set; }
-        public double[] Select
+        public INumber Value1 { get; set; }
+        public INumber Value2 { get; set; }
+        public INumber[] Select
         {
             get => _Select;
             set
@@ -56,7 +57,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             Select = select;
         }
 
-        public override int Validate(List<object> thing, int startIndex = 0)
+        public override int Validate(List<ObjectConst> thing, int startIndex = 0)
         {
             StringBuilder sb = new StringBuilder();
             bool hasPoint = false;
@@ -103,7 +104,7 @@ namespace Aritiafel.Artifacts.TinaValidator
             return du.Compare(d) ? startIndex + i : -1;
         }
 
-        public override List<object> Random()
+        public override List<ObjectConst> Random()
         {
             DoubleUnit du = new DoubleUnit(this);
             return du.Random().ToString().ToObjectList();

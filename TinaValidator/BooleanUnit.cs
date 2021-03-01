@@ -19,7 +19,6 @@ namespace Aritiafel.Artifacts.TinaValidator
             CompareMethod = ctbp.CompareMethod;
             Value = ctbp.Value;
         }
-
         public BooleanUnit(bool value, CompareMethod compareMethod = CompareMethod.Exact)
             : this(new BooleanConst(value) as IBoolean, compareMethod)
         { }
@@ -32,9 +31,9 @@ namespace Aritiafel.Artifacts.TinaValidator
             Value = value;
         }
 
-        public override bool Compare(object o, IVariableLinker vl)
+        public override bool Compare(ObjectConst o, IVariableLinker vl)
         {
-            if (!(o is IBoolean b))
+            if (!(o is BooleanConst b))
                 return false;
 
             switch (CompareMethod)
@@ -42,15 +41,15 @@ namespace Aritiafel.Artifacts.TinaValidator
                 case CompareMethod.Any:
                     return true;
                 case CompareMethod.Exact:
-                    return b == Value;
+                    return b == Value.GetResult(vl);
                 case CompareMethod.Not:
-                    return b != Value;
+                    return b != Value.GetResult(vl);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(CompareMethod));
             }
         }
 
-        public override IObject Random(IVariableLinker vl)
+        public override ObjectConst Random(IVariableLinker vl)
         {
             if (CompareMethod == CompareMethod.Exact)
                 return Value.GetResult(vl);

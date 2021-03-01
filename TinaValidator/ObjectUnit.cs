@@ -8,10 +8,10 @@ namespace Aritiafel.Artifacts.TinaValidator
         public ObjectUnit(IObject value)
             => Value = value;
 
-        public override bool Compare(object b, IVariableLinker vl)
+        public override bool Compare(ObjectConst b, IVariableLinker vl)
             => Value == b;
 
-        public override IObject Random(IVariableLinker vl)
+        public override ObjectConst Random(IVariableLinker vl)
             => Value;
     }
 }
